@@ -1,0 +1,31 @@
+modLoader="javafml" #mandatory
+loaderVersion="[31,)"
+
+issueTrackerURL="http://my.issue.tracker/"
+
+[[mods]]
+modId="exorcery"
+version="${file.jarVersion}"
+displayName="Exorcery"
+
+updateJSONURL="http://myurl.me/"
+displayURL="http://example.com/"
+logoFile="logo.png"
+
+credits=""
+authors="Yunus1903"
+description='''
+'''
+
+[[dependencies.exorcery]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.exorcery]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
