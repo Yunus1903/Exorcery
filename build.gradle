@@ -19,7 +19,7 @@ archivesBaseName = 'exorcery'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200228-1.15.1'
+    mappings channel: 'snapshot', version: '20200311-1.15.1'
     //makeObfSourceJar = false
     
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -70,6 +70,7 @@ minecraft {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.1.0'
+    implementation 'org.jetbrains:annotations:15.0'
 }
 
 jar {
