@@ -1,4 +1,4 @@
-modLoader="javafml" #mandatory
+modLoader="javafml"
 loaderVersion="[31,)"
 
 issueTrackerURL="http://my.issue.tracker/"
