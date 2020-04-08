@@ -27,13 +27,13 @@ public class EventHandler
 
         if (event.isWasDeath() && newPlayer instanceof ServerPlayerEntity)
         {
-            oldPlayer.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent((oldSpells) ->
+            oldPlayer.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(oldSpells ->
             {
                 ISpells newSpells = newPlayer.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
                 newSpells.setSpells(oldSpells.getSpells());
             });
 
-            oldPlayer.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent((oldMana) ->
+            oldPlayer.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(oldMana ->
             {
                 IMana newMana = newPlayer.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
                 newMana.set(oldMana.getMax());
@@ -69,14 +69,16 @@ public class EventHandler
         if (event.side == LogicalSide.SERVER)
         {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
-            IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
-
-            if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0)
+            player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
             {
-                 mana.set(mana.get() + mana.getRegenerationRate());
-            }
+                if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0)
+                {
+                    mana.set(mana.get() + mana.getRegenerationRate());
+                    PacketHandler.sendToPlayer(player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+                }
 
-            Exorcery.LOGGER.debug("Mana: " + mana.get());
+                //Exorcery.LOGGER.debug("Mana: " + mana.get());
+            });
         }
     }
 
