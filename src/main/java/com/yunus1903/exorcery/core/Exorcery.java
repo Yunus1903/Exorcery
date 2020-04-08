@@ -80,7 +80,7 @@ public class Exorcery
         debugKey = new KeyBinding("key.exorcery.debug", 72, "key.categories.misc");
         ClientRegistry.registerKeyBinding(key);
         ClientRegistry.registerKeyBinding(debugKey);
-        //MinecraftForge.EVENT_BUS.register(new GuiMana());
+        MinecraftForge.EVENT_BUS.register(new GuiMana());
         //MinecraftForge.EVENT_BUS.register(new GuiSpellSelector());
     }
 
