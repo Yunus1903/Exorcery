@@ -1,7 +1,6 @@
 package com.yunus1903.exorcery.core;
 
 import com.yunus1903.exorcery.client.gui.GuiMana;
-import com.yunus1903.exorcery.client.gui.GuiSpellSelector;
 import com.yunus1903.exorcery.client.misc.ClientEventHandler;
 import com.yunus1903.exorcery.common.capabilities.CapabilityHandler;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
@@ -20,16 +19,11 @@ import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
 import com.yunus1903.exorcery.init.ModSpells;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -73,7 +67,6 @@ public class Exorcery
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 
         MinecraftForge.EVENT_BUS.register(new GuiMana());
-        //MinecraftForge.EVENT_BUS.register(new GuiSpellSelector());
     }
 
     @SubscribeEvent
@@ -118,32 +111,5 @@ public class Exorcery
             PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncSpells(spells.getSpells()));
             PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event)
-    {
-        if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
-        {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player.isSpectator()) return;
-            mc.displayGuiScreen(new GuiSpellSelector());
-        }
-    }
-
-    @OnlyIn(Dist.DEDICATED_SERVER)
-    @SubscribeEvent
-    public void ticker(TickEvent event)
-    {
-        /*
-        World world = server.getWorld(DimensionType.OVERWORLD);
-        if (world.getPlayers().isEmpty()) return;
-        PlayerEntity player = world.getPlayers().get(0);
-        LazyOptional<IMana> manaCapability = player.getCapability(ManaProvider.MANA_CAPABILITY, null);
-        IMana mana = manaCapability.orElse(new ManaCapability());
-        Exorcery.LOGGER.info(mana.get());
-
-         */
     }
 }
