@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class PacketSyncSpells
+public class SyncSpellsPacket
 {
     private final List<Spell> spells;
 
-    public PacketSyncSpells(List<Spell> spells)
+    public SyncSpellsPacket(List<Spell> spells)
     {
         this.spells = spells;
     }
 
-    public static void encode(PacketSyncSpells pkt, PacketBuffer buf)
+    public static void encode(SyncSpellsPacket pkt, PacketBuffer buf)
     {
         List<Integer> listSpells = new ArrayList<>();
         for (Spell spell : pkt.spells)
@@ -31,7 +31,7 @@ public class PacketSyncSpells
         buf.writeVarIntArray(listSpells.stream().mapToInt(i -> i).toArray());
     }
 
-    public static PacketSyncSpells decode(PacketBuffer buf)
+    public static SyncSpellsPacket decode(PacketBuffer buf)
     {
         List<Spell> spells = new ArrayList<>();
         int spellsIds[] = buf.readVarIntArray();
@@ -39,12 +39,12 @@ public class PacketSyncSpells
         {
             spells.add(Spell.getSpellById(id));
         }
-        return new PacketSyncSpells(spells);
+        return new SyncSpellsPacket(spells);
     }
 
     public static class Handler
     {
-        public static void handle(PacketSyncSpells msg, Supplier<NetworkEvent.Context> ctx)
+        public static void handle(SyncSpellsPacket msg, Supplier<NetworkEvent.Context> ctx)
         {
             if (ctx.get().getDirection().getReceptionSide().isClient())
             {

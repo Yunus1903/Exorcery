@@ -7,8 +7,8 @@ import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
+import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
+import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.common.spell.TestSpell;
 import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.core.Exorcery;
@@ -61,8 +61,8 @@ public class EventHandler
             spells.addSpell(testSpell);
             spells.addSpell(testSpell2);
 
-            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncSpells(spells.getSpells()));
-            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new SyncSpellsPacket(spells.getSpells()));
+            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
         }
     }
 
@@ -95,7 +95,7 @@ public class EventHandler
                 if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0)
                 {
                     mana.set(mana.get() + mana.getRegenerationRate());
-                    PacketHandler.sendToPlayer(player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+                    PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
                 }
 
                 //Exorcery.LOGGER.debug("Mana: " + mana.get());
@@ -107,12 +107,12 @@ public class EventHandler
     {
         player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent((spells) ->
         {
-            PacketHandler.sendToPlayer(player, new PacketSyncSpells(spells.getSpells()));
+            PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
         });
 
         player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent((mana) ->
         {
-            PacketHandler.sendToPlayer(player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+            PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
         });
     }
 }

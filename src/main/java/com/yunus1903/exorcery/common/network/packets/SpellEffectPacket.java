@@ -7,31 +7,31 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketSpellEffect
+public class SpellEffectPacket
 {
     private final EffectType type;
     private final BlockPos pos;
 
-    public PacketSpellEffect(EffectType type, BlockPos pos)
+    public SpellEffectPacket(EffectType type, BlockPos pos)
     {
         this.type = type;
         this.pos = pos;
     }
 
-    public static void encode(PacketSpellEffect pkt, PacketBuffer buf)
+    public static void encode(SpellEffectPacket pkt, PacketBuffer buf)
     {
         buf.writeByte(pkt.type.ordinal());
         buf.writeBlockPos(pkt.pos);
     }
 
-    public static PacketSpellEffect decode(PacketBuffer buf)
+    public static SpellEffectPacket decode(PacketBuffer buf)
     {
-        return new PacketSpellEffect(EffectType.values()[buf.readByte()], buf.readBlockPos());
+        return new SpellEffectPacket(EffectType.values()[buf.readByte()], buf.readBlockPos());
     }
 
     public static class Handler
     {
-        public static void handle(PacketSpellEffect msg, Supplier<NetworkEvent.Context> ctx)
+        public static void handle(SpellEffectPacket msg, Supplier<NetworkEvent.Context> ctx)
         {
             if (ctx.get().getDirection().getReceptionSide().isClient())
             {

@@ -13,25 +13,25 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketCastSpell
+public class CastSpellPacket
 {
     private final Spell spell;
     private final PlayerEntity player;
 
-    public PacketCastSpell(Spell spell, PlayerEntity player)
+    public CastSpellPacket(Spell spell, PlayerEntity player)
     {
         this.spell = spell;
         this.player = player;
     }
 
-    public static void encode(PacketCastSpell pkt, PacketBuffer buf)
+    public static void encode(CastSpellPacket pkt, PacketBuffer buf)
     {
         ISpells spells = pkt.player.getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
         buf.writeUniqueId(pkt.player.getUniqueID());
         buf.writeInt(spells.getSpellId(pkt.spell));
     }
 
-    public static PacketCastSpell decode(PacketBuffer buf)
+    public static CastSpellPacket decode(PacketBuffer buf)
     {
         PlayerEntity player;
 
@@ -45,12 +45,12 @@ public class PacketCastSpell
         }
 
         ISpells spells = player.getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
-        return new PacketCastSpell(spells.getSpellById(buf.readInt()), player);
+        return new CastSpellPacket(spells.getSpellById(buf.readInt()), player);
     }
 
     public static class Handler
     {
-        public static void handle(PacketCastSpell msg, Supplier<NetworkEvent.Context> ctx)
+        public static void handle(CastSpellPacket msg, Supplier<NetworkEvent.Context> ctx)
         {
             if (ctx.get().getDirection().getReceptionSide().isServer())
             {

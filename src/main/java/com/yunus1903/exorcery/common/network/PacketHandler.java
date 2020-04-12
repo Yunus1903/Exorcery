@@ -1,10 +1,10 @@
 package com.yunus1903.exorcery.common.network;
 
-import com.yunus1903.exorcery.common.network.packets.PacketSpellEffect;
+import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
+import com.yunus1903.exorcery.common.network.packets.SpellEffectPacket;
+import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
-import com.yunus1903.exorcery.common.network.packets.PacketCastSpell;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
+import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -32,10 +32,10 @@ public final class PacketHandler
     {
         int id = 0;
 
-        HANDLER.registerMessage(id++, PacketSyncSpells.class, PacketSyncSpells::encode, PacketSyncSpells::decode, PacketSyncSpells.Handler::handle);
-        HANDLER.registerMessage(id++, PacketCastSpell.class, PacketCastSpell::encode, PacketCastSpell::decode, PacketCastSpell.Handler::handle);
-        HANDLER.registerMessage(id++, PacketSyncMana.class, PacketSyncMana::encode, PacketSyncMana::decode, PacketSyncMana.Handler::handle);
-        HANDLER.registerMessage(id++, PacketSpellEffect.class, PacketSpellEffect::encode, PacketSpellEffect::decode, PacketSpellEffect.Handler::handle);
+        HANDLER.registerMessage(id++, SyncSpellsPacket.class, SyncSpellsPacket::encode, SyncSpellsPacket::decode, SyncSpellsPacket.Handler::handle);
+        HANDLER.registerMessage(id++, CastSpellPacket.class, CastSpellPacket::encode, CastSpellPacket::decode, CastSpellPacket.Handler::handle);
+        HANDLER.registerMessage(id++, SyncManaPacket.class, SyncManaPacket::encode, SyncManaPacket::decode, SyncManaPacket.Handler::handle);
+        HANDLER.registerMessage(id++, SpellEffectPacket.class, SpellEffectPacket::encode, SpellEffectPacket::decode, SpellEffectPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)

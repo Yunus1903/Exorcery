@@ -5,9 +5,8 @@ import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
-import com.yunus1903.exorcery.common.network.packets.PacketCastSpell;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
-import com.yunus1903.exorcery.core.Exorcery;
+import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
+import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -98,7 +97,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         {
             if (player.isCreative())
             {
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketCastSpell(this, player));
+                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                 onSpellCast(world, player);
                 return true;
             }
@@ -107,8 +106,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
             if (mana.get() >= manaCost)
             {
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketSyncMana(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketCastSpell(this, player));
+                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
+                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                 onSpellCast(world, player);
                 return true;
             }
@@ -116,7 +115,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         }
         else
         {
-            PacketHandler.sendToServer(new PacketCastSpell(this, player));
+            PacketHandler.sendToServer(new CastSpellPacket(this, player));
             return false;
         }
 
