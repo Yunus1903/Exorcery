@@ -11,14 +11,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiSpellSelector extends Screen
+public class SpellSelectorGui extends Screen
 {
     private final int CENTER_OFFSET_STRAIGHT = 100;
     private final int CENTER_OFFSET_SIDE = 60;
 
     public float scale = 1.0F;
 
-    public GuiSpellSelector()
+    public SpellSelectorGui()
     {
         super(new StringTextComponent("Spell Selector"));
     }

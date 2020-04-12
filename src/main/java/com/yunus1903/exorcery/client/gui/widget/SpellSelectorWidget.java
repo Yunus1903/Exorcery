@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.client.gui.widget;
 
-import com.yunus1903.exorcery.client.gui.GuiSpellSelector;
+import com.yunus1903.exorcery.client.gui.SpellSelectorGui;
 import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
@@ -10,10 +10,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorWidget extends Widget
 {
-    GuiSpellSelector gui;
+    SpellSelectorGui gui;
     private Spell spell;
 
-    public SpellSelectorWidget(int x, int y, Spell spell, GuiSpellSelector gui)
+    public SpellSelectorWidget(int x, int y, Spell spell, SpellSelectorGui gui)
     {
         super(x, y, spell.getName().getString());
         this.gui = gui;

@@ -1,30 +1,21 @@
 package com.yunus1903.exorcery.core;
 
-import com.yunus1903.exorcery.client.gui.GuiMana;
+import com.yunus1903.exorcery.client.gui.ManaGui;
 import com.yunus1903.exorcery.client.misc.ClientEventHandler;
 import com.yunus1903.exorcery.common.capabilities.CapabilityHandler;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
-import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaStorage;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
-import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.misc.EventHandler;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
-import com.yunus1903.exorcery.common.spell.TestSpell;
-import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.common.network.PacketHandler;
-import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
 import com.yunus1903.exorcery.init.ModSpells;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -68,7 +59,7 @@ public class Exorcery
     {
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 
-        MinecraftForge.EVENT_BUS.register(new GuiMana());
+        MinecraftForge.EVENT_BUS.register(new ManaGui());
     }
 
     @SubscribeEvent

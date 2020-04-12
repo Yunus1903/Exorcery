@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiMana
+public class ManaGui
 {
     private static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(Exorcery.MOD_ID, "textures/gui/icons.png");
 
