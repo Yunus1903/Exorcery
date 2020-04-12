@@ -4,6 +4,7 @@ import com.yunus1903.exorcery.client.gui.widget.SpellSelectorWidget;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.core.ClientProxy;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,7 +16,7 @@ public class GuiSpellSelector extends Screen
     private final int CENTER_OFFSET_STRAIGHT = 100;
     private final int CENTER_OFFSET_SIDE = 60;
 
-    private float scale = 1.0F;
+    public float scale = 1.0F;
 
     public GuiSpellSelector()
     {
@@ -81,7 +82,7 @@ public class GuiSpellSelector extends Screen
                         break;
                 }
 
-                addButton(new SpellSelectorWidget(x, y, spells.getSpells().get(i), scale));
+                addButton(new SpellSelectorWidget(x, y, spells.getSpells().get(i), this));
             }
         });
     }
@@ -91,6 +92,15 @@ public class GuiSpellSelector extends Screen
     {
         if (!InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
         {
+            for (Widget btn : buttons)
+            {
+                if (btn instanceof SpellSelectorWidget && btn.isHovered())
+                {
+                    if (minecraft.player.isSpectator()) return;
+
+                    ((SpellSelectorWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
+                }
+            }
             onClose();
         }
     }

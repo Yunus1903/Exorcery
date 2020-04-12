@@ -1,7 +1,7 @@
 package com.yunus1903.exorcery.client.gui.widget;
 
+import com.yunus1903.exorcery.client.gui.GuiSpellSelector;
 import com.yunus1903.exorcery.common.spell.Spell;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,21 +10,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorWidget extends Widget
 {
+    GuiSpellSelector gui;
     private Spell spell;
-    private float scale;
 
-    public SpellSelectorWidget(int x, int y, Spell spell)
-    {
-        this(x, y, spell, 1);
-    }
-
-    public SpellSelectorWidget(int x, int y, Spell spell, float scale)
+    public SpellSelectorWidget(int x, int y, Spell spell, GuiSpellSelector gui)
     {
         super(x, y, spell.getName().getString());
+        this.gui = gui;
         this.spell = spell;
-        this.scale = scale;
-        setWidth((int) (48 * scale));
-        setHeight((int) (48 * scale));
+        setWidth((int) (48 * gui.scale));
+        setHeight((int) (48 * gui.scale));
         this.x -= getWidth() / 2;
         this.y -= getHeight() / 2;
     }
@@ -38,10 +33,21 @@ public class SpellSelectorWidget extends Widget
     public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_)
     {
         ResourceLocation textureLocation = new ResourceLocation(spell.getRegistryName().getNamespace(), "textures/spell/" + spell.getRegistryName().getPath() + ".png");
-        Minecraft.getInstance().getTextureManager().bindTexture(textureLocation);
+        gui.getMinecraft().getTextureManager().bindTexture(textureLocation);
 
-        int size = (int) (48 * scale);
+        int hoverSize = 0;
 
-        blit(x, y, size, size, 0, 0, 16, 16, 16, 16);
+        if (isHovered())
+        {
+            hoverSize = (int) (10 * gui.scale);
+        }
+
+        blit(x - hoverSize / 2, y - hoverSize / 2, getWidth() + hoverSize, getHeight() + hoverSize, 0, 0, 16, 16, 16, 16);
+    }
+
+    @Override
+    protected boolean isValidClickButton(int p_isValidClickButton_1_)
+    {
+        return false;
     }
 }
