@@ -1,6 +1,8 @@
 package com.yunus1903.exorcery.core;
 
 import com.yunus1903.exorcery.client.gui.GuiMana;
+import com.yunus1903.exorcery.client.gui.GuiSpellSelector;
+import com.yunus1903.exorcery.client.misc.ClientEventHandler;
 import com.yunus1903.exorcery.common.capabilities.CapabilityHandler;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
@@ -58,7 +60,6 @@ public class Exorcery
     {
         LOGGER.info("Exorcery is being initialized");
         ExorceryRegistry.createRegistries();
-        proxy.registerMod();
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), ManaCapability::new);
         CapabilityManager.INSTANCE.register(ISpells.class, new SpellsStorage(), SpellsCapability::new);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -69,6 +70,8 @@ public class Exorcery
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent event)
     {
+        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+
         MinecraftForge.EVENT_BUS.register(new GuiMana());
         //MinecraftForge.EVENT_BUS.register(new GuiSpellSelector());
     }
@@ -123,8 +126,11 @@ public class Exorcery
     {
         if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
         {
+            Minecraft.getInstance().displayGuiScreen(new GuiSpellSelector());
+        }
+        else if (ClientProxy.KEY_DEBUG_KEY.isPressed())
+        {
             Minecraft mc = Minecraft.getInstance();
-            //ISpells spells = mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
 
             // Don't even show the selector to spectator mode
             // Maybe make config to enable/disable in adventure mode
@@ -134,29 +140,6 @@ public class Exorcery
             {
                 if (!spells.getSpells().isEmpty()) spells.getSpellById(0).castSpell(mc.world, mc.player);
             });
-
-
-
-            /*
-            Tessellator tessellator = Tessellator.getInstance();
-
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glDisable(GL11.GL_TEXTURE_2D);
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-            GL11.glBegin(GL11.GL_TRIANGLE_FAN);
-            GL11.glVertex2d(20, 20);
-            for(int i = 0; i <= 100; i++)
-            {
-                GL11.glVertex2d(20 + (40 * Math.cos(i *  (2 * Math.PI) / 100)), 20 + (40 * Math.sin(i * (2 * Math.PI) / 100)));
-            }
-            GL11.glEnd();
-
-             */
-        }
-        else if (ClientProxy.KEY_DEBUG_KEY.isPressed())
-        {
-
         }
     }
 

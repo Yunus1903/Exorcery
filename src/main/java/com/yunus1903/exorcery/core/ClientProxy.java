@@ -4,6 +4,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 @OnlyIn(Dist.CLIENT)
