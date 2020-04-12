@@ -17,6 +17,7 @@ public class TestSpell extends Spell
             .setType(SpellType.DEBUG);
     }
 
+    // Keep in mind, this runs both on the client and the server
     @Override
     public ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {

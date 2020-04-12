@@ -118,51 +118,10 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
             PacketHandler.sendToServer(new CastSpellPacket(this, player));
             return false;
         }
-
-
-        /*
-        IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
-
-        if (player instanceof ServerPlayerEntity)
-            mana.set(mana.getMax());
-            PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
-
-        if (mana.get() >= manaCost)
-        {
-            if (player instanceof ServerPlayerEntity)
-            {
-                mana.reduce(manaCost);
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
-            }
-            else
-            {
-                PacketHandler.sendToServer(new PacketCastSpell(this, player));
-            }
-
-            onSpellCast(world, player);
-            return true;
-        }
-        return false;
-
-         */
     }
 
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        /*
-        if (player instanceof ServerPlayerEntity)
-        {
-            IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
-            mana.reduce(manaCost);
-            Exorcery.LOGGER.debug(mana.get());
-            PacketHandler.sendToPlayer((ServerPlayerEntity) player, new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
-        }
-        else
-        {
-            PacketHandler.sendToServer(new PacketCastSpell(this, player));
-        }
-
-         */
         return new ActionResult<>(ActionResultType.PASS, this);
     }
 }
