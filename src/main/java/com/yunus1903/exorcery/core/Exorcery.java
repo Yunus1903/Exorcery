@@ -1,7 +1,6 @@
 package com.yunus1903.exorcery.core;
 
 import com.yunus1903.exorcery.client.gui.GuiMana;
-import com.yunus1903.exorcery.client.gui.GuiSpellSelector;
 import com.yunus1903.exorcery.common.capabilities.CapabilityHandler;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
@@ -14,14 +13,12 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.misc.EventHandler;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
-import com.yunus1903.exorcery.common.spell.Spell;
 import com.yunus1903.exorcery.common.spell.TestSpell;
 import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
 import com.yunus1903.exorcery.init.ModSpells;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +31,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -50,9 +46,6 @@ public class Exorcery
 
     public static Exorcery instance;
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-
-    private static KeyBinding key;
-    private static KeyBinding debugKey;
 
     public Exorcery()
     {
@@ -76,10 +69,6 @@ public class Exorcery
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent event)
     {
-        key = new KeyBinding("key.exorcery.spell_selector", 192, "key.categories.misc");
-        debugKey = new KeyBinding("key.exorcery.debug", 72, "key.categories.misc");
-        ClientRegistry.registerKeyBinding(key);
-        ClientRegistry.registerKeyBinding(debugKey);
         MinecraftForge.EVENT_BUS.register(new GuiMana());
         //MinecraftForge.EVENT_BUS.register(new GuiSpellSelector());
     }
@@ -132,7 +121,7 @@ public class Exorcery
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event)
     {
-        if (key.isPressed())
+        if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
         {
             Minecraft mc = Minecraft.getInstance();
             //ISpells spells = mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
@@ -165,7 +154,7 @@ public class Exorcery
 
              */
         }
-        else if (debugKey.isPressed())
+        else if (ClientProxy.KEY_DEBUG_KEY.isPressed())
         {
 
         }
