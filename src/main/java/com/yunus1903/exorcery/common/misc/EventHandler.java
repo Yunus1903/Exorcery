@@ -9,9 +9,12 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.PacketSyncMana;
 import com.yunus1903.exorcery.common.network.packets.PacketSyncSpells;
+import com.yunus1903.exorcery.common.spell.TestSpell;
+import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +45,24 @@ public class EventHandler
             });
 
             syncSpellsAndManaToClient((ServerPlayerEntity) newPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event)
+    {
+        if (event.getPlayer() instanceof ServerPlayerEntity)
+        {
+            ISpells spells = event.getPlayer().getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
+            IMana mana = event.getPlayer().getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
+
+            TestSpell testSpell = (TestSpell) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "spell_test"));
+            TestSpell2 testSpell2 = (TestSpell2) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "spell_test_2"));
+            spells.addSpell(testSpell);
+            spells.addSpell(testSpell2);
+
+            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncSpells(spells.getSpells()));
+            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new PacketSyncMana(mana.get(), mana.getMax(), mana.getRegenerationRate()));
         }
     }
 
