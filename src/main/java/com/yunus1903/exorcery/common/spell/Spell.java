@@ -47,6 +47,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return this;
     }
 
+    public float getManaCost()
+    {
+        return manaCost;
+    }
+
     public Spell setCastTime(int time)
     {
         castTime = time;
