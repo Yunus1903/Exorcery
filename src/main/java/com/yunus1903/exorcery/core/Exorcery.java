@@ -126,20 +126,9 @@ public class Exorcery
     {
         if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
         {
-            Minecraft.getInstance().displayGuiScreen(new GuiSpellSelector());
-        }
-        else if (ClientProxy.KEY_DEBUG_KEY.isPressed())
-        {
             Minecraft mc = Minecraft.getInstance();
-
-            // Don't even show the selector to spectator mode
-            // Maybe make config to enable/disable in adventure mode
             if (mc.player.isSpectator()) return;
-
-            mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent((spells) ->
-            {
-                if (!spells.getSpells().isEmpty()) spells.getSpellById(0).castSpell(mc.world, mc.player);
-            });
+            mc.displayGuiScreen(new GuiSpellSelector());
         }
     }
 

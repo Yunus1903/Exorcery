@@ -96,8 +96,6 @@ public class GuiSpellSelector extends Screen
             {
                 if (btn instanceof SpellSelectorWidget && btn.isHovered())
                 {
-                    if (minecraft.player.isSpectator()) return;
-
                     ((SpellSelectorWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
                 }
             }
