@@ -43,6 +43,8 @@ public class Exorcery
     public static Exorcery instance;
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
+    public MinecraftServer server;
+
     public Exorcery()
     {
         instance = this;
@@ -86,8 +88,6 @@ public class Exorcery
     {
 
     }
-
-    public MinecraftServer server;
 
     @SubscribeEvent
     public void onServerStarting(final FMLServerStartingEvent event)
