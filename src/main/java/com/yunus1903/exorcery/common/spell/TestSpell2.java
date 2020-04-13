@@ -8,7 +8,8 @@ public class TestSpell2 extends Spell
     {
         this.setRegistryName(Exorcery.MOD_ID, "spell_test_2")
                 .setManaCost(10f)
-                .setCastTime(2)
-                .setType(SpellType.DEBUG);
+                .setCastTime(100)
+                .setType(SpellType.DEBUG)
+                .setWhileRunning(true);
     }
 }

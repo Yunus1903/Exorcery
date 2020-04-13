@@ -8,13 +8,13 @@ import com.yunus1903.exorcery.common.misc.TickHandler;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
-import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -29,6 +29,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     private float manaCost = 0f;
     private int castTime = 0;
     private SpellType type = SpellType.NORMAL;
+    private boolean whileRunning = false;
     @Nullable
     private String translationKey;
 
@@ -64,6 +65,12 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     public Spell setType(SpellType type)
     {
         this.type = type;
+        return this;
+    }
+
+    public Spell setWhileRunning(boolean whileRunning)
+    {
+        this.whileRunning = whileRunning;
         return this;
     }
 
@@ -109,13 +116,15 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
             {
                 if (!player.isCreative()) PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
 
+                BlockPos pos = player.getPosition();
+
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
+                    if (!whileRunning && !pos.equals(player.getPosition())) return;
+
                     PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                     onSpellCast(world, player); // Server-Side
                 });
-
-                Exorcery.LOGGER.info("test");
                 return true;
             }
             return false;
