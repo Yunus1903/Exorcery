@@ -9,8 +9,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public class CastSpellPacket
@@ -26,26 +29,29 @@ public class CastSpellPacket
 
     public static void encode(CastSpellPacket pkt, PacketBuffer buf)
     {
-        ISpells spells = pkt.player.getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
+        ISpells spells = pkt.player.getCapability(SpellsProvider.SPELLS_CAPABILITY,null).orElse(new SpellsCapability());
         buf.writeUniqueId(pkt.player.getUniqueID());
         buf.writeInt(spells.getSpellId(pkt.spell));
     }
 
     public static CastSpellPacket decode(PacketBuffer buf)
     {
-        PlayerEntity player;
+        AtomicReference<PlayerEntity> player = new AtomicReference<>();
 
         if (Exorcery.instance.server == null)
         {
-            player = Minecraft.getInstance().player;
+            DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
+            {
+                player.set(Minecraft.getInstance().player);
+            });
         }
         else
         {
-            player = Exorcery.instance.server.getPlayerList().getPlayerByUUID(buf.readUniqueId());
+            player.set(Exorcery.instance.server.getPlayerList().getPlayerByUUID(buf.readUniqueId()));
         }
 
-        ISpells spells = player.getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
-        return new CastSpellPacket(spells.getSpellById(buf.readInt()), player);
+        ISpells spells = player.get().getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
+        return new CastSpellPacket(spells.getSpellById(buf.readInt()), player.get());
     }
 
     public static class Handler
@@ -64,8 +70,13 @@ public class CastSpellPacket
             {
                 ctx.get().enqueueWork(() ->
                 {
-                    PlayerEntity player = Minecraft.getInstance().player;
-                    msg.spell.castSpell(player.world, player, true);
+                    AtomicReference<PlayerEntity> player = new AtomicReference<>();
+
+                    DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
+                    {
+                        player.set(Minecraft.getInstance().player);
+                    });
+                    msg.spell.castSpell(player.get().world, player.get(), true);
                 });
             }
             ctx.get().setPacketHandled(true);
