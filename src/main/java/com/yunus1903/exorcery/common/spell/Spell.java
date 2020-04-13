@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -127,6 +128,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
+        player.swingArm(Hand.MAIN_HAND);
         return new ActionResult<>(ActionResultType.PASS, this);
     }
 }
