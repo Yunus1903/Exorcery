@@ -11,6 +11,7 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.misc.EventHandler;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
+import com.yunus1903.exorcery.common.misc.TickHandler;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.init.ModSpells;
 import net.minecraft.server.MinecraftServer;
@@ -50,6 +51,7 @@ public class Exorcery
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), ManaCapability::new);
         CapabilityManager.INSTANCE.register(ISpells.class, new SpellsStorage(), SpellsCapability::new);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new TickHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         PacketHandler.register();
     }

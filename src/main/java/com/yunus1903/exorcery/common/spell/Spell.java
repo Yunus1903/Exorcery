@@ -4,9 +4,11 @@ import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
+import com.yunus1903.exorcery.common.misc.TickHandler;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
+import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -95,7 +97,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     {
         if (bypassManaAndSync)
         {
-            onSpellCast(world, player);
+            onSpellCast(world, player); // Client-Side
             return true;
         }
 
@@ -106,8 +108,14 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
             if (mana.get() >= manaCost || player.isCreative())
             {
                 if (!player.isCreative()) PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
-                onSpellCast(world, player);
+
+                TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
+                {
+                    PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
+                    onSpellCast(world, player); // Server-Side
+                });
+
+                Exorcery.LOGGER.info("test");
                 return true;
             }
             return false;
