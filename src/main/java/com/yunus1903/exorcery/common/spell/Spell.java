@@ -90,7 +90,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return castSpell(world, player, false);
     }
 
-    public boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
+    public final boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
     {
         if (bypassManaAndSync)
         {
