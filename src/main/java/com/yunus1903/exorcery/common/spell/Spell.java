@@ -53,9 +53,9 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return manaCost;
     }
 
-    public Spell setCastTime(int time)
+    public Spell setCastTime(int timeInTicks)
     {
-        castTime = time;
+        castTime = timeInTicks;
         return this;
     }
 
@@ -101,18 +101,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
         if (player instanceof ServerPlayerEntity)
         {
-            if (player.isCreative())
-            {
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
-                onSpellCast(world, player);
-                return true;
-            }
-
             IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
-            if (mana.get() >= manaCost)
+            if (mana.get() >= manaCost || player.isCreative())
             {
-                PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
+                if (!player.isCreative()) PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
                 PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                 onSpellCast(world, player);
                 return true;
