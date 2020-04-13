@@ -29,9 +29,11 @@ public class CastSpellPacket
 
     public static void encode(CastSpellPacket pkt, PacketBuffer buf)
     {
-        ISpells spells = pkt.player.getCapability(SpellsProvider.SPELLS_CAPABILITY,null).orElse(new SpellsCapability());
-        buf.writeUniqueId(pkt.player.getUniqueID());
-        buf.writeInt(spells.getSpellId(pkt.spell));
+        pkt.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+        {
+            buf.writeUniqueId(pkt.player.getUniqueID());
+            buf.writeInt(spells.getSpellId(pkt.spell));
+        });
     }
 
     public static CastSpellPacket decode(PacketBuffer buf)
@@ -44,6 +46,7 @@ public class CastSpellPacket
             {
                 player.set(Minecraft.getInstance().player);
             });
+            buf.readUniqueId();
         }
         else
         {
