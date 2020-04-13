@@ -6,6 +6,10 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.gui.GuiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorWidget extends Widget
@@ -43,6 +47,13 @@ public class SpellSelectorWidget extends Widget
         }
 
         blit(x - hoverSize / 2, y - hoverSize / 2, getWidth() + hoverSize, getHeight() + hoverSize, 0, 0, 16, 16, 16, 16);
+        if (isHovered())
+        {
+            List<String> tooltip = new ArrayList<>();
+            tooltip.add(getMessage());
+            tooltip.add("Mana Cost: " + spell.getManaCost());
+            GuiUtils.drawHoveringText(tooltip, p_renderButton_1_, p_renderButton_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
+        }
     }
 
     @Override
