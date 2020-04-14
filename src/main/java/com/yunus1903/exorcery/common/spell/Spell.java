@@ -143,14 +143,13 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
-                    if (!whileRunning && !pos.equals(player.getPosition())) return; // TODO: Replace this with something better
-
                     player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                     {
-                        if (!casting.isCasting()) return;
-                        casting.stopCasting();
+                        isCasting = casting.isCasting();
+                        if (isCasting) casting.stopCasting();
                     });
 
+                    if (!isCasting) return;
                     isCasting = false;
 
                     PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
