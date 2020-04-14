@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.spell;
 
+import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
@@ -7,7 +8,9 @@ import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.misc.TickHandler;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
+import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
+import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -104,7 +107,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     public final boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
     {
-        if (isCasting) return false;
+        //if (isCasting) return false;
 
         if (bypassManaAndSync)
         {
@@ -122,7 +125,17 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
                 BlockPos pos = player.getPosition();
 
-                isCasting = true;
+                player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                {
+                    isCasting = casting.startCasting(this);
+                    PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncCastingPacket(isCasting, casting.getSpell()));
+                    if (!isCasting)
+                    {
+                        Exorcery.LOGGER.error("Something wrong just happened that shouldn't have happened!");
+                        return;
+                    }
+                });
+
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
                     isCasting = false;

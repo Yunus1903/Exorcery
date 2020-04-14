@@ -1,10 +1,7 @@
 package com.yunus1903.exorcery.common.network;
 
-import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
-import com.yunus1903.exorcery.common.network.packets.SpellEffectPacket;
-import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
+import com.yunus1903.exorcery.common.network.packets.*;
 import com.yunus1903.exorcery.core.Exorcery;
-import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +33,7 @@ public final class PacketHandler
         HANDLER.registerMessage(id++, CastSpellPacket.class, CastSpellPacket::encode, CastSpellPacket::decode, CastSpellPacket.Handler::handle);
         HANDLER.registerMessage(id++, SyncManaPacket.class, SyncManaPacket::encode, SyncManaPacket::decode, SyncManaPacket.Handler::handle);
         HANDLER.registerMessage(id++, SpellEffectPacket.class, SpellEffectPacket::encode, SpellEffectPacket::decode, SpellEffectPacket.Handler::handle);
+        HANDLER.registerMessage(id++, SyncCastingPacket.class, SyncCastingPacket::encode, SyncCastingPacket::decode, SyncCastingPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
