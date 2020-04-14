@@ -3,6 +3,7 @@ package com.yunus1903.exorcery.client.gui.widget;
 import com.yunus1903.exorcery.client.gui.SpellSelectorGui;
 import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -51,7 +52,7 @@ public class SpellSelectorWidget extends Widget
         {
             List<String> tooltip = new ArrayList<>();
             tooltip.add(getMessage());
-            tooltip.add("Mana Cost: " + spell.getManaCost());
+            tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost") : spell.getManaCost()));
             GuiUtils.drawHoveringText(tooltip, p_renderButton_1_, p_renderButton_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
         }
     }
