@@ -23,8 +23,8 @@ public class SpellSelectorWidget extends Widget
         super(x, y, spell.getName().getString());
         this.gui = gui;
         this.spell = spell;
-        setWidth((int) (48 * gui.scale));
-        setHeight((int) (48 * gui.scale));
+        setWidth((int) (52 * gui.scale));
+        setHeight((int) (52 * gui.scale));
         this.x -= getWidth() / 2;
         this.y -= getHeight() / 2;
     }
