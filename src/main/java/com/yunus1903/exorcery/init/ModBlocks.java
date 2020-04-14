@@ -1,5 +1,5 @@
 package com.yunus1903.exorcery.init;
 
-public class ModBlocks
+public abstract class ModBlocks
 {
 }

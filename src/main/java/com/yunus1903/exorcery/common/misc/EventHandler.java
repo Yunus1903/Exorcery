@@ -63,8 +63,8 @@ public final class EventHandler
             spells.addSpell(testSpell);
             spells.addSpell(testSpell2);
 
-            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new SyncSpellsPacket(spells.getSpells()));
-            PacketHandler.sendToPlayer((ServerPlayerEntity) event.getPlayer(), new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+
+            syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
         }
     }
 

@@ -33,6 +33,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     @Nullable
     private String translationKey;
 
+    private boolean isCasting = false;
+
     public static int getIdFromSpell(Spell spell)
     {
         ForgeRegistry<Spell> registry = ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS);
@@ -102,6 +104,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     public final boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
     {
+        if (isCasting) return false;
+
         if (bypassManaAndSync)
         {
             onSpellCast(world, player); // Client-Side
@@ -118,9 +122,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
                 BlockPos pos = player.getPosition();
 
+                isCasting = true;
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
-                    if (!whileRunning && !pos.equals(player.getPosition())) return;
+                    isCasting = false;
+                    if (!whileRunning && !pos.equals(player.getPosition())) return; // TODO: Replace this with something better
 
                     PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                     onSpellCast(world, player); // Server-Side
