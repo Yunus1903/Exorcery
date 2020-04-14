@@ -1,7 +1,10 @@
 package com.yunus1903.exorcery.common.misc;
 
+import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
 import com.yunus1903.exorcery.core.Exorcery;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -29,6 +32,21 @@ public final class TickHandler
                 {
                     schedule.remove(map.getKey()).run();
                 }
+            }
+
+            for (ServerPlayerEntity player : server.getPlayerList().getPlayers())
+            {
+                player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                {
+                    if (casting.isCasting())
+                    {
+                        BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
+                        if (!player.getPosition().equals(prevPos) && !casting.getSpell().getWhileRunning())
+                        {
+                            casting.stopCasting();
+                        }
+                    }
+                });
             }
         }
     }

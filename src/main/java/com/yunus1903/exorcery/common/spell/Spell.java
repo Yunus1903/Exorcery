@@ -50,15 +50,15 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValue(id);
     }
 
+    public float getManaCost()
+    {
+        return manaCost;
+    }
+
     public Spell setManaCost(float cost)
     {
         manaCost = cost;
         return this;
-    }
-
-    public float getManaCost()
-    {
-        return manaCost;
     }
 
     public Spell setCastTime(int timeInTicks)
@@ -71,6 +71,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     {
         this.type = type;
         return this;
+    }
+
+    public boolean getWhileRunning()
+    {
+        return whileRunning;
     }
 
     public Spell setWhileRunning(boolean whileRunning)
@@ -107,7 +112,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     public final boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
     {
-        //if (isCasting) return false;
+        if (isCasting) return false;
 
         if (bypassManaAndSync)
         {
@@ -138,8 +143,15 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
-                    isCasting = false;
                     if (!whileRunning && !pos.equals(player.getPosition())) return; // TODO: Replace this with something better
+
+                    player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                    {
+                        if (!casting.isCasting()) return;
+                        casting.stopCasting();
+                    });
+
+                    isCasting = false;
 
                     PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
                     onSpellCast(world, player); // Server-Side
