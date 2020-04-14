@@ -3,6 +3,9 @@ package com.yunus1903.exorcery.core;
 import com.yunus1903.exorcery.client.gui.ManaGui;
 import com.yunus1903.exorcery.client.misc.ClientEventHandler;
 import com.yunus1903.exorcery.common.capabilities.CapabilityHandler;
+import com.yunus1903.exorcery.common.capabilities.casting.CastingCapability;
+import com.yunus1903.exorcery.common.capabilities.casting.CastingStorage;
+import com.yunus1903.exorcery.common.capabilities.casting.ICasting;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaStorage;
@@ -50,6 +53,7 @@ public class Exorcery
         ExorceryRegistry.createRegistries();
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), ManaCapability::new);
         CapabilityManager.INSTANCE.register(ISpells.class, new SpellsStorage(), SpellsCapability::new);
+        CapabilityManager.INSTANCE.register(ICasting.class, new CastingStorage(), CastingCapability::new);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new TickHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
