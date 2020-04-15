@@ -5,6 +5,7 @@ import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
+import com.yunus1903.exorcery.common.misc.SoundHandler;
 import com.yunus1903.exorcery.common.misc.TickHandler;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
@@ -13,10 +14,7 @@ import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -141,6 +139,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                     }
                 });
 
+                if (castTime > 0)
+                {
+                    world.playMovingSound(null, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
+                }
+
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
                 {
                     player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
@@ -148,6 +151,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                         isCasting = casting.isCasting();
                         if (isCasting) casting.stopCasting();
                     });
+
+                    SoundHandler.stopChanting((ServerPlayerEntity) player);
 
                     if (!isCasting) return;
                     isCasting = false;

@@ -43,6 +43,7 @@ public final class TickHandler
                         BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
                         if (!player.getPosition().equals(prevPos) && !casting.getSpell().getWhileRunning())
                         {
+                            SoundHandler.stopChanting(player);
                             casting.stopCasting();
                         }
                     }
