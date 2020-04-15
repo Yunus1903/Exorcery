@@ -8,14 +8,15 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-
+@Mod.EventBusSubscriber(modid = Exorcery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class SoundHandler
 {
     public static final SoundEvent SPELL_CHANTING = new SoundEvent(new ResourceLocation(Exorcery.MOD_ID, "spell_chanting")).setRegistryName("spell_chanting");
 
     @SubscribeEvent
-    public void onRegisterSound(RegistryEvent.Register<SoundEvent> event)
+    public static void registerSounds(RegistryEvent.Register<SoundEvent> event)
     {
         event.getRegistry().register(SPELL_CHANTING);
     }

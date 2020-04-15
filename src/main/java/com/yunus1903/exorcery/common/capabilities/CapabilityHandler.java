@@ -9,7 +9,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class CapabilityHandler
 {
     public static final ResourceLocation MANA_CAPABILITY = new ResourceLocation(Exorcery.MOD_ID, "mana");
@@ -17,7 +19,7 @@ public final class CapabilityHandler
     public static final ResourceLocation CASTING_CAPABILITY = new ResourceLocation(Exorcery.MOD_ID, "casting");
 
     @SubscribeEvent
-    public void onAttachCapability(AttachCapabilitiesEvent<Entity> event)
+    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event)
     {
         if (!(event.getObject() instanceof PlayerEntity)) return;
         event.addCapability(MANA_CAPABILITY, new ManaProvider());

@@ -9,9 +9,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 
+@Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class TickHandler
 {
     private static HashMap<Long, Runnable> schedule = new HashMap<>();
@@ -22,7 +24,7 @@ public final class TickHandler
     }
 
     @SubscribeEvent
-    public void onServerTick(TickEvent.ServerTickEvent event)
+    public static void onServerTick(TickEvent.ServerTickEvent event)
     {
         if (event.phase == TickEvent.Phase.START && Exorcery.instance.server != null)
         {

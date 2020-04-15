@@ -20,11 +20,13 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class EventHandler
 {
     @SubscribeEvent
-    public void onPlayerClone(PlayerEvent.Clone event)
+    public static void onPlayerClone(PlayerEvent.Clone event)
     {
         PlayerEntity oldPlayer = event.getOriginal();
         PlayerEntity newPlayer = event.getPlayer();
@@ -50,7 +52,7 @@ public final class EventHandler
     }
 
     @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event)
+    public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event)
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
@@ -70,7 +72,7 @@ public final class EventHandler
     }
 
     @SubscribeEvent
-    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
@@ -79,7 +81,7 @@ public final class EventHandler
     }
 
     @SubscribeEvent
-    public void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event)
+    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event)
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
@@ -88,7 +90,7 @@ public final class EventHandler
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event)
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
     {
         if (event.side == LogicalSide.SERVER)
         {
@@ -104,7 +106,7 @@ public final class EventHandler
         }
     }
 
-    private void syncSpellsAndManaToClient(ServerPlayerEntity player)
+    private static void syncSpellsAndManaToClient(ServerPlayerEntity player)
     {
         player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent((spells) ->
         {

@@ -10,14 +10,16 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Exorcery.MOD_ID)
 public class ManaGui
 {
     private static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(Exorcery.MOD_ID, "textures/gui/icons.png");
 
     @SubscribeEvent
-    public void renderOverlay(RenderGameOverlayEvent event)
+    public static void renderOverlay(RenderGameOverlayEvent event)
     {
         Minecraft mc = Minecraft.getInstance();
         /*
