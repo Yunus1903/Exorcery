@@ -86,7 +86,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return this;
     }
 
-    public void calculateManaCost() { }
+    public void calculateManaCost(PlayerEntity player) { }
 
     @OnlyIn(Dist.CLIENT)
     public void setTargetEntity(Minecraft mc) { }
@@ -165,7 +165,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
             this.targetEntity = targetEntity;
             this.targetLocation = targetLocation;
 
-            calculateManaCost();
+            calculateManaCost(player);
 
             IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 

@@ -108,7 +108,7 @@ public class SpellSelectorGui extends Screen
                 {
                     spell.setTargetEntity(minecraft);
                     spell.setTargetLocation(minecraft);
-                    spell.calculateManaCost();
+                    spell.calculateManaCost(minecraft.player);
                 }
             });
         }
