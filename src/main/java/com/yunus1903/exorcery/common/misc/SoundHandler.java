@@ -16,7 +16,7 @@ public final class SoundHandler
     public static final SoundEvent SPELL_CHANTING = new SoundEvent(new ResourceLocation(Exorcery.MOD_ID, "spell_chanting")).setRegistryName("spell_chanting");
 
     @SubscribeEvent
-    public static void registerSounds(RegistryEvent.Register<SoundEvent> event)
+    public static void registerSounds(final RegistryEvent.Register<SoundEvent> event)
     {
         event.getRegistry().register(SPELL_CHANTING);
     }
