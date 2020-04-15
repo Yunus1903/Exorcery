@@ -37,6 +37,7 @@ public class SpellSelectorWidget extends Widget
     @Override
     public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_)
     {
+        // TODO: Find better way of texture handling
         ResourceLocation textureLocation = new ResourceLocation(spell.getRegistryName().getNamespace(), "textures/spell/" + spell.getRegistryName().getPath() + ".png");
         gui.getMinecraft().getTextureManager().bindTexture(textureLocation);
 
@@ -52,7 +53,7 @@ public class SpellSelectorWidget extends Widget
         {
             List<String> tooltip = new ArrayList<>();
             tooltip.add(getMessage());
-            tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? "∞" : spell.getManaCost()));
+            tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
             GuiUtils.drawHoveringText(tooltip, p_renderButton_1_, p_renderButton_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
         }
     }
