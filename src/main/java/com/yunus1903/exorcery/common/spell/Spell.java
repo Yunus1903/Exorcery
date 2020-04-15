@@ -126,8 +126,6 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
             {
                 if (!player.isCreative()) PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncManaPacket(mana.reduce(manaCost), mana.getMax(), mana.getRegenerationRate()));
 
-                BlockPos pos = player.getPosition();
-
                 player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                 {
                     isCasting = casting.startCasting(this);
