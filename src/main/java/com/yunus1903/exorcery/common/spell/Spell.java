@@ -11,7 +11,8 @@ import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.CastSpellPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
-import com.yunus1903.exorcery.core.Exorcery;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.*;
@@ -36,6 +37,9 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     private boolean isCasting = false;
 
+    protected LivingEntity targetEntity;
+    protected BlockPos targetLocation;
+
     public static int getIdFromSpell(Spell spell)
     {
         ForgeRegistry<Spell> registry = ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS);
@@ -55,7 +59,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     public Spell setManaCost(float cost)
     {
-        manaCost = cost;
+        manaCost = cost >= 0 ? cost : 0;
         return this;
     }
 
@@ -82,6 +86,14 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return this;
     }
 
+    public void calculateManaCost() { }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setTargetEntity(Minecraft mc) { }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setTargetLocation(Minecraft mc) { }
+
     @OnlyIn(Dist.CLIENT)
     public ITextComponent getName()
     {
@@ -105,21 +117,56 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     public boolean castSpell(World world, PlayerEntity player)
     {
-        return castSpell(world, player, false);
+        return castSpell(world, player, null, null, false);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, LivingEntity targetEntity)
+    {
+        return castSpell(world, player, targetEntity, null, false);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, BlockPos targetLocation)
+    {
+        return castSpell(world, player, null, targetLocation, false);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation)
+    {
+        return castSpell(world, player, targetEntity, targetLocation, false);
     }
 
     public final boolean castSpell(World world, PlayerEntity player, boolean bypassManaAndSync)
+    {
+        return castSpell(world, player, null, null , bypassManaAndSync);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, LivingEntity targetEntity, boolean bypassManaAndSync)
+    {
+        return castSpell(world, player, targetEntity, null , bypassManaAndSync);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, BlockPos targetLocation, boolean bypassManaAndSync)
+    {
+        return castSpell(world, player, null, targetLocation , bypassManaAndSync);
+    }
+
+    public final boolean castSpell(World world, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation, boolean bypassManaAndSync)
     {
         if (isCasting) return false;
 
         if (bypassManaAndSync)
         {
-            onSpellCast(world, player); // Client-Side
+            onSpellCast(world, player, this.targetEntity, this.targetLocation); // Client-Side
             return true;
         }
 
         if (player instanceof ServerPlayerEntity)
         {
+            this.targetEntity = targetEntity;
+            this.targetLocation = targetLocation;
+
+            calculateManaCost();
+
             IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
             if (mana.get() >= manaCost || player.isCreative())
@@ -155,7 +202,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                     isCasting = false;
 
                     PacketHandler.sendToPlayer((ServerPlayerEntity) player, new CastSpellPacket(this, player));
-                    onSpellCast(world, player); // Server-Side
+                    onSpellCast(world, player, this.targetEntity, this.targetLocation); // Server-Side
                 });
                 return true;
             }
@@ -163,7 +210,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         }
         else
         {
-            PacketHandler.sendToServer(new CastSpellPacket(this, player));
+            PacketHandler.sendToServer(new CastSpellPacket(this, player, this.targetEntity, this.targetLocation));
             return false;
         }
     }
@@ -172,5 +219,10 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     {
         player.swingArm(Hand.MAIN_HAND);
         return new ActionResult<>(ActionResultType.PASS, this);
+    }
+
+    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation)
+    {
+        return onSpellCast(world, player);
     }
 }

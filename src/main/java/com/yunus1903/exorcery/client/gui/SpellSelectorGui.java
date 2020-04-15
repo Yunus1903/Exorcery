@@ -100,7 +100,19 @@ public class SpellSelectorGui extends Screen
     @Override
     public void tick()
     {
-        if (!InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
+        if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
+        {
+            minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+            {
+                for (Spell spell : spells.getSpells())
+                {
+                    spell.setTargetEntity(minecraft);
+                    spell.setTargetLocation(minecraft);
+                    spell.calculateManaCost();
+                }
+            });
+        }
+        else
         {
             for (Widget btn : buttons)
             {
