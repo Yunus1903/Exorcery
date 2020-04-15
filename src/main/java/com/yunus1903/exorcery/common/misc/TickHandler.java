@@ -1,6 +1,8 @@
 package com.yunus1903.exorcery.common.misc;
 
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
+import com.yunus1903.exorcery.common.network.PacketHandler;
+import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -45,6 +47,7 @@ public final class TickHandler
                         {
                             SoundHandler.stopChanting(player);
                             casting.stopCasting();
+                            PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
                         }
                     }
                 });

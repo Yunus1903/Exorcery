@@ -129,7 +129,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                 player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                 {
                     isCasting = casting.startCasting(this);
-                    PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncCastingPacket(isCasting, casting.getSpell()));
+                    PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
                     if (!isCasting)
                     {
                         Exorcery.LOGGER.error("Something wrong just happened that shouldn't have happened!");
@@ -147,7 +147,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                     player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                     {
                         isCasting = casting.isCasting();
-                        if (isCasting) casting.stopCasting();
+                        if (isCasting)
+                        {
+                            casting.stopCasting();
+                            PacketHandler.sendToPlayer((ServerPlayerEntity) player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
+                        }
                     });
 
                     SoundHandler.stopChanting((ServerPlayerEntity) player);
