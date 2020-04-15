@@ -1,7 +1,9 @@
 {
-  "key.exorcery.spell_selector": "Select Spell",
-  "spell.exorcery.spell_test": "Test Spell",
   "gui.exorcery.tooltip.mana_cost": "Mana Cost",
   "gui.exorcery.tooltip.mana_cost_free": "Free",
+  "key.exorcery.spell_selector": "Select Spell",
+  "spell.exorcery.spell_test": "Test Spell",
+  "spell.exorcery.teleport_spell": "Teleport",
+  "spell.exorcery.speed_spell": "Speed",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }

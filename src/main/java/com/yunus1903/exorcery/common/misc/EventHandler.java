@@ -12,7 +12,6 @@ import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.common.spell.SpeedSpell;
 import com.yunus1903.exorcery.common.spell.TeleportSpell;
 import com.yunus1903.exorcery.common.spell.TestSpell;
-import com.yunus1903.exorcery.common.spell.TestSpell2;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -59,9 +58,11 @@ public final class EventHandler
             IMana mana = event.getPlayer().getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
             TestSpell testSpell = (TestSpell) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "spell_test"));
-            TestSpell2 testSpell2 = (TestSpell2) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "spell_test_2"));
+            TeleportSpell teleportSpell = (TeleportSpell) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "teleport_spell"));
+            SpeedSpell speedSpell = (SpeedSpell) ExorceryRegistry.SPELLS.getValue(new ResourceLocation(Exorcery.MOD_ID, "speed_spell"));
             spells.addSpell(testSpell);
-            spells.addSpell(testSpell2);
+            spells.addSpell(teleportSpell);
+            spells.addSpell(speedSpell);
 
 
             syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
