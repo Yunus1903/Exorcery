@@ -1,6 +1,9 @@
 {
+  "chat.exorcery.spell_known": "You already know this spell",
+  "chat.exorcery.spell_learned": "You have learned a new spell!",
   "gui.exorcery.tooltip.mana_cost": "Mana Cost",
   "gui.exorcery.tooltip.mana_cost_free": "Free",
+  "item.exorcery.spell_scroll": "Spell Scroll",
   "key.exorcery.spell_selector": "Select Spell",
   "spell.exorcery.test": "Test Spell",
   "spell.exorcery.teleport": "Teleport",
