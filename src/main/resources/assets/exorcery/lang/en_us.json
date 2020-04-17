@@ -4,6 +4,7 @@
   "gui.exorcery.tooltip.mana_cost": "Mana Cost",
   "gui.exorcery.tooltip.mana_cost_free": "Free",
   "item.exorcery.spell_scroll": "Spell Scroll",
+  "item.exorcery.spell_scroll_empty": "Empty Spell Scroll",
   "key.exorcery.spell_selector": "Select Spell",
   "spell.exorcery.test": "Test Spell",
   "spell.exorcery.teleport": "Teleport",
