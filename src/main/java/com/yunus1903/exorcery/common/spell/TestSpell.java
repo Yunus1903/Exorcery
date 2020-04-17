@@ -9,7 +9,7 @@ public class TestSpell extends Spell
 {
     public TestSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "spell_test")
+        this.setRegistryName(Exorcery.MOD_ID, "test")
             .setManaCost(25F)
             .setCastTime(0)
             .setType(SpellType.DEBUG);
@@ -26,11 +26,6 @@ public class TestSpell extends Spell
             Exorcery.LOGGER.debug("SpellCast on Logical Client");
             //world.addParticle(ParticleTypes., player.getPosX(), player.getPosY(), player.getPosZ(), 0, 0, 0);
         }
-
-        //world.playSound(player, player.getPosition(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, SoundCategory.NEUTRAL, 5, 5);
-        //world.playSound(player, player.getPosition(), SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 5, 1);
-        //world.playMovingSound(player, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
-        //ForgeEventFactory.onPlaySoundAtEntity(player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 5, 1);
 
         return super.onSpellCast(world, player);
     }

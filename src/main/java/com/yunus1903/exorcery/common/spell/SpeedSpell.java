@@ -20,7 +20,7 @@ public class SpeedSpell extends Spell
 
     public SpeedSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "speed_spell")
+        this.setRegistryName(Exorcery.MOD_ID, "speed")
                 .setManaCost(DEFAULT_MANA_COST)
                 .setCastTime(60)
                 .setType(SpellType.NORMAL);

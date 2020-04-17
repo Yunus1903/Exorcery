@@ -16,7 +16,7 @@ public class TeleportSpell extends Spell
 {
     public TeleportSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "teleport_spell")
+        this.setRegistryName(Exorcery.MOD_ID, "teleport")
                 .setType(SpellType.ENDER); // TODO: do something with this
     }
 
