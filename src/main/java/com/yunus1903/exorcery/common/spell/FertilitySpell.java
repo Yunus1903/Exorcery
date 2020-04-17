@@ -26,6 +26,8 @@ public class FertilitySpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
+        // TODO: Live mana calc
+
         BlockPos playerPos = player.getPosition();
         int x = playerPos.getX();
         int y = playerPos.getY();
