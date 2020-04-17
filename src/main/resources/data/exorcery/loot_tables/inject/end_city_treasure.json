@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "name": "exorcery",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "exorcery:spell_scroll_teleport",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
