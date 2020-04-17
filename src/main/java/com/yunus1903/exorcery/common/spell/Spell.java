@@ -69,6 +69,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return this;
     }
 
+    public SpellType getType()
+    {
+        return type;
+    }
+
     public Spell setType(SpellType type)
     {
         this.type = type;
