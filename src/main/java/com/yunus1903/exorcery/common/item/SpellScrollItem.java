@@ -27,6 +27,15 @@ public final class SpellScrollItem extends Item
 {
     private Spell spell;
 
+    public SpellScrollItem()
+    {
+        super(new Item.Properties()
+                .group(ItemGroup.MISC)
+                .maxStackSize(16)
+        );
+        setRegistryName(Exorcery.MOD_ID, "spell_scroll_empty");
+    }
+
     public SpellScrollItem(Spell spell)
     {
         super(new Item.Properties()
@@ -42,6 +51,8 @@ public final class SpellScrollItem extends Item
     {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
 
+        if (spell == null) return ActionResult.resultPass(itemStack);
+
         ISpells spells = playerIn.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
 
         if (spells.getSpells().contains(spell))
@@ -55,8 +66,6 @@ public final class SpellScrollItem extends Item
 
         if (!worldIn.isRemote() && playerIn instanceof  ServerPlayerEntity)
         {
-            Exorcery.LOGGER.debug("clicked!");
-
             spells.addSpell(spell);
             PacketHandler.sendToPlayer((ServerPlayerEntity) playerIn, new SyncSpellsPacket(spells.getSpells()));
 
@@ -72,12 +81,13 @@ public final class SpellScrollItem extends Item
     @Override
     protected String getDefaultTranslationKey()
     {
+        if (spell == null) return super.getDefaultTranslationKey();
         return "item.exorcery.spell_scroll";
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(spell.getName().applyTextStyle(spell.getType().getColor()));
+        if (spell != null) tooltip.add(spell.getName().applyTextStyle(spell.getType().getColor()));
     }
 }

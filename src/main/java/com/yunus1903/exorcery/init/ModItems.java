@@ -13,7 +13,8 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModItems
 {
-    private static List<Item> items = new ArrayList<>();
+    public static List<Item> items = new ArrayList<>();
+    public static final Item SPELL_SCROLL_EMPTY = register(new SpellScrollItem());
     public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ModSpells.TELEPORT));
     public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ModSpells.SPEED));
 
