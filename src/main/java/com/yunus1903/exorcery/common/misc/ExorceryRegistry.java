@@ -5,7 +5,7 @@ import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.*;
 
-public abstract class ExorceryRegistry
+public final class ExorceryRegistry
 {
     private static final int MAX_VARINT = Integer.MAX_VALUE - 1;
 
