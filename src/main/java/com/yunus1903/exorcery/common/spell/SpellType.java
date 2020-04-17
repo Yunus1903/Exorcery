@@ -5,6 +5,7 @@ import net.minecraft.util.text.TextFormatting;
 public enum SpellType
 {
     NORMAL("normal", TextFormatting.WHITE),
+    FIRE("fire", TextFormatting.DARK_RED),
     ENDER("ender", TextFormatting.DARK_PURPLE),
     DEBUG("debug", TextFormatting.DARK_BLUE);
 
