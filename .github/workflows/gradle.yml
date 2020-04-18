@@ -1,10 +1,10 @@
 name: ForgeGradle Build
 
 on:
-  push:
-    branches: 1.15/release
-  pull_request:
-    branches: 1.15/release
+#  push:
+#    branches: 1.15/release
+#  pull_request:
+#    branches: 1.15/release
 
 jobs:
   build:
