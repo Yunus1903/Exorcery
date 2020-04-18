@@ -5,6 +5,9 @@ import com.yunus1903.exorcery.common.spell.Spell;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ */
 public class SpellsCapability implements ISpells
 {
     private List<Spell> spells = new ArrayList<>();

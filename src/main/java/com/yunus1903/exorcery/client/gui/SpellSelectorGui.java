@@ -15,6 +15,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ */
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorGui extends Screen
 {

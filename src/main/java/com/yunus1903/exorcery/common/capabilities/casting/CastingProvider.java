@@ -10,6 +10,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ * @since 14/04/2020
+ */
 public class CastingProvider implements ICapabilitySerializable<CompoundNBT>
 {
     @CapabilityInject(ICasting.class)

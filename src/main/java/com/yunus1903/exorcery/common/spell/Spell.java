@@ -26,6 +26,9 @@ import net.minecraftforge.registries.ForgeRegistry;
 
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ */
 public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryEntry<Spell>
 {
     private float manaCost = 0f;

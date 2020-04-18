@@ -13,6 +13,10 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 
+/**
+ * @author Yunus1903
+ * @since 13/04/2020
+ */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class TickHandler
 {

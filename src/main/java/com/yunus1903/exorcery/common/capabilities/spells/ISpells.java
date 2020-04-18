@@ -4,6 +4,9 @@ import com.yunus1903.exorcery.common.spell.Spell;
 
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ */
 public interface ISpells
 {
     List<Spell> getSpells();

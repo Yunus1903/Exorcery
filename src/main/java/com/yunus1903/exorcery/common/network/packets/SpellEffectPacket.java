@@ -7,6 +7,9 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+/**
+ * @author Yunus1903
+ */
 public class SpellEffectPacket
 {
     private final EffectType type;

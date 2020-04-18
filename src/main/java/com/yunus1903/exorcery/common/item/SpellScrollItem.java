@@ -23,6 +23,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ * @since 15/04/2020
+ */
 public final class SpellScrollItem extends Item
 {
     private Spell spell;

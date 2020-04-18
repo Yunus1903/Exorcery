@@ -5,6 +5,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.world.World;
 
+/**
+ * @author Yunus1903
+ */
 public class TestSpell extends Spell
 {
     public TestSpell()

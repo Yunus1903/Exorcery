@@ -1,5 +1,8 @@
 package com.yunus1903.exorcery.common.capabilities.mana;
 
+/**
+ * @author Yunus1903
+ */
 public interface IMana
 {
     float get();

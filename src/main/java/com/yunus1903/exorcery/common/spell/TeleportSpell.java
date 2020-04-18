@@ -12,6 +12,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+/**
+ * @author Yunus1903
+ * @since 13/04/2020
+ */
 public class TeleportSpell extends Spell
 {
     public TeleportSpell()

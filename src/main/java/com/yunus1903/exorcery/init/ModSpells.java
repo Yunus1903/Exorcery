@@ -3,6 +3,9 @@ package com.yunus1903.exorcery.init;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.spell.*;
 
+/**
+ * @author Yunus1903
+ */
 public final class ModSpells
 {
     public static final Spell TEST = new TestSpell();

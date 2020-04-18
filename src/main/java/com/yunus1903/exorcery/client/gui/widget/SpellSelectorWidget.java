@@ -12,6 +12,10 @@ import net.minecraftforge.fml.client.gui.GuiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ * @since 12/04/2020
+ */
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorWidget extends Widget
 {

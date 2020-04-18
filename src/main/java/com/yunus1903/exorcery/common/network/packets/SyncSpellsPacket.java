@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * @author Yunus1903
+ */
 public class SyncSpellsPacket
 {
     private final List<Spell> spells;

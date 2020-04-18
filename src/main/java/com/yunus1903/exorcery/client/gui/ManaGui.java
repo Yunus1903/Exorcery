@@ -1,7 +1,5 @@
 package com.yunus1903.exorcery.client.gui;
 
-import com.yunus1903.exorcery.common.capabilities.mana.IMana;
-import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
@@ -12,6 +10,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * @author Yunus1903
+ */
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Exorcery.MOD_ID)
 public class ManaGui

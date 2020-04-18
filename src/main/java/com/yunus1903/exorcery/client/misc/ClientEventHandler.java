@@ -10,6 +10,10 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * @author Yunus1903
+ * @since 12/04/2020
+ */
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Exorcery.MOD_ID)
 public final class ClientEventHandler

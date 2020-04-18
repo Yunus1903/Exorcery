@@ -10,6 +10,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ */
 public class ManaProvider implements ICapabilitySerializable<CompoundNBT>
 {
     @CapabilityInject(IMana.class)

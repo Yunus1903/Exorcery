@@ -4,6 +4,10 @@ import com.yunus1903.exorcery.common.spell.Spell;
 
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ * @since 14/04/2020
+ */
 public class CastingCapability implements ICasting
 {
     private boolean isCasting = false;

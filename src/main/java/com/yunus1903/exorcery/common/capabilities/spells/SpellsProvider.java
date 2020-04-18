@@ -10,6 +10,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ */
 public class SpellsProvider implements ICapabilitySerializable<CompoundNBT>
 {
     @CapabilityInject(ISpells.class)

@@ -9,6 +9,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Yunus1903
+ */
 public class SpellsStorage implements Capability.IStorage<ISpells>
 {
     @Nullable

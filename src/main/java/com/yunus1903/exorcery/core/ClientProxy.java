@@ -7,6 +7,9 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/**
+ * @author Yunus1903
+ */
 @OnlyIn(Dist.CLIENT)
 public class ClientProxy extends CommonProxy
 {

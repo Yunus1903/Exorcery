@@ -9,6 +9,10 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * @author Yunus1903
+ * @since 17/04/2020
+ */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class LootHandler
 {

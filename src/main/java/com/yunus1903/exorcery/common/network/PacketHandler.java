@@ -15,6 +15,9 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
+/**
+ * @author Yunus1903
+ */
 public final class PacketHandler
 {
     private static final String PROTOCOL = Integer.toString(1);

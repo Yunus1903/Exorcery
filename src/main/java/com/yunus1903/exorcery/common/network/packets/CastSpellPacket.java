@@ -18,6 +18,9 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
+/**
+ * @author Yunus1903
+ */
 public class CastSpellPacket
 {
     private final Spell spell;

@@ -11,6 +11,10 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.stream.Stream;
 
+/**
+ * @author Yunus1903
+ * @since 18/04/2020
+ */
 public class FertilitySpell extends Spell
 {
     private final int RADIUS = 4;

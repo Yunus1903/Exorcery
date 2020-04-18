@@ -9,6 +9,9 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
+/**
+ * @author Yunus1903
+ */
 public class ManaStorage implements Capability.IStorage<IMana>
 {
     @Nullable

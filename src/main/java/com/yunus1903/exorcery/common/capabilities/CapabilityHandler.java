@@ -11,6 +11,9 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * @author Yunus1903
+ */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class CapabilityHandler
 {

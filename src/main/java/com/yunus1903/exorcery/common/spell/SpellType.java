@@ -2,6 +2,9 @@ package com.yunus1903.exorcery.common.spell;
 
 import net.minecraft.util.text.TextFormatting;
 
+/**
+ * @author Yunus1903
+ */
 public enum SpellType
 {
     NORMAL("normal", TextFormatting.WHITE),

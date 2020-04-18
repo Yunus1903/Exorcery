@@ -10,6 +10,10 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+/**
+ * @author Yunus1903
+ * @since 14/04/2020
+ */
 public class SyncCastingPacket
 {
     private final boolean isCasting;

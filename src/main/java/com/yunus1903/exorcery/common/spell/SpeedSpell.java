@@ -14,6 +14,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+/**
+ * @author Yunus1903
+ * @since 13/04/2020
+ */
 public class SpeedSpell extends Spell
 {
     private final float DEFAULT_MANA_COST = 50F;
