@@ -12,14 +12,14 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0'
+version = '1.0.0.0'
 group = 'com.yunus1903.exorcery'
 archivesBaseName = 'exorcery'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200311-1.15.1'
+    mappings channel: 'snapshot', version: '20200418-1.15.1'
     //makeObfSourceJar = false
     
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
