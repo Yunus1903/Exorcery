@@ -17,6 +17,7 @@ public final class ModItems
     public static final Item SPELL_SCROLL_EMPTY = register(new SpellScrollItem());
     public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ModSpells.TELEPORT));
     public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ModSpells.SPEED));
+    public static final Item SPELL_SCROLL_FERTILITY = register(new SpellScrollItem(ModSpells.FERTILITY));
 
     private static Item register(Item item)
     {

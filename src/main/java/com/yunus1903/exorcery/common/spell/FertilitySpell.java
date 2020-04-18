@@ -27,6 +27,7 @@ public class FertilitySpell extends Spell
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
         // TODO: Live mana calc
+        // TODO: Animal Fertility
 
         BlockPos playerPos = player.getPosition();
         int x = playerPos.getX();

@@ -23,6 +23,7 @@ public final class LootHandler
             String file = name.substring(name.indexOf(prefix) + prefix.length());
             switch (file)
             {
+                case "village/village_plains_house":
                 case "buried_treasure":
                 case "end_city_treasure":
                 case "igloo_chest":

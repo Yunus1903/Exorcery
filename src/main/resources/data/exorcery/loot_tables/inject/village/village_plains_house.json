@@ -6,11 +6,6 @@
       "entries": [
         {
           "type": "item",
-          "name": "exorcery:spell_scroll_speed",
-          "weight": 1
-        },
-        {
-          "type": "item",
           "name": "exorcery:spell_scroll_fertility",
           "weight": 1
         }
