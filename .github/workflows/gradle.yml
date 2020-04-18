@@ -1,6 +1,6 @@
 name: "ForgeGradle Build"
 
-on:
+#on:
 #  push:
 #    branches: 1.15/release
 #  pull_request:
