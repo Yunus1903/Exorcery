@@ -1,4 +1,4 @@
-name: ForgeGradle Build
+name: "ForgeGradle Build"
 
 on:
 #  push:
