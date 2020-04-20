@@ -57,7 +57,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'exorcery', '--all', '--output', file('src/generated/resources/')
 
             mods {
                 exorcery {
