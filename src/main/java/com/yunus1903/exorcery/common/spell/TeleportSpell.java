@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.spell;
 
+import com.yunus1903.exorcery.common.config.SpellConfig;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,14 +24,15 @@ public class TeleportSpell extends Spell
     public TeleportSpell()
     {
         this.setRegistryName(Exorcery.MOD_ID, "teleport")
-                .setType(SpellType.ENDER); // TODO: do something with this
+                .setCastTime(SpellConfig.teleportCastTime)
+                .setType(SpellType.ENDER); // TODO: add ender particles
     }
 
     @Override
     public void calculateManaCost(PlayerEntity player)
     {
         if (targetLocation == null) setManaCost(Float.MAX_VALUE);
-        else setManaCost((float) Math.sqrt(player.getDistanceSq(new Vec3d(targetLocation))) * 3);
+        else setManaCost((float) Math.sqrt(player.getDistanceSq(new Vec3d(targetLocation))) * SpellConfig.teleportManaCostMultiplier);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -41,6 +43,8 @@ public class TeleportSpell extends Spell
 
         if (result.getType() == RayTraceResult.Type.BLOCK && result instanceof BlockRayTraceResult)
         {
+            // TODO: find better way of doing this
+
             targetLocation = ((BlockRayTraceResult) result).getPos();
             if (!mc.world.isAirBlock(targetLocation)) targetLocation = targetLocation.add(0, 1, 0);
             if (!mc.world.isAirBlock(targetLocation)) targetLocation = targetLocation.add(0, -2, 0);

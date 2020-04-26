@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.spell;
 
+import com.yunus1903.exorcery.common.config.SpellConfig;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -17,13 +18,11 @@ import java.util.stream.Stream;
  */
 public class FertilitySpell extends Spell
 {
-    private final int RADIUS = 4;
-
     public FertilitySpell()
     {
         this.setRegistryName(Exorcery.MOD_ID, "fertility")
-                .setManaCost(70F)
-                .setCastTime(80)
+                .setManaCost(SpellConfig.fertilityManaCost)
+                .setCastTime(SpellConfig.fertilityCastTime)
                 .setType(SpellType.NATURAL);
     }
 
@@ -38,7 +37,9 @@ public class FertilitySpell extends Spell
         int y = playerPos.getY();
         int z = playerPos.getZ();
 
-        Stream<BlockPos> stream =  BlockPos.getAllInBox(x - RADIUS, y - 2, z - RADIUS, x + RADIUS, y + 3, z + RADIUS);
+        int radius = SpellConfig.fertilityRadius;
+
+        Stream<BlockPos> stream =  BlockPos.getAllInBox(x - radius, y - 2, z - radius, x + radius, y + 3, z + radius);
         stream.forEach(pos ->
         {
             BlockState blockState = world.getBlockState(pos);

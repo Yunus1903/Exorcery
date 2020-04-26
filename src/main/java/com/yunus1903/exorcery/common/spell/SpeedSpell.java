@@ -14,27 +14,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import static com.yunus1903.exorcery.common.config.SpellConfig.*;
+
 /**
  * @author Yunus1903
  * @since 13/04/2020
  */
 public class SpeedSpell extends Spell
 {
-    private final float DEFAULT_MANA_COST = 50F;
-
     public SpeedSpell()
     {
         this.setRegistryName(Exorcery.MOD_ID, "speed")
-                .setManaCost(DEFAULT_MANA_COST)
-                .setCastTime(60)
+                .setManaCost(speedManaCostSelf)
+                .setCastTime(speedCastTime)
                 .setType(SpellType.NORMAL);
     }
 
     @Override
     public void calculateManaCost(PlayerEntity player)
     {
-        if (targetEntity != null) setManaCost(DEFAULT_MANA_COST * 2);
-        else setManaCost(DEFAULT_MANA_COST);
+        if (targetEntity != null) setManaCost(speedManaCostOther);
+        else setManaCost(speedManaCostSelf);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -56,11 +56,11 @@ public class SpeedSpell extends Spell
         {
             if (targetEntity == null)
             {
-                player.addPotionEffect(new EffectInstance(Effects.SPEED, 400, 2));
+                player.addPotionEffect(new EffectInstance(Effects.SPEED, speedEffectDuration, 2));
             }
             else
             {
-                targetEntity.addPotionEffect(new EffectInstance(Effects.SPEED, 400, 2));
+                targetEntity.addPotionEffect(new EffectInstance(Effects.SPEED, speedEffectDuration, 2));
             }
         }
         return super.onSpellCast(world, player);
