@@ -1,10 +1,10 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[${loader_version},)"
 issueTrackerURL="https://github.com/Yunus1903/Exorcery/issues"
 
 [[mods]]
     modId="exorcery"
-    version="${file.jarVersion}"
+    version="${version}"
     displayName="Exorcery"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/exorcery"
     logoFile="exorcery.png"
@@ -17,12 +17,12 @@ issueTrackerURL="https://github.com/Yunus1903/Exorcery/issues"
 [[dependencies.exorcery]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[${minecraft_version}]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.exorcery]]
     modId="forge"
     mandatory=true
-    versionRange="[31,)"
+    versionRange="[${forge_version},)"
     ordering="NONE"
     side="BOTH"

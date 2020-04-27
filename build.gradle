@@ -1,82 +1,92 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask
+
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
+        maven { url "https://files.minecraftforge.net/maven" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'gradle.plugin.se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.64'
     }
 }
+
+plugins {
+    id "com.matthewprenger.cursegradle" version '1.4.0'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
-version = '1.0.0.0'
-group = 'com.yunus1903.exorcery'
-archivesBaseName = 'exorcery'
+version = "${mod_version}"
+group = "${mod_group}"
+archivesBaseName = "${mod_name}-${minecraft_version}"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    maven { url "http://dvs1.progwml6.com/files/maven/" }
+}
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200418-1.15.1'
-    //makeObfSourceJar = false
-    
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    mappings channel: "snapshot", version: "${mappings_version}"
 
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                exorcery {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                exorcery {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'exorcery', '--all', '--output', file('src/generated/resources/')
-
-            mods {
-                exorcery {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.1.0'
-    implementation 'org.jetbrains:annotations:15.0'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+}
+
+def toml_properties = [
+        'version': project.version,
+        'minecraft_version': minecraft_version,
+        'forge_version': forge_version,
+        'loader_version': forge_version.tokenize('.').get(0)
+]
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'minecraft_version', minecraft_version
+    inputs.property 'forge_version', forge_version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        expand toml_properties
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    manifest {
+        attributes([
+                "Specification-Title": "${mod_name}",
+                "Specification-Vendor": "Yunus1903",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"Yunus1903",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 jar {
     manifest {
         attributes([
-            "Specification-Title": "Exorcery",
+            "Specification-Title": "${mod_name}",
             "Specification-Vendor": "Yunus1903",
             "Specification-Version": "1",
             "Implementation-Title": project.name,
@@ -87,20 +97,27 @@ jar {
     }
 }
 
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
+task generateChangelog(type: GitChangelogTask) {
+    file = new File("changelog.html")
+    untaggedName = "Version ${mod_version}"
+    fromRepo = file(".")
+    toRef = "HEAD"
+    templateContent = file("changelog.mustache").getText("UTF-8")
 }
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact reobfArtifact
+
+if (System.getenv("CURSEFORGE_KEY") != null || project.hasProperty('curseforgeKey')) {
+    curseforge {
+        apiKey = System.getenv("CURSEFORGE_KEY") ?: project.findProperty("curseforgeKey")
+        project {
+            id = curseforge_id
+            releaseType = curseforge_release_type
+            changelogType = "html"
+            changelog = file("changelog.html")
+            mainArtifact jar
+            addArtifact sourcesJar
         }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+        options {
+            debug = System.getenv("DEBUG") ?: false
         }
     }
 }
