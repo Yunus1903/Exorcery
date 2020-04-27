@@ -4,6 +4,11 @@
         {{#commits}}
             <li>
                 <a href="https://github.com/Yunus1903/Exorcery/commit/{{hashFull}}">{{{messageTitle}}}</a> - {{{authorName}}}
+                <ul>
+                    {{#messageBodyItems}}
+                        <li>{{.}}</li>
+                    {{/messageBodyItems}}
+                </ul>
             </li>
         {{/commits}}
     </ul>
