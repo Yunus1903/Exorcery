@@ -99,7 +99,7 @@ jar {
 
 task generateChangelog(type: GitChangelogTask) {
     file = new File("changelog.html")
-    untaggedName = "Version ${mod_version}"
+    untaggedName = "v${mod_version}"
     fromRepo = file(".")
     toRef = "HEAD"
     templateContent = file("changelog.mustache").getText("UTF-8")
