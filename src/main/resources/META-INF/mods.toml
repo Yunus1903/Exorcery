@@ -11,8 +11,7 @@ issueTrackerURL="https://github.com/Yunus1903/Exorcery/issues"
 
     authors="Yunus1903"
     credits=""
-    description='''
-    '''
+    description="Exorcery will give you the ability to cast spells and feel the sense of magic and sorcery flow trough you."
 
 [[dependencies.exorcery]]
     modId="minecraft"
