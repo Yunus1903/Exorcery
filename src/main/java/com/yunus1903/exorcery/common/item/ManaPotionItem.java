@@ -78,6 +78,6 @@ public class ManaPotionItem extends Item
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(new StringTextComponent((int) MANA + " Mana").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new StringTextComponent((int) MANA + " Mana").applyTextStyle(TextFormatting.GRAY));
     }
 }
