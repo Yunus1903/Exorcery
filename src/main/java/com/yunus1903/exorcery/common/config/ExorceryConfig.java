@@ -26,8 +26,6 @@ public class ExorceryConfig
         CLIENT = new ClientConfig(BUILDER);
 
         CLIENT_SPEC = BUILDER.build();
-
-        CLIENT.bake();
     }
 
     public static final ForgeConfigSpec COMMON_SPEC;
@@ -40,9 +38,6 @@ public class ExorceryConfig
         SPELL = new SpellConfig(BUILDER);
 
         COMMON_SPEC = BUILDER.build();
-
-        GENERAL.bake();
-        SPELL.bake();
     }
 
     public static final ForgeConfigSpec SERVER_SPEC;

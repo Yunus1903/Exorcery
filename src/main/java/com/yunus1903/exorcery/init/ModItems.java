@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.init;
 
+import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.item.ManaPotionItem;
 import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.core.Exorcery;
@@ -17,6 +18,11 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModItems
 {
+    static
+    {
+        ExorceryConfig.SPELL.bake();
+    }
+
     public static List<Item> items = new ArrayList<>();
     public static final Item SPELL_SCROLL_EMPTY = register(new SpellScrollItem());
     public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ModSpells.TELEPORT));
