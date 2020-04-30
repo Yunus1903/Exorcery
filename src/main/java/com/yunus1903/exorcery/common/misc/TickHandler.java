@@ -3,15 +3,30 @@ package com.yunus1903.exorcery.common.misc;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
+import com.yunus1903.exorcery.common.spell.SpellType;
 import com.yunus1903.exorcery.core.Exorcery;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Yunus1903
@@ -48,6 +63,20 @@ public final class TickHandler
                 {
                     if (casting.isCasting())
                     {
+                        if (server.getTickCounter() % 60 == 0 )//&& casting.getSpell().getType() == SpellType.ENDER) // TODO: Add field to spelltype (boolean)
+                        {
+                            List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(5));
+
+                            for (Entity entity : entities)
+                            {
+                                if (entity instanceof AnimalEntity)
+                                {
+                                    Vec3d pos = RandomPositionGenerator.findRandomTargetBlockAwayFrom((CreatureEntity) entity, 15, 4, player.getPositionVec());
+                                    //((AnimalEntity) entity).getNavigator().tryMoveToXYZ(pos.x, pos.y, pos.z, 2.0D); // TODO: Fix crashing
+                                }
+                            }
+                        }
+
                         BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
                         if (!player.getPosition().equals(prevPos) && !casting.getSpell().getWhileRunning())
                         {
