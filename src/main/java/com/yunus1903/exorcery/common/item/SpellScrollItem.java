@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -78,6 +79,7 @@ public final class SpellScrollItem extends Item
         else
         {
             playerIn.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
+            playerIn.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
         }
         return new ActionResult<>(ActionResultType.CONSUME, itemStack);
     }
