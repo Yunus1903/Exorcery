@@ -66,6 +66,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return this;
     }
 
+    public int getCastTime()
+    {
+        return castTime;
+    }
+
     public Spell setCastTime(int timeInTicks)
     {
         castTime = timeInTicks;
