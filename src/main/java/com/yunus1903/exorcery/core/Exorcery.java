@@ -70,7 +70,7 @@ public class Exorcery
     @SubscribeEvent
     public static void enqueueIMC(final InterModEnqueueEvent event)
     {
-        ModSpells.register();
+        ModSpells.registerSpells();
     }
 
     @SubscribeEvent

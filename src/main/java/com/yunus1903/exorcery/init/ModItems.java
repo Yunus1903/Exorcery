@@ -23,7 +23,7 @@ public final class ModItems
         ExorceryConfig.SPELL.bake();
     }
 
-    public static List<Item> items = new ArrayList<>();
+    private static final List<Item> ITEMS = new ArrayList<>();
     public static final Item SPELL_SCROLL_EMPTY = register(new SpellScrollItem());
     public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ModSpells.TELEPORT));
     public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ModSpells.SPEED));
@@ -32,14 +32,14 @@ public final class ModItems
 
     private static Item register(Item item)
     {
-        items.add(item);
+        ITEMS.add(item);
         return item;
     }
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event)
     {
-        for (Item item : items)
+        for (Item item : ITEMS)
         {
             event.getRegistry().register(item);
         }

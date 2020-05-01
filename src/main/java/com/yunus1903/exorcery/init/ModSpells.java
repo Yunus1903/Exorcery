@@ -3,21 +3,30 @@ package com.yunus1903.exorcery.init;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.spell.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yunus1903
  */
 public final class ModSpells
 {
-    public static final Spell TELEPORT = new TeleportSpell();
-    public static final Spell SPEED = new SpeedSpell();
-    public static final Spell FERTILITY = new FertilitySpell();
+    private static final List<Spell> SPELLS = new ArrayList<>();
+    public static final Spell TELEPORT = register(new TeleportSpell());
+    public static final Spell SPEED = register(new SpeedSpell());
+    public static final Spell FERTILITY = register(new FertilitySpell());
 
-    public static void register()
+    private static Spell register(Spell spell)
     {
-        ExorceryRegistry.SPELLS.registerAll(
-                TELEPORT,
-                SPEED,
-                FERTILITY
-        );
+        SPELLS.add(spell);
+        return spell;
+    }
+
+    public static void registerSpells()
+    {
+        for (Spell spell : SPELLS)
+        {
+            ExorceryRegistry.SPELLS.register(spell);
+        }
     }
 }
