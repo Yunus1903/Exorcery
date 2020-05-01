@@ -8,7 +8,6 @@ import com.yunus1903.exorcery.common.spell.*;
  */
 public final class ModSpells
 {
-    public static final Spell TEST = new TestSpell();
     public static final Spell TELEPORT = new TeleportSpell();
     public static final Spell SPEED = new SpeedSpell();
     public static final Spell FERTILITY = new FertilitySpell();
@@ -16,7 +15,6 @@ public final class ModSpells
     public static void register()
     {
         ExorceryRegistry.SPELLS.registerAll(
-                TEST,
                 TELEPORT,
                 SPEED,
                 FERTILITY

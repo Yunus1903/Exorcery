@@ -19,8 +19,7 @@ public enum SpellType
     private SpellType(String name, TextFormatting color)
     {
         this.name = name;
-        if (color.isColor()) this.color = color;
-        else this. color = TextFormatting.WHITE;
+        this.color = color.isColor() ? color : TextFormatting.WHITE;
     }
 
     public String getName()

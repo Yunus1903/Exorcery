@@ -63,8 +63,6 @@ public final class EventHandler
             ISpells spells = event.getPlayer().getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
             IMana mana = event.getPlayer().getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
-            spells.addSpell(ModSpells.TEST); // TODO: Add debug config for this
-
             syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
         }
     }
