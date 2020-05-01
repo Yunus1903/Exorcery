@@ -58,6 +58,7 @@ public class TeleportSpell extends Spell
     {
         if (targetLocation != null)
         {
+            world.setEntityState(player, (byte) 46);
             if (!world.isRemote())
             {
                 player.setPositionAndUpdate(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());

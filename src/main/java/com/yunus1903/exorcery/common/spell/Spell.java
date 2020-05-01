@@ -230,6 +230,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
+        if (type == SpellType.ENDER)
+        {
+            world.setEntityState(player, (byte) 46);
+        }
+
         player.swingArm(Hand.MAIN_HAND);
         return new ActionResult<>(ActionResultType.PASS, this);
     }
