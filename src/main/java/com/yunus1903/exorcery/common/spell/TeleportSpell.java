@@ -56,10 +56,13 @@ public class TeleportSpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        if (!world.isRemote() && targetLocation != null)
+        if (targetLocation != null)
         {
-            player.setPositionAndUpdate(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());
-            world.playMovingSound(null, player, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1, 1);
+            if (!world.isRemote())
+            {
+                player.setPositionAndUpdate(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());
+                world.playMovingSound(null, player, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1, 1);
+            }
             return super.onSpellCast(world, player);
         }
         return new ActionResult<>(ActionResultType.FAIL, this);
