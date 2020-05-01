@@ -14,13 +14,13 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static net.minecraftforge.event.TickEvent.*;
 
 /**
  * @author Yunus1903
@@ -37,9 +37,9 @@ public final class TickHandler
     }
 
     @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event)
+    public static void onServerTick(ServerTickEvent event)
     {
-        if (event.phase == TickEvent.Phase.START && Exorcery.instance.server != null)
+        if (event.side.isServer()  && event.phase == Phase.START && Exorcery.instance.server != null)
         {
             MinecraftServer server = Exorcery.instance.server;
 
@@ -85,9 +85,9 @@ public final class TickHandler
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
+    public static void onPlayerTick(PlayerTickEvent event)
     {
-        if (event.side == LogicalSide.SERVER)
+        if (event.side.isServer())
         {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
