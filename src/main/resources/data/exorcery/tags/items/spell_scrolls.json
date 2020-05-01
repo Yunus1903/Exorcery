@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "exorcery:spell_scroll_teleport",
+    "exorcery:spell_scroll_speed",
+    "exorcery:spell_scroll_fertility"
+  ]
+}

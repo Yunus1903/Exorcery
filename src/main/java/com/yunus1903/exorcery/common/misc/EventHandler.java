@@ -10,9 +10,15 @@ import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
+import com.yunus1903.exorcery.init.ModItems;
 import com.yunus1903.exorcery.init.ModSpells;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -78,6 +84,26 @@ public final class EventHandler
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
             syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAnvilUpdate(AnvilUpdateEvent event)
+    {
+        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getLeft().getItem()) && event.getRight().getItem() == ModItems.SPELL_SCROLL_EMPTY)
+        {
+            event.setOutput(new ItemStack(event.getLeft().getItem()));
+            event.setCost(5);
+            event.setMaterialCost(1);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAnvilRepair(AnvilRepairEvent event)
+    {
+        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getItemResult().getItem()))
+        {
+            event.getPlayer().inventory.addItemStackToInventory(event.getItemInput());
         }
     }
 
