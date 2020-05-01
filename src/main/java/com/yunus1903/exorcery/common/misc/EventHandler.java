@@ -13,10 +13,8 @@ import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ModSpells;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 /**
@@ -80,23 +78,6 @@ public final class EventHandler
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
             syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
-    {
-        if (event.side == LogicalSide.SERVER)
-        {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
-            player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
-            {
-                if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0 && !player.isCreative() && !player.isSpectator())
-                {
-                    mana.set(mana.get() + mana.getRegenerationRate());
-                    PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
-                }
-            });
         }
     }
 

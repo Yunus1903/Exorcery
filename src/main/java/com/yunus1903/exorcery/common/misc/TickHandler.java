@@ -1,29 +1,23 @@
 package com.yunus1903.exorcery.common.misc;
 
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
+import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
-import com.yunus1903.exorcery.common.spell.SpellType;
+import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import com.yunus1903.exorcery.core.Exorcery;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +81,23 @@ public final class TickHandler
                     }
                 });
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
+    {
+        if (event.side == LogicalSide.SERVER)
+        {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+            player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
+            {
+                if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0 && !player.isCreative() && !player.isSpectator())
+                {
+                    mana.set(mana.get() + mana.getRegenerationRate());
+                    PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+                }
+            });
         }
     }
 }
