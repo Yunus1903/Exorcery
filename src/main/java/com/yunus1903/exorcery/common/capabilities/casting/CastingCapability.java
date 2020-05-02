@@ -1,7 +1,6 @@
 package com.yunus1903.exorcery.common.capabilities.casting;
 
 import com.yunus1903.exorcery.common.spell.Spell;
-
 import javax.annotation.Nullable;
 
 /**
@@ -11,7 +10,8 @@ import javax.annotation.Nullable;
 public class CastingCapability implements ICasting
 {
     private boolean isCasting = false;
-    private Spell spell;
+    private Spell spell = null;
+    private int currentCastTime = 0;
 
     @Override
     public boolean isCasting()
@@ -24,6 +24,18 @@ public class CastingCapability implements ICasting
     public Spell getSpell()
     {
         return spell;
+    }
+
+    @Override
+    public int getCurrentCastTime()
+    {
+        return currentCastTime;
+    }
+
+    @Override
+    public int getTotalCastTime()
+    {
+        return spell.getCastTime();
     }
 
     @Override
@@ -42,6 +54,13 @@ public class CastingCapability implements ICasting
     public void stopCasting()
     {
         isCasting = false;
-        this.spell = null;
+        spell = null;
+        currentCastTime = 0;
+    }
+
+    @Override
+    public void tick()
+    {
+        if (isCasting) currentCastTime++;
     }
 }

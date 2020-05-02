@@ -55,6 +55,8 @@ public final class TickHandler
             {
                 player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                 {
+                    casting.tick();
+
                     if (casting.isCasting())
                     {
                         if (server.getTickCounter() % 60 == 0 )//&& casting.getSpell().getType() == SpellType.ENDER) // TODO: Add field to spelltype (boolean)

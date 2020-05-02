@@ -15,7 +15,13 @@ public interface ICasting
     @Nullable
     Spell getSpell();
 
+    int getCurrentCastTime();
+
+    int getTotalCastTime();
+
     boolean startCasting(Spell spell);
 
     void stopCasting();
+
+    void tick();
 }
