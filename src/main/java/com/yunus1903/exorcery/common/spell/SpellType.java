@@ -7,19 +7,20 @@ import net.minecraft.util.text.TextFormatting;
  */
 public enum SpellType
 {
-    NORMAL("normal", TextFormatting.WHITE),
-    NATURAL("natural", TextFormatting.DARK_GREEN),
-    FIRE("fire", TextFormatting.DARK_RED),
-    ENDER("ender", TextFormatting.DARK_PURPLE),
-    DEBUG("debug", TextFormatting.DARK_BLUE);
+    NORMAL("normal", TextFormatting.WHITE, false),
+    NATURAL("natural", TextFormatting.DARK_GREEN, false),
+    FIRE("fire", TextFormatting.DARK_RED, true),
+    ENDER("ender", TextFormatting.DARK_PURPLE, true);
 
     private final String name;
     private final TextFormatting color;
+    private final boolean frightensAnimals;
 
-    private SpellType(String name, TextFormatting color)
+    private SpellType(String name, TextFormatting color, boolean frightensAnimals)
     {
         this.name = name;
         this.color = color.isColor() ? color : TextFormatting.WHITE;
+        this.frightensAnimals = frightensAnimals;
     }
 
     public String getName()
@@ -30,5 +31,10 @@ public enum SpellType
     public TextFormatting getColor()
     {
         return color;
+    }
+
+    public boolean getFrightensAnimals()
+    {
+        return frightensAnimals;
     }
 }

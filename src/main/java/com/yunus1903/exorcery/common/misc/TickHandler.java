@@ -59,16 +59,16 @@ public final class TickHandler
 
                     if (casting.isCasting())
                     {
-                        if (server.getTickCounter() % 60 == 0 )//&& casting.getSpell().getType() == SpellType.ENDER) // TODO: Add field to spelltype (boolean)
+                        if (casting.getSpell().getType().getFrightensAnimals())
                         {
-                            List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(5));
+                            List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getBoundingBox().grow(8));
 
                             for (Entity entity : entities)
                             {
                                 if (entity instanceof AnimalEntity)
                                 {
-                                    Vec3d pos = RandomPositionGenerator.findRandomTargetBlockAwayFrom((CreatureEntity) entity, 15, 4, player.getPositionVec());
-                                    //((AnimalEntity) entity).getNavigator().tryMoveToXYZ(pos.x, pos.y, pos.z, 2.0D); // TODO: Fix crashing
+                                    Vec3d pos = RandomPositionGenerator.findRandomTargetBlockAwayFrom((CreatureEntity) entity, 20, 4, player.getPositionVec());
+                                    if (pos != null) ((AnimalEntity) entity).getNavigator().tryMoveToXYZ(pos.x, pos.y, pos.z, 2.0D);
                                 }
                             }
                         }
