@@ -1,6 +1,6 @@
-package com.yunus1903.exorcery.client.gui.widget;
+package com.yunus1903.exorcery.client.screen.widget;
 
-import com.yunus1903.exorcery.client.gui.SpellSelectorGui;
+import com.yunus1903.exorcery.client.screen.SpellSelectorGui;
 import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.resources.I18n;

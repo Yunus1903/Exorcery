@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.client.misc;
 
-import com.yunus1903.exorcery.client.gui.SpellSelectorGui;
+import com.yunus1903.exorcery.client.screen.SpellSelectorGui;
 import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;

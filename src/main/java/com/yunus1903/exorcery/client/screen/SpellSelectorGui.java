@@ -1,6 +1,6 @@
-package com.yunus1903.exorcery.client.gui;
+package com.yunus1903.exorcery.client.screen;
 
-import com.yunus1903.exorcery.client.gui.widget.SpellSelectorWidget;
+import com.yunus1903.exorcery.client.screen.widget.SpellSelectorWidget;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.spell.Spell;

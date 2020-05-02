@@ -4,7 +4,7 @@
  */
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package com.yunus1903.exorcery.client.gui.widget;
+package com.yunus1903.exorcery.client.screen;
 
 import mcp.MethodsReturnNonnullByDefault;
 
