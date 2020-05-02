@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.client.misc;
 
-import com.yunus1903.exorcery.client.screen.SpellSelectorGui;
+import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
@@ -25,7 +25,7 @@ public final class ClientEventHandler
         {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player.isSpectator()) return;
-            mc.displayGuiScreen(new SpellSelectorGui());
+            mc.displayGuiScreen(new SpellSelectorScreen());
         }
     }
 }

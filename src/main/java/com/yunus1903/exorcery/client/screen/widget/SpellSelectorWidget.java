@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.client.screen.widget;
 
-import com.yunus1903.exorcery.client.screen.SpellSelectorGui;
+import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.resources.I18n;
@@ -19,10 +19,10 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SpellSelectorWidget extends Widget
 {
-    SpellSelectorGui gui;
+    SpellSelectorScreen gui;
     private Spell spell;
 
-    public SpellSelectorWidget(int x, int y, Spell spell, SpellSelectorGui gui)
+    public SpellSelectorWidget(int x, int y, Spell spell, SpellSelectorScreen gui)
     {
         super(x, y, spell.getName().getString());
         this.gui = gui;

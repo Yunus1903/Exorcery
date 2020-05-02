@@ -6,7 +6,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_GRAVE_ACCENT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
 /**
  * @author Yunus1903

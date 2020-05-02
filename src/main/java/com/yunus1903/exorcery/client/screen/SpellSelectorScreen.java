@@ -19,14 +19,14 @@ import java.util.List;
  * @author Yunus1903
  */
 @OnlyIn(Dist.CLIENT)
-public class SpellSelectorGui extends Screen
+public class SpellSelectorScreen extends Screen
 {
     private final int CENTER_OFFSET_STRAIGHT = 100;
     private final int CENTER_OFFSET_SIDE = 60;
 
     public float scale = 1.0F;
 
-    public SpellSelectorGui()
+    public SpellSelectorScreen()
     {
         super(new StringTextComponent("Spell Selector"));
     }
