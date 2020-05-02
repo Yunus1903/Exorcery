@@ -35,7 +35,6 @@ public final class PacketHandler
         HANDLER.registerMessage(id++, SyncSpellsPacket.class, SyncSpellsPacket::encode, SyncSpellsPacket::decode, SyncSpellsPacket.Handler::handle);
         HANDLER.registerMessage(id++, CastSpellPacket.class, CastSpellPacket::encode, CastSpellPacket::decode, CastSpellPacket.Handler::handle);
         HANDLER.registerMessage(id++, SyncManaPacket.class, SyncManaPacket::encode, SyncManaPacket::decode, SyncManaPacket.Handler::handle);
-        HANDLER.registerMessage(id++, SpellEffectPacket.class, SpellEffectPacket::encode, SpellEffectPacket::decode, SpellEffectPacket.Handler::handle);
         HANDLER.registerMessage(id++, SyncCastingPacket.class, SyncCastingPacket::encode, SyncCastingPacket::decode, SyncCastingPacket.Handler::handle);
     }
 
