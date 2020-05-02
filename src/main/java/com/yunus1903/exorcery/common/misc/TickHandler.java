@@ -43,12 +43,19 @@ public final class TickHandler
         {
             MinecraftServer server = Exorcery.instance.server;
 
-            for (HashMap.Entry<Long, Runnable> map : schedule.entrySet())
+            try
             {
-                if (map.getKey() <= server.getTickCounter())
+                for (HashMap.Entry<Long, Runnable> map : schedule.entrySet())
                 {
-                    schedule.remove(map.getKey()).run();
+                    if (map.getKey() <= server.getTickCounter())
+                    {
+                        schedule.remove(map.getKey()).run();
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Exorcery.LOGGER.error(e.getMessage());
             }
 
             for (ServerPlayerEntity player : server.getPlayerList().getPlayers())
