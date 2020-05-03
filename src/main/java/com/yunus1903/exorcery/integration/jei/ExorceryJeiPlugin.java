@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author Yunus1903
  * @since 01/05/2020
  */
+@OnlyIn(Dist.CLIENT)
 @JeiPlugin
 public class ExorceryJeiPlugin implements IModPlugin
 {
@@ -46,6 +49,4 @@ public class ExorceryJeiPlugin implements IModPlugin
 
         registration.addRecipes(collection, VanillaRecipeCategoryUid.ANVIL);
     }
-
-
 }
