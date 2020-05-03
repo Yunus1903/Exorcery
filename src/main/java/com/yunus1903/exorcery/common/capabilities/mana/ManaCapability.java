@@ -5,8 +5,8 @@ package com.yunus1903.exorcery.common.capabilities.mana;
  */
 public class ManaCapability implements IMana
 {
-    private float mana = 200F;
-    private float maximumMana = 200F;
+    private float mana = 1000F;
+    private float maximumMana = 1000F;
     private int regenerationRate = 1;
 
     @Override

@@ -51,12 +51,12 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the speed spell on yourself")
                 .translation("config.exorcery.spell.speed_mana_cost_self")
                 .worldRestart()
-                .defineInRange("speedManaCostSelf", 50, 0, 10000);
+                .defineInRange("speedManaCostSelf", 100, 0, 10000);
 
         SPEED_MANA_COST_OTHER = builder
                 .comment("Mana cost of the speed spell on others")
                 .translation("config.exorcery.spell.speed_mana_cost_other")
-                .defineInRange("speedManaCostOther", 100, 0, 10000);
+                .defineInRange("speedManaCostOther", 150, 0, 10000);
 
         SPEED_CAST_TIME = builder
                 .comment("Cast time of the speed spell (in ticks)")
@@ -75,7 +75,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the fertility spell")
                 .translation("config.exorcery.spell.fertility_mana_cost")
                 .worldRestart()
-                .defineInRange("fertilityManaCost", 70, 0, 10000);
+                .defineInRange("fertilityManaCost", 200, 0, 10000);
 
         FERTILITY_CAST_TIME = builder
                 .comment("Cast time of the fertility spell (in ticks)")

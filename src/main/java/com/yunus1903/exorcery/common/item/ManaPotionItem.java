@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ManaPotionItem extends Item
 {
-    private final float MANA = 50F;
+    private final float MANA = 200F;
 
     public ManaPotionItem()
     {
