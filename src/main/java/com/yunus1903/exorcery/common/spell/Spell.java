@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -195,6 +196,11 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                 if (castTime > 0)
                 {
                     world.playMovingSound(null, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
+
+                    ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(
+                            STitlePacket.Type.ACTIONBAR,
+                            new TranslationTextComponent("gui.exorcery.actionbar.casting").appendText(": ").appendSibling(getName())
+                    ));
                 }
 
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
