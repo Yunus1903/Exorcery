@@ -10,6 +10,11 @@
   "config.exorcery.spell.fertility_mana_cost": "Mana cost of the fertility spell",
   "config.exorcery.spell.fertility_cast_time": "Cast time of the fertility spell (in ticks)",
   "config.exorcery.spell.fertility_radius": "Radius of the fertility spell",
+  "config.exorcery.spell.fireball_mana_cost": "Mana cost of the fireball spell",
+  "config.exorcery.spell.fireball_cast_time": "Cast time of the fireball spell (in ticks)",
+  "config.exorcery.spell.time_warp_mana_cost": "Mana cost of the time warp spell",
+  "config.exorcery.spell.time_warp_cast_time": "Cast time of the time warp spell (in ticks)",
+  "config.exorcery.spell.time_warp_steps": "Time steps to reach day/night time",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.tooltip.cast_time": "Cast Time",
   "gui.exorcery.tooltip.cast_time_instant": "Instant",
@@ -23,5 +28,8 @@
   "spell.exorcery.teleport": "Teleport",
   "spell.exorcery.speed": "Speed",
   "spell.exorcery.fertility": "Fertility",
+  "spell.exorcery.fireball": "Fireball",
+  "spell.exorcery.time_warp_day": "Time Warp Day",
+  "spell.exorcery.time_warp_night": "Time Warp Night",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }

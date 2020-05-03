@@ -17,6 +17,11 @@ public class SpellConfig implements IBaseConfig
     public static int fertilityManaCost;
     public static int fertilityCastTime;
     public static int fertilityRadius;
+    public static int fireballManaCost;
+    public static int fireballCastTime;
+    public static int timeWarpManaCost;
+    public static int timeWarpCastTime;
+    public static int timeWarpSteps;
 
     private final ForgeConfigSpec.IntValue TELEPORT_MANA_COST_MULTIPLIER;
     private final ForgeConfigSpec.IntValue TELEPORT_CAST_TIME;
@@ -27,6 +32,11 @@ public class SpellConfig implements IBaseConfig
     private final ForgeConfigSpec.IntValue FERTILITY_MANA_COST;
     private final ForgeConfigSpec.IntValue FERTILITY_CAST_TIME;
     private final ForgeConfigSpec.IntValue FERTILITY_RADIUS;
+    private final ForgeConfigSpec.IntValue FIREBALL_MANA_COST;
+    private final ForgeConfigSpec.IntValue FIREBALL_CAST_TIME;
+    private final ForgeConfigSpec.IntValue TIME_WARP_MANA_COST;
+    private final ForgeConfigSpec.IntValue TIME_WARP_CAST_TIME;
+    private final ForgeConfigSpec.IntValue TIME_WARP_STEPS;
 
     public SpellConfig(ForgeConfigSpec.Builder builder)
     {
@@ -88,6 +98,40 @@ public class SpellConfig implements IBaseConfig
                 .translation("config.exorcery.spell.fertility_radius")
                 .defineInRange("fertilityRadius", 4, 1, 50);
 
+        builder.pop().comment("Fireball").push("fireball");
+
+        FIREBALL_MANA_COST = builder
+                .comment("Mana cost of the fireball spell")
+                .translation("config.exorcery.spell.fireball_mana_cost")
+                .worldRestart()
+                .defineInRange("fireballManaCost", 80, 0, 10000);
+
+        FIREBALL_CAST_TIME = builder
+                .comment("Cast time of the fireball spell (in ticks)")
+                .translation("config.exorcery.spell.fireball_cast_time")
+                .worldRestart()
+                .defineInRange("fireballCastTime", 0, 0, 6000);
+
+        builder.pop().comment("TimeWarp").push("timewarp");
+
+        TIME_WARP_MANA_COST = builder
+                .comment("Mana cost of the time warp spell")
+                .translation("config.exorcery.spell.time_warp_mana_cost")
+                .worldRestart()
+                .defineInRange("timeWarpManaCost", 500, 0, 10000);
+
+        TIME_WARP_CAST_TIME = builder
+                .comment("Cast time of the time warp spell (in ticks)")
+                .translation("config.exorcery.spell.time_warp_cast_time")
+                .worldRestart()
+                .defineInRange("timeWarpCastTime", 200, 0, 6000);
+
+        TIME_WARP_STEPS = builder
+                .comment("Time steps to reach day/night time")
+                .translation("config.exorcery.spell.time_warp_steps")
+                .worldRestart()
+                .defineInRange("timeWarpSteps", 50, 0, 6000);
+
         builder.pop(2);
     }
 
@@ -103,5 +147,10 @@ public class SpellConfig implements IBaseConfig
         fertilityManaCost = FERTILITY_MANA_COST.get();
         fertilityCastTime = FERTILITY_CAST_TIME.get();
         fertilityRadius = FERTILITY_RADIUS.get();
+        fireballManaCost = FIREBALL_MANA_COST.get();
+        fireballCastTime = FIREBALL_CAST_TIME.get();
+        timeWarpManaCost = TIME_WARP_MANA_COST.get();
+        timeWarpCastTime = TIME_WARP_CAST_TIME.get();
+        timeWarpSteps = TIME_WARP_STEPS.get();
     }
 }

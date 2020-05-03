@@ -15,6 +15,9 @@ public final class ExorcerySpells
     public static final Spell TELEPORT = register(new TeleportSpell());
     public static final Spell SPEED = register(new SpeedSpell());
     public static final Spell FERTILITY = register(new FertilitySpell());
+    public static final Spell FIREBALL = register(new FireballSpell());
+    public static final Spell TIME_WARP_DAY = register(new TimeWarpSpell("time_warp_day", 0));
+    public static final Spell TIME_WARP_NIGHT = register(new TimeWarpSpell("time_warp_night", 14000));
 
     private static Spell register(Spell spell)
     {

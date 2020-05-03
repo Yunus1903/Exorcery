@@ -28,6 +28,9 @@ public final class ExorceryItems
     public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ExorcerySpells.TELEPORT));
     public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ExorcerySpells.SPEED));
     public static final Item SPELL_SCROLL_FERTILITY = register(new SpellScrollItem(ExorcerySpells.FERTILITY));
+    public static final Item SPELL_SCROLL_FIREBALL = register(new SpellScrollItem(ExorcerySpells.FIREBALL));
+    public static final Item SPELL_TIME_WARP_DAY = register(new SpellScrollItem(ExorcerySpells.TIME_WARP_DAY));
+    public static final Item SPELL_TIME_WARP_NIGHT = register(new SpellScrollItem(ExorcerySpells.TIME_WARP_NIGHT));
     public static final Item MANA_POTION = register(new ManaPotionItem());
 
     private static Item register(Item item)
