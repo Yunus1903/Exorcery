@@ -19,7 +19,7 @@ public interface ICasting
 
     int getTotalCastTime();
 
-    boolean startCasting(Spell spell);
+    boolean startCasting(@Nullable Spell spell);
 
     void stopCasting();
 

@@ -39,7 +39,7 @@ public class CastingCapability implements ICasting
     }
 
     @Override
-    public boolean startCasting(Spell spell)
+    public boolean startCasting(@Nullable Spell spell)
     {
         if (spell != null)
         {
