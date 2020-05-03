@@ -1,13 +1,17 @@
 package com.yunus1903.exorcery.common.network.packets;
 
-import com.yunus1903.exorcery.common.capabilities.casting.CastingCapability;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
-import com.yunus1903.exorcery.common.capabilities.casting.ICasting;
+import com.yunus1903.exorcery.common.misc.SoundHandler;
 import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 /**
@@ -17,9 +21,10 @@ import java.util.function.Supplier;
 public class SyncCastingPacket
 {
     private final boolean isCasting;
+    @Nullable
     private final Spell spell;
 
-    public SyncCastingPacket(boolean isCasting, Spell spell)
+    public SyncCastingPacket(boolean isCasting, @Nullable Spell spell)
     {
         this.isCasting = isCasting;
         this.spell = spell;
@@ -40,20 +45,38 @@ public class SyncCastingPacket
     {
         public static void handle(SyncCastingPacket msg, Supplier<NetworkEvent.Context> ctx)
         {
-            if (ctx.get().getDirection().getReceptionSide().isClient())
+            if (ctx.get().getDirection().getReceptionSide().isServer())
+            {
+                ctx.get().getSender().getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                {
+                    Spell spell = msg.spell;
+
+                    if (msg.isCasting) casting.startCasting(spell);
+                    else
+                    {
+                        casting.stopCasting();
+                        SoundHandler.stopChanting(ctx.get().getSender());
+                    }
+                });
+            }
+            else if (ctx.get().getDirection().getReceptionSide().isClient())
             {
                 ctx.get().enqueueWork(() ->
                 {
-                    Minecraft mc = Minecraft.getInstance();
-                    ICasting casting = mc.player.getCapability(CastingProvider.CASTING_CAPABILITY).orElse(new CastingCapability());
-                    Spell spell = null;
+                    AtomicReference<PlayerEntity> player = new AtomicReference<>();
 
-                    if (msg.isCasting)
+                    DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
                     {
-                        spell = msg.spell;
-                    }
+                        player.set(Minecraft.getInstance().player);
+                    });
 
-                    casting.startCasting(spell);
+                    player.get().getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                    {
+                        Spell spell = msg.spell;
+
+                        if (msg.isCasting) casting.startCasting(spell);
+                        else casting.stopCasting();
+                    });
                 });
             }
             ctx.get().setPacketHandled(true);
