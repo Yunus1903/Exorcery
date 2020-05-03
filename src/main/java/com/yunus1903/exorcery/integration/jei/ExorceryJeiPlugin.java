@@ -1,7 +1,7 @@
 package com.yunus1903.exorcery.integration.jei;
 
 import com.yunus1903.exorcery.core.Exorcery;
-import com.yunus1903.exorcery.init.ModItems;
+import com.yunus1903.exorcery.init.ExorceryItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -42,7 +42,7 @@ public class ExorceryJeiPlugin implements IModPlugin
         {
             List<ItemStack> right = new ArrayList<>();
             List<ItemStack> output = new ArrayList<>();
-            right.add(new ItemStack(ModItems.SPELL_SCROLL_EMPTY));
+            right.add(new ItemStack(ExorceryItems.SPELL_SCROLL_EMPTY));
             output.add(new ItemStack(item));
             collection.add(registration.getVanillaRecipeFactory().createAnvilRecipe(new ItemStack(item), right, output));
         }

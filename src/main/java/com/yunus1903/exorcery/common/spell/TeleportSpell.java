@@ -25,7 +25,7 @@ public class TeleportSpell extends Spell
     {
         this.setRegistryName(Exorcery.MOD_ID, "teleport")
                 .setCastTime(SpellConfig.teleportCastTime)
-                .setType(SpellType.ENDER); // TODO: add ender particles
+                .setType(SpellType.ENDER);
     }
 
     @Override

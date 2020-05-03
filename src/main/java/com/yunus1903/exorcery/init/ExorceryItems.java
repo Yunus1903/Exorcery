@@ -16,7 +16,7 @@ import java.util.List;
  * @author Yunus1903
  */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ModItems
+public final class ExorceryItems
 {
     static
     {
@@ -25,9 +25,9 @@ public final class ModItems
 
     private static final List<Item> ITEMS = new ArrayList<>();
     public static final Item SPELL_SCROLL_EMPTY = register(new SpellScrollItem());
-    public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ModSpells.TELEPORT));
-    public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ModSpells.SPEED));
-    public static final Item SPELL_SCROLL_FERTILITY = register(new SpellScrollItem(ModSpells.FERTILITY));
+    public static final Item SPELL_SCROLL_TELEPORT = register(new SpellScrollItem(ExorcerySpells.TELEPORT));
+    public static final Item SPELL_SCROLL_SPEED = register(new SpellScrollItem(ExorcerySpells.SPEED));
+    public static final Item SPELL_SCROLL_FERTILITY = register(new SpellScrollItem(ExorcerySpells.FERTILITY));
     public static final Item MANA_POTION = register(new ManaPotionItem());
 
     private static Item register(Item item)

@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.core;
 
-import com.yunus1903.exorcery.init.ModItems;
+import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -18,7 +18,7 @@ public class CommonProxy
         BrewingRecipeRegistry.addRecipe(
                 Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)),
                 Ingredient.fromItems(Items.LAPIS_LAZULI),
-                new ItemStack(ModItems.MANA_POTION)
+                new ItemStack(ExorceryItems.MANA_POTION)
         );
     }
 }

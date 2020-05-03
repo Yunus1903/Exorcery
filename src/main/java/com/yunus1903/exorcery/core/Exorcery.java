@@ -12,7 +12,7 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
-import com.yunus1903.exorcery.init.ModSpells;
+import com.yunus1903.exorcery.init.ExorcerySpells;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -70,7 +70,7 @@ public class Exorcery
     @SubscribeEvent
     public static void enqueueIMC(final InterModEnqueueEvent event)
     {
-        ModSpells.registerSpells();
+        ExorcerySpells.registerSpells();
     }
 
     @SubscribeEvent

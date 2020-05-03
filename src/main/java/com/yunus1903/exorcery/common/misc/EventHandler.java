@@ -10,8 +10,7 @@ import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
-import com.yunus1903.exorcery.init.ModItems;
-import com.yunus1903.exorcery.init.ModSpells;
+import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -88,7 +87,7 @@ public final class EventHandler
     @SubscribeEvent
     public static void onAnvilUpdate(AnvilUpdateEvent event)
     {
-        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getLeft().getItem()) && event.getRight().getItem() == ModItems.SPELL_SCROLL_EMPTY)
+        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getLeft().getItem()) && event.getRight().getItem() == ExorceryItems.SPELL_SCROLL_EMPTY)
         {
             event.setOutput(new ItemStack(event.getLeft().getItem()));
             event.setCost(5);

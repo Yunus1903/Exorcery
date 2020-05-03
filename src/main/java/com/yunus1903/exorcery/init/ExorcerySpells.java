@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Yunus1903
  */
-public final class ModSpells
+public final class ExorcerySpells
 {
     private static final List<Spell> SPELLS = new ArrayList<>();
     public static final Spell TELEPORT = register(new TeleportSpell());
