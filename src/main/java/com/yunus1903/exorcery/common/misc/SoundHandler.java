@@ -27,6 +27,13 @@ public final class SoundHandler
 
     public static void stopChanting(ServerPlayerEntity player)
     {
-        player.getServer().getPlayerList().sendToAllNearExcept(null, player.getPosX(), player.getPosY(), player.getPosZ(), 16, player.dimension, new SStopSoundPacket(SoundHandler.SPELL_CHANTING.getName(), SoundCategory.VOICE));
+        player.getServer().getPlayerList().sendToAllNearExcept(
+                null,
+                player.getPosX(),
+                player.getPosY(),
+                player.getPosZ(),
+                16,
+                player.dimension,
+                new SStopSoundPacket(new ResourceLocation(Exorcery.MOD_ID, "spell_chanting"), SoundCategory.VOICE));
     }
 }

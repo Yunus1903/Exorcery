@@ -83,9 +83,9 @@ public final class TickHandler
                         BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
                         if (!player.getPosition().equals(prevPos) && !casting.getSpell().getWhileRunning())
                         {
-                            SoundHandler.stopChanting(player);
                             casting.stopCasting();
                             PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
+                            SoundHandler.stopChanting(player);
                         }
                     }
                 });
