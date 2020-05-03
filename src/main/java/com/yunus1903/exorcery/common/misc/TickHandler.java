@@ -29,11 +29,17 @@ import static net.minecraftforge.event.TickEvent.*;
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class TickHandler
 {
-    private static HashMap<Long, Runnable> schedule = new HashMap<>();
+    private static final HashMap<Long, Runnable> tasks = new HashMap<>();
+    private static final HashMap<Long, Runnable> loopTasks = new HashMap<>();
 
     public static void scheduleTask(long timeToRun, Runnable runnable)
     {
-        schedule.put(timeToRun, runnable);
+        tasks.put(timeToRun, runnable);
+    }
+
+    public static void scheduleLoopTask(long timeToRun, Runnable runnable)
+    {
+        loopTasks.put(timeToRun, runnable);
     }
 
     @SubscribeEvent
@@ -45,11 +51,27 @@ public final class TickHandler
 
             try
             {
-                for (HashMap.Entry<Long, Runnable> map : schedule.entrySet())
+                for (HashMap.Entry<Long, Runnable> map : tasks.entrySet())
                 {
                     if (map.getKey() <= server.getTickCounter())
                     {
-                        schedule.remove(map.getKey()).run();
+                        tasks.remove(map.getKey()).run();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Exorcery.LOGGER.error(e.getMessage());
+            }
+
+            try
+            {
+                for (HashMap.Entry<Long, Runnable> map : loopTasks.entrySet())
+                {
+                    map.getValue().run();
+                    if (map.getKey() <= server.getTickCounter())
+                    {
+                        loopTasks.remove(map.getKey());
                     }
                 }
             }
