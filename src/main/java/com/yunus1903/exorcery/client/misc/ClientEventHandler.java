@@ -2,12 +2,16 @@ package com.yunus1903.exorcery.client.misc;
 
 import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
+import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
+import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
+import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -30,6 +34,14 @@ public final class ClientEventHandler
         {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player.isSpectator()) return;
+
+            ISpells spells = mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
+            if (spells.getSpells().isEmpty())
+            {
+                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_spells"));
+                return;
+            }
+
             mc.displayGuiScreen(new SpellSelectorScreen());
         }
     }
