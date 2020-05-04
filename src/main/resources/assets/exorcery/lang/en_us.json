@@ -24,6 +24,7 @@
   "item.exorcery.spell_scroll": "Spell Scroll",
   "item.exorcery.spell_scroll_empty": "Empty Spell Scroll",
   "item.exorcery.mana_potion": "Mana Potion",
+  "itemGroup.exorcery": "Exorcery",
   "key.exorcery.spell_selector": "Select/Cast Spell",
   "spell.exorcery.teleport": "Teleport",
   "spell.exorcery.speed": "Speed",

@@ -23,17 +23,13 @@ import java.util.List;
  * @author Yunus1903
  * @since 26/04/2020
  */
-public class ManaPotionItem extends Item
+public class ManaPotionItem extends ExorceryItem
 {
     private final float MANA = 200F;
 
     public ManaPotionItem()
     {
-        super(new Item.Properties()
-                .group(ItemGroup.BREWING)
-                .maxStackSize(1)
-        );
-        setRegistryName(Exorcery.MOD_ID, "mana_potion");
+        super("mana_potion", new Item.Properties().maxStackSize(1));
     }
 
     @Override

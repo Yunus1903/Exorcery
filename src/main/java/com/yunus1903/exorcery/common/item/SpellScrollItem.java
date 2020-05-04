@@ -6,12 +6,10 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.common.spell.Spell;
-import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -28,27 +26,19 @@ import java.util.List;
  * @author Yunus1903
  * @since 15/04/2020
  */
-public final class SpellScrollItem extends Item
+public final class SpellScrollItem extends ExorceryItem
 {
     private Spell spell;
 
     public SpellScrollItem()
     {
-        super(new Item.Properties()
-                .group(ItemGroup.MISC)
-                .maxStackSize(16)
-        );
-        setRegistryName(Exorcery.MOD_ID, "spell_scroll_empty");
+        super("spell_scroll_empty", new Item.Properties().maxStackSize(16));
     }
 
     public SpellScrollItem(Spell spell)
     {
-        super(new Item.Properties()
-                .group(ItemGroup.MISC)
-                .maxStackSize(1)
-        );
+        super("spell_scroll_" + spell.getRegistryName().getPath(), new Item.Properties().maxStackSize(1));
         this.spell = spell;
-        setRegistryName(Exorcery.MOD_ID, "spell_scroll_" + spell.getRegistryName().getPath());
     }
 
     @Override
