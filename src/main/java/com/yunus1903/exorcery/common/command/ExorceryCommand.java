@@ -1,11 +1,14 @@
 package com.yunus1903.exorcery.common.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.command.arguments.SpellArgument;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
+import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.common.spell.Spell;
 import com.yunus1903.exorcery.core.Exorcery;
@@ -28,10 +31,10 @@ public final class ExorceryCommand
     {
         Exorcery.LOGGER.info("Registering commands");
         dispatcher.register(Commands.literal("exorcery")
-                .requires(cs -> cs.getEntity() instanceof ServerPlayerEntity)
+//                .requires(cs -> cs.getEntity() instanceof ServerPlayerEntity)
                 .then(Give.register())
                 .then(Take.register())
-                // MANA
+                .then(Mana.register())
         );
     }
 
@@ -138,6 +141,52 @@ public final class ExorceryCommand
                                                         player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"));
                                                     }
                                                 }
+                                            });
+                                        }
+                                        return targets.size();
+                                    })
+                            )
+                    );
+        }
+    }
+
+    private static class Mana
+    {
+        static ArgumentBuilder<CommandSource, ?> register()
+        {
+            return Commands.literal("mana")
+                    .requires(cs -> cs.hasPermissionLevel(2))
+                    .then(Commands.argument("targets", EntityArgument.players())
+                            .then(Commands.literal("set")
+                                    .then(Commands.argument("mana", FloatArgumentType.floatArg(0F))
+                                            .executes(ctx ->
+                                            {
+                                                Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+                                                float mana = FloatArgumentType.getFloat(ctx, "mana");
+
+                                                for (ServerPlayerEntity player : targets)
+                                                {
+                                                    player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(manaCap ->
+                                                    {
+                                                        manaCap.set(mana);
+                                                        PacketHandler.sendToPlayer(player, new SyncManaPacket(manaCap.get(), manaCap.getMax(), manaCap.getRegenerationRate()));
+                                                    });
+                                                }
+                                                return targets.size();
+                                            })
+                                    )
+                            )
+                            .then(Commands.literal("reset")
+                                    .executes(ctx ->
+                                    {
+                                        Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+
+                                        for (ServerPlayerEntity player : targets)
+                                        {
+                                            player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(manaCap ->
+                                            {
+                                                manaCap.set(manaCap.getMax());
+                                                PacketHandler.sendToPlayer(player, new SyncManaPacket(manaCap.get(), manaCap.getMax(), manaCap.getRegenerationRate()));
                                             });
                                         }
                                         return targets.size();

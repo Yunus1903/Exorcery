@@ -19,6 +19,7 @@ public class ManaCapability implements IMana
     public void set(float amount)
     {
         mana = amount < 0 ? 0 : amount;
+        mana = Math.min(mana, maximumMana);
     }
 
     @Override
