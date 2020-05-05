@@ -9,6 +9,7 @@ import com.yunus1903.exorcery.common.capabilities.mana.ManaStorage;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
+import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
@@ -89,5 +90,6 @@ public class Exorcery
     public void onServerStarting(final FMLServerStartingEvent event)
     {
         server = event.getServer();
+        ExorceryCommand.register(event.getCommandDispatcher());
     }
 }
