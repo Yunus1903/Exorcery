@@ -1,5 +1,6 @@
 {
   "argument.exorcery.spell.invalid": "Unknown spell '%s'",
+  "chat.exorcery.forgotten": "You have forgotten a spell",
   "chat.exorcery.no_spells": "You haven't learned any spells yet",
   "chat.exorcery.spell_known": "You already know this spell",
   "chat.exorcery.spell_learned": "You have learned a new spell!",

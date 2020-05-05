@@ -30,7 +30,7 @@ public final class ExorceryCommand
         dispatcher.register(Commands.literal("exorcery")
                 .requires(cs -> cs.getEntity() instanceof ServerPlayerEntity)
                 .then(Give.register())
-                // Take
+                .then(Take.register())
                 // MANA
         );
     }
@@ -43,37 +43,14 @@ public final class ExorceryCommand
                     .requires(cs -> cs.hasPermissionLevel(2))
                     .then(Commands.argument("targets", EntityArgument.players())
                             .then(Commands.argument("spell", SpellArgument.spell())
-                                .executes(ctx ->
-                                {
-                                    Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
-                                    Spell spell = SpellArgument.getSpell(ctx, "spell").getSpell();
-
-                                    for (ServerPlayerEntity player : targets)
+                                    .executes(ctx ->
                                     {
-                                        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
-                                        {
-                                            if (!spells.getSpells().contains(spell))
-                                            {
-                                                spells.addSpell(spell);
-                                                PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-                                                player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
-                                                player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-                                            }
-                                        });
-                                    }
-                                    return targets.size();
-                                })
-                            )
-                            .then(Commands.literal("all")
-                                .executes(ctx ->
-                                {
-                                    Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+                                        Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+                                        Spell spell = SpellArgument.getSpell(ctx, "spell").getSpell();
 
-                                    for (ServerPlayerEntity player : targets)
-                                    {
-                                        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+                                        for (ServerPlayerEntity player : targets)
                                         {
-                                            for (Spell spell : ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValues())
+                                            player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
                                             {
                                                 if (!spells.getSpells().contains(spell))
                                                 {
@@ -82,14 +59,91 @@ public final class ExorceryCommand
                                                     player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
                                                     player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                                                 }
-                                            }
-                                        });
-                                    }
-                                    return targets.size();
-                                })
+                                            });
+                                        }
+                                        return targets.size();
+                                    })
                             )
-                        )
-                    ;
+                            .then(Commands.literal("all")
+                                    .executes(ctx ->
+                                    {
+                                        Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+
+                                        for (ServerPlayerEntity player : targets)
+                                        {
+                                            player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+                                            {
+                                                for (Spell spell : ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValues())
+                                                {
+                                                    if (!spells.getSpells().contains(spell))
+                                                    {
+                                                        spells.addSpell(spell);
+                                                        PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
+                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
+                                                        player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        return targets.size();
+                                    })
+                            )
+                    );
+        }
+    }
+
+    private static class Take
+    {
+        static ArgumentBuilder<CommandSource, ?> register()
+        {
+            return Commands.literal("take")
+                    .requires(cs -> cs.hasPermissionLevel(2))
+                    .then(Commands.argument("targets", EntityArgument.players())
+                            .then(Commands.argument("spell", SpellArgument.spell())
+                                    .executes(ctx ->
+                                    {
+                                        Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+                                        Spell spell = SpellArgument.getSpell(ctx, "spell").getSpell();
+
+                                        for (ServerPlayerEntity player : targets)
+                                        {
+                                            player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+                                            {
+                                                if (spells.getSpells().contains(spell))
+                                                {
+                                                    spells.getSpells().remove(spell);
+                                                    PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
+                                                    player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"));
+                                                }
+                                            });
+                                        }
+                                        return targets.size();
+                                    })
+                            )
+                            .then(Commands.literal("all")
+                                    .executes(ctx ->
+                                    {
+                                        Collection<ServerPlayerEntity> targets = EntityArgument.getPlayers(ctx, "targets");
+
+                                        for (ServerPlayerEntity player : targets)
+                                        {
+                                            player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+                                            {
+                                                for (Spell spell : ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValues())
+                                                {
+                                                    if (spells.getSpells().contains(spell))
+                                                    {
+                                                        spells.getSpells().remove(spell);
+                                                        PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
+                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"));
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        return targets.size();
+                                    })
+                            )
+                    );
         }
     }
 }
