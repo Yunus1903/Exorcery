@@ -123,7 +123,7 @@ public final class TickHandler
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
             {
-                if (mana.get() < mana.getMax() && player.server.getTickCounter() % 20 == 0 && !player.isCreative() && !player.isSpectator())
+                if (mana.get() < mana.getMax() && player.server.getTickCounter() % 5 == 0 && !player.isCreative() && !player.isSpectator())
                 {
                     mana.set(mana.get() + mana.getRegenerationRate());
                     PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
