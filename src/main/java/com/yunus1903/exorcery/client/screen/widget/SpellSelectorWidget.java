@@ -41,7 +41,6 @@ public class SpellSelectorWidget extends Widget
     @Override
     public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_)
     {
-        // TODO: Find better way of texture handling
         ResourceLocation textureLocation = new ResourceLocation(spell.getRegistryName().getNamespace(), "textures/spell/" + spell.getRegistryName().getPath() + ".png");
         gui.getMinecraft().getTextureManager().bindTexture(textureLocation);
 
@@ -53,20 +52,22 @@ public class SpellSelectorWidget extends Widget
         }
 
         blit(x - hoverSize / 2, y - hoverSize / 2, getWidth() + hoverSize, getHeight() + hoverSize, 0, 0, 16, 16, 16, 16);
-        if (isHovered())
-        {
-            List<String> tooltip = new ArrayList<>();
-            tooltip.add(getMessage());
-            tooltip.add("");
-            tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
-            tooltip.add(I18n.format("gui.exorcery.tooltip.cast_time") + ": " + (spell.getCastTime() <= 0 ? I18n.format("gui.exorcery.tooltip.cast_time_instant") : spell.getCastTime() / 20 + " " + I18n.format("gui.exorcery.tooltip.cast_time_seconds")));
-            GuiUtils.drawHoveringText(tooltip, p_renderButton_1_, p_renderButton_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
-        }
     }
 
     @Override
     protected boolean isValidClickButton(int p_isValidClickButton_1_)
     {
         return false;
+    }
+
+    @Override
+    public void renderToolTip(int p_renderToolTip_1_, int p_renderToolTip_2_)
+    {
+        List<String> tooltip = new ArrayList<>();
+        tooltip.add(getMessage());
+        tooltip.add("");
+        tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
+        tooltip.add(I18n.format("gui.exorcery.tooltip.cast_time") + ": " + (spell.getCastTime() <= 0 ? I18n.format("gui.exorcery.tooltip.cast_time_instant") : spell.getCastTime() / 20 + " " + I18n.format("gui.exorcery.tooltip.cast_time_seconds")));
+        GuiUtils.drawHoveringText(tooltip, p_renderToolTip_1_, p_renderToolTip_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
     }
 }
