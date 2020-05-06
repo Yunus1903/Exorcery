@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -64,6 +65,12 @@ public class SpellSelectorScreen extends Screen
                     }
                 }
             });
+
+            if (spellList.isEmpty())
+            {
+                minecraft.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_mana"));
+                return;
+            }
 
             scale = minecraft.getMainWindow().getScaledHeight() / 636.0F;
 
