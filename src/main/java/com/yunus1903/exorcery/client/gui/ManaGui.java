@@ -1,4 +1,4 @@
-package com.yunus1903.exorcery.client.screen;
+package com.yunus1903.exorcery.client.gui;
 
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.core.Exorcery;
