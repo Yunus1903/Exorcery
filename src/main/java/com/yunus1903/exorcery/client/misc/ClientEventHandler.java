@@ -35,6 +35,12 @@ public final class ClientEventHandler
             Minecraft mc = Minecraft.getInstance();
             if (mc.player.isSpectator()) return;
 
+            if (mc.player.isRidingHorse())
+            {
+                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.mounted"));
+                return;
+            }
+
             ISpells spells = mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
             if (spells.getSpells().isEmpty())
             {
