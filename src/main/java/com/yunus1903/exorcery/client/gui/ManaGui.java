@@ -40,7 +40,7 @@ public class ManaGui
                 }
                 break;
             case EXPERIENCE:
-                renderMana();
+                if (!(mc.player.isCreative() || mc.player.isSpectator())) renderMana();
                 break;
         }
     }
