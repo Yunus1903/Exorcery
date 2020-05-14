@@ -110,7 +110,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Cast time of the fireball spell (in ticks)")
                 .translation("config.exorcery.spell.fireball_cast_time")
                 .worldRestart()
-                .defineInRange("fireballCastTime", 0, 0, 6000);
+                .defineInRange("fireballCastTime", 40, 0, 6000);
 
         builder.pop().comment("TimeWarp").push("timewarp");
 

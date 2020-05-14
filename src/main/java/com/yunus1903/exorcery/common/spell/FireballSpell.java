@@ -19,7 +19,8 @@ public class FireballSpell extends Spell
         this.setRegistryName(Exorcery.MOD_ID, "fireball")
                 .setManaCost(SpellConfig.fireballManaCost)
                 .setCastTime(SpellConfig.fireballCastTime)
-                .setType(SpellType.FIRE);
+                .setType(SpellType.FIRE)
+                .setWhileRunning(true);
     }
 
     @Override
