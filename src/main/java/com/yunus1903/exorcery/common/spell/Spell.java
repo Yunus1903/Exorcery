@@ -199,7 +199,9 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
                     ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(
                             STitlePacket.Type.ACTIONBAR,
-                            new TranslationTextComponent("gui.exorcery.actionbar.casting").appendText(": ").appendSibling(getName())
+                            new TranslationTextComponent("gui.exorcery.actionbar.casting")
+                                    .appendText(": " + getType().getColor())
+                                    .appendSibling(getName())
                     ));
                 }
 

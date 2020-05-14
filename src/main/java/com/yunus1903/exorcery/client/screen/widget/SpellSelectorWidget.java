@@ -5,6 +5,7 @@ import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -64,10 +65,11 @@ public class SpellSelectorWidget extends Widget
     public void renderToolTip(int p_renderToolTip_1_, int p_renderToolTip_2_)
     {
         List<String> tooltip = new ArrayList<>();
-        tooltip.add(getMessage());
+        tooltip.add(spell.getType().getColor() + getMessage());
         tooltip.add("");
-        tooltip.add(I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
-        tooltip.add(I18n.format("gui.exorcery.tooltip.cast_time") + ": " + (spell.getCastTime() <= 0 ? I18n.format("gui.exorcery.tooltip.cast_time_instant") : spell.getCastTime() / 20 + " " + I18n.format("gui.exorcery.tooltip.cast_time_seconds")));
+        tooltip.add(TextFormatting.GRAY + I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
+        tooltip.add(TextFormatting.GRAY + I18n.format("gui.exorcery.tooltip.cast_time") + ": " + (spell.getCastTime() <= 0 ? TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.cast_time_instant") : spell.getCastTime() / 20 + " " + I18n.format("gui.exorcery.tooltip.cast_time_seconds")));
+        if (spell.getWhileRunning()) tooltip.add(TextFormatting.BLUE + I18n.format("gui.exorcery.tooltip.while_running"));
         GuiUtils.drawHoveringText(tooltip, p_renderToolTip_1_, p_renderToolTip_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
     }
 }
