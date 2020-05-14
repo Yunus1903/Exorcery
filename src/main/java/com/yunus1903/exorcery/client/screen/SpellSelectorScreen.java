@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.client.screen;
 
-import com.yunus1903.exorcery.client.screen.widget.SpellSelectorWidget;
+import com.yunus1903.exorcery.client.screen.widget.SpellsWidget;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.spell.Spell;
@@ -112,7 +112,7 @@ public class SpellSelectorScreen extends Screen
                         break;
                 }
 
-                addButton(new SpellSelectorWidget(x, y, spellList.get(i), this));
+                addButton(new SpellsWidget(x, y, spellList.get(i), this));
             }
         });
     }
@@ -136,9 +136,9 @@ public class SpellSelectorScreen extends Screen
         {
             for (Widget btn : buttons)
             {
-                if (btn instanceof SpellSelectorWidget && btn.isHovered())
+                if (btn instanceof SpellsWidget && btn.isHovered())
                 {
-                    ((SpellSelectorWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
+                    ((SpellsWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
                 }
             }
             onClose();
