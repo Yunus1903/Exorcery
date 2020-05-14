@@ -21,6 +21,7 @@
   "config.exorcery.spell.time_warp_cast_time": "Cast time of the time warp spell (in ticks)",
   "config.exorcery.spell.time_warp_steps": "Time steps to reach day/night time",
   "gui.exorcery.actionbar.casting": "Casting",
+  "gui.exorcery.spell_selector": "Spell Selector",
   "gui.exorcery.tooltip.cast_time": "Cast Time",
   "gui.exorcery.tooltip.cast_time_instant": "Instant",
   "gui.exorcery.tooltip.cast_time_seconds": "seconds",

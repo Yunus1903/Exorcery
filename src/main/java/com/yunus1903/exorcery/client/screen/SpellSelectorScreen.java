@@ -29,7 +29,7 @@ public class SpellSelectorScreen extends Screen
 
     public SpellSelectorScreen()
     {
-        super(new StringTextComponent("Spell Selector")); // TODO: TranslationTextComponent
+        super(new TranslationTextComponent("gui.exorcery.spell_selector"));
     }
 
     @Override
