@@ -47,7 +47,7 @@ public class SpellConfig implements IBaseConfig
         TELEPORT_MANA_COST_MULTIPLIER = builder
                 .comment("Mana cost multiplier of the teleport spell")
                 .translation("config.exorcery.spell.teleport_mana_cost_multiplier")
-                .defineInRange("teleportManaCostMultiplier", 3, 0, 50);
+                .defineInRange("teleportManaCostMultiplier", 5, 0, 50);
 
         TELEPORT_CAST_TIME = builder
                 .comment("Cast time of the teleport spell (in ticks)")
@@ -61,7 +61,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the speed spell on yourself")
                 .translation("config.exorcery.spell.speed_mana_cost_self")
                 .worldRestart()
-                .defineInRange("speedManaCostSelf", 100, 0, 10000);
+                .defineInRange("speedManaCostSelf", 200, 0, 10000);
 
         SPEED_MANA_COST_OTHER = builder
                 .comment("Mana cost of the speed spell on others")
@@ -85,7 +85,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the fertility spell")
                 .translation("config.exorcery.spell.fertility_mana_cost")
                 .worldRestart()
-                .defineInRange("fertilityManaCost", 200, 0, 10000);
+                .defineInRange("fertilityManaCost", 300, 0, 10000);
 
         FERTILITY_CAST_TIME = builder
                 .comment("Cast time of the fertility spell (in ticks)")
@@ -104,7 +104,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the fireball spell")
                 .translation("config.exorcery.spell.fireball_mana_cost")
                 .worldRestart()
-                .defineInRange("fireballManaCost", 80, 0, 10000);
+                .defineInRange("fireballManaCost", 150, 0, 10000);
 
         FIREBALL_CAST_TIME = builder
                 .comment("Cast time of the fireball spell (in ticks)")
@@ -118,7 +118,7 @@ public class SpellConfig implements IBaseConfig
                 .comment("Mana cost of the time warp spell")
                 .translation("config.exorcery.spell.time_warp_mana_cost")
                 .worldRestart()
-                .defineInRange("timeWarpManaCost", 500, 0, 10000);
+                .defineInRange("timeWarpManaCost", 800, 0, 10000);
 
         TIME_WARP_CAST_TIME = builder
                 .comment("Cast time of the time warp spell (in ticks)")
