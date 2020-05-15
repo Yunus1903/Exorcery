@@ -1,20 +1,22 @@
 package com.yunus1903.exorcery.client.screen;
 
+import com.yunus1903.exorcery.client.screen.widget.KeybindingsWidget;
 import com.yunus1903.exorcery.client.screen.widget.SpellsWidget;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.spell.Spell;
 import com.yunus1903.exorcery.core.ClientProxy;
+import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Yunus1903
@@ -26,6 +28,8 @@ public class SpellSelectorScreen extends Screen
     private final int CENTER_OFFSET_SIDE = 60;
 
     public float scale = 1.0F;
+
+    public boolean keybindMode = false;
 
     public SpellSelectorScreen()
     {
@@ -72,13 +76,16 @@ public class SpellSelectorScreen extends Screen
                 return;
             }
 
-            scale = minecraft.getMainWindow().getScaledHeight() / 636.0F;
+            int scaledWidth = minecraft.getMainWindow().getScaledWidth();
+            int scaledHeight = minecraft.getMainWindow().getScaledHeight();
+
+            scale = scaledHeight / 636.0F;
 
             for (int i = 0; i < spellList.size(); i++)
             {
                 if (i >= 8) return;
-                int x = minecraft.getMainWindow().getScaledWidth() / 2;
-                int y = minecraft.getMainWindow().getScaledHeight() / 2;
+                int x = scaledWidth / 2;
+                int y = scaledHeight / 2;
 
                 switch (i)
                 {
@@ -114,34 +121,47 @@ public class SpellSelectorScreen extends Screen
 
                 addButton(new SpellsWidget(x, y, spellList.get(i), this));
             }
+
+            addButton(new KeybindingsWidget(scaledWidth - 90, scaledHeight - 30, this));
         });
     }
 
     @Override
     public void tick()
     {
-        if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
+        if (keybindMode)
         {
-            minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+            if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_ESCAPE))
             {
-                for (Spell spell : spells.getSpells())
-                {
-                    spell.setTargetEntity(minecraft);
-                    spell.setTargetLocation(minecraft);
-                    spell.calculateManaCost(minecraft.player);
-                }
-            });
+                keybindMode = false;
+                onClose();
+            }
         }
         else
         {
-            for (Widget btn : buttons)
+            if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
             {
-                if (btn instanceof SpellsWidget && btn.isHovered())
+                minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
                 {
-                    ((SpellsWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
-                }
+                    for (Spell spell : spells.getSpells())
+                    {
+                        spell.setTargetEntity(minecraft);
+                        spell.setTargetLocation(minecraft);
+                        spell.calculateManaCost(minecraft.player);
+                    }
+                });
             }
-            onClose();
+            else
+            {
+                for (Widget btn : buttons)
+                {
+                    if (btn instanceof SpellsWidget && btn.isHovered())
+                    {
+                        ((SpellsWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
+                    }
+                }
+                onClose();
+            }
         }
     }
 
@@ -149,5 +169,24 @@ public class SpellSelectorScreen extends Screen
     public boolean isPauseScreen()
     {
         return false;
+    }
+
+    public void onKeyPress(int keyCode)
+    {
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE) return;
+
+        for (KeyBinding key : minecraft.gameSettings.keyBindings)
+        {
+            if (keyCode == key.getKey().getKeyCode()) return;
+        }
+
+        for (Widget btn : buttons)
+        {
+            if (btn instanceof SpellsWidget && btn.isHovered())
+            {
+                Spell spell = ((SpellsWidget) btn).getSpell();
+                Exorcery.keybindingHandler.setKey(spell, keyCode);
+            }
+        }
     }
 }

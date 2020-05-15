@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.core;
 
+import com.yunus1903.exorcery.client.misc.KeybindingHandler;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingCapability;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingStorage;
 import com.yunus1903.exorcery.common.capabilities.casting.ICasting;
@@ -15,6 +16,8 @@ import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.init.ExorcerySpells;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +29,8 @@ import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * @author Yunus1903
@@ -39,6 +44,9 @@ public class Exorcery
 
     public static Exorcery instance;
     public static CommonProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+
+    @OnlyIn(Dist.CLIENT)
+    public static KeybindingHandler keybindingHandler;
 
     public MinecraftServer server;
 
@@ -65,7 +73,7 @@ public class Exorcery
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent event)
     {
-
+        keybindingHandler = new KeybindingHandler(event.getMinecraftSupplier().get());
     }
 
     @SubscribeEvent

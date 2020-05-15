@@ -7,9 +7,11 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
+import com.yunus1903.exorcery.common.spell.Spell;
 import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,9 +32,10 @@ public final class ClientEventHandler
     @SubscribeEvent
     public static void onKeyInput(InputEvent.KeyInputEvent event)
     {
+        Minecraft mc = Minecraft.getInstance();
+
         if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
         {
-            Minecraft mc = Minecraft.getInstance();
             if (mc.player.isSpectator()) return;
 
             if (mc.player.isRidingHorse())
@@ -49,6 +52,34 @@ public final class ClientEventHandler
             }
 
             mc.displayGuiScreen(new SpellSelectorScreen());
+        }
+
+        if (mc.currentScreen instanceof SpellSelectorScreen)
+        {
+            SpellSelectorScreen gui = (SpellSelectorScreen) mc.currentScreen;
+
+            if (gui.keybindMode)
+            {
+                gui.onKeyPress(event.getKey());
+            }
+        }
+
+        if (mc.player != null && mc.currentScreen == null)
+        {
+            mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+            {
+                for (Spell spell : spells.getSpells())
+                {
+                    InputMappings.Input key = Exorcery.keybindingHandler.getKey(spell);
+                    if (key != null && InputMappings.isKeyDown(mc.getMainWindow().getHandle(), key.getKeyCode()))
+                    {
+                        mc.player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+                        {
+                            if (!casting.isCasting()) spell.castSpell(mc.world, mc.player);
+                        });
+                    }
+                }
+            });
         }
     }
 

@@ -2,13 +2,16 @@ package com.yunus1903.exorcery.client.screen.widget;
 
 import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.common.spell.Spell;
+import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +73,8 @@ public class SpellsWidget extends Widget
         tooltip.add(TextFormatting.GRAY + I18n.format("gui.exorcery.tooltip.mana_cost") + ": " + (spell.getManaCost() <= 0 ? I18n.format("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? Character.toString('\u221e') : (int) spell.getManaCost()));
         tooltip.add(TextFormatting.GRAY + I18n.format("gui.exorcery.tooltip.cast_time") + ": " + (spell.getCastTime() <= 0 ? TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.cast_time_instant") : spell.getCastTime() / 20 + " " + I18n.format("gui.exorcery.tooltip.cast_time_seconds")));
         if (spell.getWhileRunning()) tooltip.add(TextFormatting.BLUE + I18n.format("gui.exorcery.tooltip.while_running"));
+        InputMappings.Input key = Exorcery.keybindingHandler.getKey(spell);
+        if (key != null) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + GLFW.glfwGetKeyName(key.getKeyCode(), key.getKeyCode()));
         GuiUtils.drawHoveringText(tooltip, p_renderToolTip_1_, p_renderToolTip_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
     }
 }
