@@ -21,12 +21,12 @@ import java.util.List;
  * @since 12/04/2020
  */
 @OnlyIn(Dist.CLIENT)
-public class SpellsWidget extends Widget
+public class SpellWidget extends Widget
 {
     SpellSelectorScreen gui;
     private Spell spell;
 
-    public SpellsWidget(int x, int y, Spell spell, SpellSelectorScreen gui)
+    public SpellWidget(int x, int y, Spell spell, SpellSelectorScreen gui)
     {
         super(x, y, spell.getName().getString());
         this.gui = gui;

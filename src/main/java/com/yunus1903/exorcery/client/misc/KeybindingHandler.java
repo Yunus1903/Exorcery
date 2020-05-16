@@ -77,13 +77,13 @@ public class KeybindingHandler
             if (!main.has(worldName)) main.add(worldName, new JsonObject());
             return main.getAsJsonObject(worldName);
         }
-        else
+        else if (mc.getCurrentServerData() != null)
         {
-            if (mc.getCurrentServerData() == null) return null;
             String serverIP = mc.getCurrentServerData().serverIP;
             if (!main.has(serverIP)) main.add(serverIP, new JsonObject());
             return main.getAsJsonObject(serverIP);
         }
+        return null;
     }
 
     @Nullable

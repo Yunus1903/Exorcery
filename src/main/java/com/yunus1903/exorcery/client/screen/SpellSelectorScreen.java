@@ -1,7 +1,7 @@
 package com.yunus1903.exorcery.client.screen;
 
 import com.yunus1903.exorcery.client.screen.widget.KeybindingsWidget;
-import com.yunus1903.exorcery.client.screen.widget.SpellsWidget;
+import com.yunus1903.exorcery.client.screen.widget.SpellWidget;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.spell.Spell;
@@ -119,7 +119,7 @@ public class SpellSelectorScreen extends Screen
                         break;
                 }
 
-                addButton(new SpellsWidget(x, y, spellList.get(i), this));
+                addButton(new SpellWidget(x, y, spellList.get(i), this));
             }
 
             addButton(new KeybindingsWidget(scaledWidth - 90, scaledHeight - 30, this));
@@ -155,9 +155,9 @@ public class SpellSelectorScreen extends Screen
             {
                 for (Widget btn : buttons)
                 {
-                    if (btn instanceof SpellsWidget && btn.isHovered())
+                    if (btn instanceof SpellWidget && btn.isHovered())
                     {
-                        ((SpellsWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
+                        ((SpellWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
                     }
                 }
                 onClose();
@@ -182,9 +182,9 @@ public class SpellSelectorScreen extends Screen
 
         for (Widget btn : buttons)
         {
-            if (btn instanceof SpellsWidget && btn.isHovered())
+            if (btn instanceof SpellWidget && btn.isHovered())
             {
-                Spell spell = ((SpellsWidget) btn).getSpell();
+                Spell spell = ((SpellWidget) btn).getSpell();
                 Exorcery.keybindingHandler.setKey(spell, keyCode);
             }
         }
