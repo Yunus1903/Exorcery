@@ -56,10 +56,12 @@ public class SpellSelectorScreen extends Screen
             text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line2"));
             text.add("");
             text.add(I18n.format("gui.exorcery.spell_selector.keybindings.info.line3"));
+            text.add("");
+            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line4"));
             int scaledWidth = minecraft.getMainWindow().getScaledWidth();
             int scaledHeight = minecraft.getMainWindow().getScaledHeight();
 
-            GuiUtils.drawHoveringText(text, 4, scaledHeight - 85, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
+            GuiUtils.drawHoveringText(text, 4, scaledHeight - 103, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
         }
     }
 
@@ -95,6 +97,8 @@ public class SpellSelectorScreen extends Screen
 
             int scaledWidth = minecraft.getMainWindow().getScaledWidth();
             int scaledHeight = minecraft.getMainWindow().getScaledHeight();
+
+            addButton(new KeybindingsWidget(scaledWidth - 90, scaledHeight - 30, this));
 
             scale = scaledHeight / 636.0F;
 
@@ -138,8 +142,6 @@ public class SpellSelectorScreen extends Screen
 
                 addButton(new SpellWidget(x, y, spellList.get(i), this));
             }
-
-            addButton(new KeybindingsWidget(scaledWidth - 90, scaledHeight - 30, this));
         });
     }
 

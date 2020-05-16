@@ -27,6 +27,7 @@
   "gui.exorcery.spell_selector.keybindings.info.line1": "Keybinding menu",
   "gui.exorcery.spell_selector.keybindings.info.line2": "Press a key while hovering over a spell to bind it",
   "gui.exorcery.spell_selector.keybindings.info.line3": "You can only bind unbound keys",
+  "gui.exorcery.spell_selector.keybindings.info.line4": "Click to unbound",
   "gui.exorcery.tooltip.cast_time": "Cast Time",
   "gui.exorcery.tooltip.cast_time_instant": "Instant",
   "gui.exorcery.tooltip.cast_time_seconds": "seconds",

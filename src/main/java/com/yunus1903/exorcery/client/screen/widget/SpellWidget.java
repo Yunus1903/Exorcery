@@ -59,9 +59,15 @@ public class SpellWidget extends Widget
     }
 
     @Override
+    public void onClick(double p_onClick_1_, double p_onClick_3_)
+    {
+        Exorcery.keybindingHandler.removeKey(spell);
+    }
+
+    @Override
     protected boolean isValidClickButton(int p_isValidClickButton_1_)
     {
-        return false;
+        return gui.keybindMode;
     }
 
     @Override

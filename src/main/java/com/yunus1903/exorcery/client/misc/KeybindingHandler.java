@@ -144,4 +144,31 @@ public class KeybindingHandler
             Exorcery.LOGGER.error(e.getMessage());
         }
     }
+
+    public void removeKey(Spell spell)
+    {
+        try
+        {
+            readFromFile();
+        }
+        catch (FileNotFoundException e)
+        {
+            Exorcery.LOGGER.error(e.getMessage());
+            return;
+        }
+
+        JsonObject obj = getKeys();
+        if (obj == null || obj.isJsonNull()) return;
+
+        obj.remove(spell.toString());
+
+        try
+        {
+            writeToFile();
+        }
+        catch (IOException e)
+        {
+            Exorcery.LOGGER.error(e.getMessage());
+        }
+    }
 }
