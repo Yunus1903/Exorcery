@@ -9,11 +9,14 @@ import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
@@ -43,6 +46,20 @@ public class SpellSelectorScreen extends Screen
         for (Widget btn : buttons)
         {
             if (btn.isHovered()) btn.renderToolTip(p_render_1_, p_render_2_);
+        }
+
+        if (keybindMode)
+        {
+            List<String> text = new ArrayList<>();
+            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line1"));
+            text.add("");
+            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line2"));
+            text.add("");
+            text.add(I18n.format("gui.exorcery.spell_selector.keybindings.info.line3"));
+            int scaledWidth = minecraft.getMainWindow().getScaledWidth();
+            int scaledHeight = minecraft.getMainWindow().getScaledHeight();
+
+            GuiUtils.drawHoveringText(text, 4, scaledHeight - 85, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
         }
     }
 
