@@ -197,12 +197,14 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                 {
                     world.playMovingSound(null, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
 
+                    /* TODO: Fix for server
                     ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(
                             STitlePacket.Type.ACTIONBAR,
                             new TranslationTextComponent("gui.exorcery.actionbar.casting")
                                     .appendText(": " + getType().getColor())
                                     .appendSibling(getName())
                     ));
+                     */
                 }
 
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
