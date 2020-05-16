@@ -174,6 +174,7 @@ public class SpellSelectorScreen extends Screen
     public void onKeyPress(int keyCode)
     {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) return;
+        if (GLFW.glfwGetKeyName(keyCode, GLFW.glfwGetKeyScancode(keyCode)) == null) return;
 
         for (KeyBinding key : minecraft.gameSettings.keyBindings)
         {
