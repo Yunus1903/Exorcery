@@ -13,6 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.io.*;
+import java.util.Map;
 
 /**
  * @author Yunus1903
@@ -126,6 +127,11 @@ public class KeybindingHandler
 
         JsonObject obj = getKeys();
         if (obj == null || obj.isJsonNull()) return;
+
+        for (Map.Entry<String, JsonElement> element : obj.entrySet())
+        {
+            if (element.getValue().getAsInt() == keyCode) return;
+        }
 
         obj.addProperty(spell.toString(), keyCode);
 
