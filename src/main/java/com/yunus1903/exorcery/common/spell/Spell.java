@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -170,12 +169,16 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
         if (bypassManaAndSync)
         {
+            //This runs on client if server tells client to cast
+
             onSpellCast(world, player, this.targetEntity, this.targetLocation); // Client-Side
             return true;
         }
 
         if (player instanceof ServerPlayerEntity)
         {
+            // This runs if on server when it receives cast action from client
+
             this.targetEntity = targetEntity;
             this.targetLocation = targetLocation;
 
@@ -196,15 +199,6 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                 if (castTime > 0)
                 {
                     world.playMovingSound(null, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
-
-                    /* TODO: Fix for server
-                    ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(
-                            STitlePacket.Type.ACTIONBAR,
-                            new TranslationTextComponent("gui.exorcery.actionbar.casting")
-                                    .appendText(": " + getType().getColor())
-                                    .appendSibling(getName())
-                    ));
-                     */
                 }
 
                 TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
@@ -233,6 +227,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         }
         else
         {
+            // This runs on client when it receives cast action
+
             PacketHandler.sendToServer(new CastSpellPacket(this, player, this.targetEntity, this.targetLocation));
             return false;
         }

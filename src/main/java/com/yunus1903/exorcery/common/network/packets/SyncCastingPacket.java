@@ -6,6 +6,7 @@ import com.yunus1903.exorcery.common.spell.Spell;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -68,6 +69,15 @@ public class SyncCastingPacket
                     DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
                     {
                         player.set(Minecraft.getInstance().player);
+                        if (msg.isCasting)
+                        {
+                            Minecraft.getInstance().ingameGUI.setOverlayMessage(
+                                    new TranslationTextComponent("gui.exorcery.actionbar.casting")
+                                            .appendText(": " + msg.spell.getType().getColor())
+                                            .appendSibling(msg.spell.getName()),
+                                    false
+                            );
+                        }
                     });
 
                     player.get().getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
