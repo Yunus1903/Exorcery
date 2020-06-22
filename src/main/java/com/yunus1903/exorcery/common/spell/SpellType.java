@@ -16,7 +16,7 @@ public enum SpellType
     private final TextFormatting color;
     private final boolean frightensAnimals;
 
-    private SpellType(String name, TextFormatting color, boolean frightensAnimals)
+    SpellType(String name, TextFormatting color, boolean frightensAnimals)
     {
         this.name = name;
         this.color = color.isColor() ? color : TextFormatting.WHITE;
