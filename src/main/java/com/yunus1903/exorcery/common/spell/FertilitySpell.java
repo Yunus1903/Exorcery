@@ -4,12 +4,16 @@ import com.yunus1903.exorcery.common.config.SpellConfig;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -29,9 +33,6 @@ public class FertilitySpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        // TODO: Live mana calc
-        // TODO: Animal Fertility
-
         BlockPos playerPos = player.getPosition();
         int x = playerPos.getX();
         int y = playerPos.getY();
@@ -55,6 +56,16 @@ public class FertilitySpell extends Spell
                 }
             }
         });
+
+        List<Entity> entities =  world.getEntitiesInAABBexcluding(player, new AxisAlignedBB(x - radius, y - 2, z - radius, x + radius, y + 3, z + radius), Entity::isLiving);
+
+        for (Entity entity : entities)
+        {
+            if (entity instanceof AnimalEntity)
+            {
+                ((AnimalEntity) entity).setInLove(player);
+            }
+        }
 
         return super.onSpellCast(world, player);
     }
