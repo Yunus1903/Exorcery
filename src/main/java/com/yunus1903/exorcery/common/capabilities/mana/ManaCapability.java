@@ -1,12 +1,14 @@
 package com.yunus1903.exorcery.common.capabilities.mana;
 
+import com.yunus1903.exorcery.common.config.GeneralConfig;
+
 /**
  * @author Yunus1903
  */
 public class ManaCapability implements IMana
 {
-    private float mana = 1000F;
-    private float maximumMana = 1000F;
+    private float mana = GeneralConfig.playerMana;
+    private float maximumMana = GeneralConfig.playerMana;
     private int regenerationRate = 1;
 
     @Override

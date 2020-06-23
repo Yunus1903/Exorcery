@@ -6,6 +6,7 @@
   "chat.exorcery.no_spells": "You haven't learned any spells yet",
   "chat.exorcery.spell_known": "You already know this spell",
   "chat.exorcery.spell_learned": "You have learned a new spell!",
+  "config.exorcery.general.player_mana": "The default mana value of the player",
   "config.exorcery.spell.teleport_mana_cost_multiplier": "Mana cost multiplier of the teleport spell",
   "config.exorcery.spell.teleport_cast_time": "Cast time of the teleport spell (in ticks)",
   "config.exorcery.spell.speed_mana_cost_self": "Mana cost of the speed spell on yourself",

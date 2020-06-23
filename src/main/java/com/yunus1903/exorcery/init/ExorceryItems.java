@@ -20,7 +20,7 @@ public final class ExorceryItems
 {
     static
     {
-        ExorceryConfig.SPELL.bake();
+        ExorceryConfig.SPELL.bake(); //todo obsolete?
     }
 
     private static final List<Item> ITEMS = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.init;
 
+import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.spell.*;
 import net.minecraft.potion.Effects;
@@ -14,6 +15,11 @@ import static com.yunus1903.exorcery.common.config.SpellConfig.*;
  */
 public final class ExorcerySpells
 {
+    static
+    {
+        ExorceryConfig.SPELL.bake();
+    }
+
     private static final List<Spell> SPELLS = new ArrayList<>();
     public static final Spell TELEPORT = register(new TeleportSpell());
     public static final Spell SPEED = register(new EffectSpell("speed",

@@ -8,11 +8,18 @@ import net.minecraftforge.common.ForgeConfigSpec;
  */
 public class GeneralConfig implements IBaseConfig
 {
-    // TODO: player base mana
+    public static int playerMana;
+
+    private final ForgeConfigSpec.IntValue PLAYER_MANA;
 
     public GeneralConfig(ForgeConfigSpec.Builder builder)
     {
         builder.comment("General config").push("general");
+
+        PLAYER_MANA = builder
+                .comment("The default mana value of the player")
+                .translation("config.exorcery.general.player_mana")
+                .defineInRange("playerMana", 1000, 1, 100000);
 
         builder.pop();
     }
@@ -20,6 +27,6 @@ public class GeneralConfig implements IBaseConfig
     @Override
     public void bake()
     {
-
+        playerMana = PLAYER_MANA.get();
     }
 }
