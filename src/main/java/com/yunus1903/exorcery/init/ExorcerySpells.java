@@ -2,9 +2,12 @@ package com.yunus1903.exorcery.init;
 
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.spell.*;
+import net.minecraft.potion.Effects;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.yunus1903.exorcery.common.config.SpellConfig.*;
 
 /**
  * @author Yunus1903
@@ -13,7 +16,15 @@ public final class ExorcerySpells
 {
     private static final List<Spell> SPELLS = new ArrayList<>();
     public static final Spell TELEPORT = register(new TeleportSpell());
-    public static final Spell SPEED = register(new SpeedSpell());
+    public static final Spell SPEED = register(new EffectSpell("speed",
+            Effects.SPEED,
+            speedEffectDuration,
+            2,
+            speedManaCostSelf,
+            speedManaCostOther,
+            speedCastTime,
+            SpellType.NORMAL
+    ));
     public static final Spell FERTILITY = register(new FertilitySpell());
     public static final Spell FIREBALL = register(new FireballSpell());
     public static final Spell TIME_WARP_DAY = register(new TimeWarpSpell("time_warp_day", 0));

@@ -40,7 +40,9 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
     private boolean isCasting = false;
 
+    @Nullable
     protected LivingEntity targetEntity;
+    @Nullable
     protected BlockPos targetLocation;
 
     public static int getIdFromSpell(Spell spell)
@@ -245,7 +247,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return new ActionResult<>(ActionResultType.PASS, this);
     }
 
-    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation)
+    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, @Nullable LivingEntity targetEntity, @Nullable BlockPos targetLocation)
     {
         return onSpellCast(world, player);
     }

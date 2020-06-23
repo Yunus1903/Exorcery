@@ -4,8 +4,8 @@ import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -14,27 +14,41 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static com.yunus1903.exorcery.common.config.SpellConfig.*;
-
 /**
  * @author Yunus1903
- * @since 13/04/2020
+ * @since 23/06/2020
  */
-public class SpeedSpell extends Spell
+public class EffectSpell extends Spell
 {
-    public SpeedSpell()
+    private final Effect effect;
+    private final int effectDuration;
+    private final int effectAmplifier;
+    private final float manaCostSelf;
+    private final float manaCostOther;
+
+    public EffectSpell(String name, Effect effect, int effectDuration, int effectAmplifier, float manaCost, int castTime, SpellType type)
     {
-        this.setRegistryName(Exorcery.MOD_ID, "speed")
-                .setManaCost(speedManaCostSelf)
-                .setCastTime(speedCastTime)
-                .setType(SpellType.NORMAL);
+        this(name, effect, effectDuration, effectAmplifier, manaCost, manaCost, castTime, type);
+    }
+
+    public EffectSpell(String name, Effect effect, int effectDuration, int effectAmplifier, float manaCostSelf, float manaCostOther, int castTime, SpellType type)
+    {
+        this.effect = effect;
+        this.effectDuration = effectDuration;
+        this.effectAmplifier = effectAmplifier;
+        this.manaCostSelf = manaCostSelf;
+        this.manaCostOther = manaCostOther;
+        this.setRegistryName(Exorcery.MOD_ID, name)
+                .setManaCost(manaCostSelf)
+                .setCastTime(castTime)
+                .setType(type);
     }
 
     @Override
     public void calculateManaCost(PlayerEntity player)
     {
-        if (targetEntity != null) setManaCost(speedManaCostOther);
-        else setManaCost(speedManaCostSelf);
+        if (targetEntity != null) setManaCost(manaCostOther);
+        else setManaCost(manaCostSelf);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -56,13 +70,13 @@ public class SpeedSpell extends Spell
         {
             if (targetEntity == null)
             {
-                player.addPotionEffect(new EffectInstance(Effects.SPEED, speedEffectDuration, 2));
+                player.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
             }
             else
             {
-                targetEntity.addPotionEffect(new EffectInstance(Effects.SPEED, speedEffectDuration, 2));
+                targetEntity.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
             }
         }
-        return super.onSpellCast(world, player);
+        return super.onSpellCast(world, player, targetEntity, targetLocation);
     }
 }
