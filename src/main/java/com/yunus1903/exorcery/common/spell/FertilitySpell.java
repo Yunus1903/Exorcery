@@ -38,7 +38,7 @@ public class FertilitySpell extends Spell
         int y = playerPos.getY();
         int z = playerPos.getZ();
 
-        int radius = SpellConfig.fertilityRadius;
+        final int radius = SpellConfig.fertilityRadius;
 
         Stream<BlockPos> stream =  BlockPos.getAllInBox(x - radius, y - 2, z - radius, x + radius, y + 3, z + radius);
         stream.forEach(pos ->
@@ -61,7 +61,6 @@ public class FertilitySpell extends Spell
 
         for (Entity entity : entities)
         {
-            if (entity instanceof AnimalEntity)
             {
                 ((AnimalEntity) entity).setInLove(player);
             }

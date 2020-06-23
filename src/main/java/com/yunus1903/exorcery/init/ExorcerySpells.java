@@ -35,6 +35,7 @@ public final class ExorcerySpells
     public static final Spell FIREBALL = register(new FireballSpell());
     public static final Spell TIME_WARP_DAY = register(new TimeWarpSpell("time_warp_day", 0));
     public static final Spell TIME_WARP_NIGHT = register(new TimeWarpSpell("time_warp_night", 14000));
+    public static final Spell FROST = register(new FrostSpell());
 
     private static Spell register(Spell spell)
     {

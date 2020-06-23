@@ -21,6 +21,10 @@
   "config.exorcery.spell.time_warp_mana_cost": "Mana cost of the time warp spell",
   "config.exorcery.spell.time_warp_cast_time": "Cast time of the time warp spell (in ticks)",
   "config.exorcery.spell.time_warp_steps": "Time steps to reach day/night time",
+  "config.exorcery.spell.frost_mana_cost": "Mana cost of the frost spell",
+  "config.exorcery.spell.frost_cast_time": "Cast time of the frost spell (in ticks)",
+  "config.exorcery.spell.frost_radius": "Radius of the frost spell",
+  "config.exorcery.spell.frost_duration": "Effect duration of the frost spell",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",
   "gui.exorcery.spell_selector.keybindings": "Keybindings",
@@ -28,7 +32,7 @@
   "gui.exorcery.spell_selector.keybindings.info.line1": "Keybinding menu",
   "gui.exorcery.spell_selector.keybindings.info.line2": "Press a key while hovering over a spell to bind it",
   "gui.exorcery.spell_selector.keybindings.info.line3": "You can only bind unbound keys",
-  "gui.exorcery.spell_selector.keybindings.info.line4": "Click to unbound",
+  "gui.exorcery.spell_selector.keybindings.info.line4": "Click to unbind",
   "gui.exorcery.tooltip.cast_time": "Cast Time",
   "gui.exorcery.tooltip.cast_time_instant": "Instant",
   "gui.exorcery.tooltip.cast_time_seconds": "seconds",
@@ -48,5 +52,6 @@
   "spell.exorcery.fireball": "Fireball",
   "spell.exorcery.time_warp_day": "Time Warp Day",
   "spell.exorcery.time_warp_night": "Time Warp Night",
+  "spell.exorcery.frost": "Frost",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }

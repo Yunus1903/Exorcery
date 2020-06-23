@@ -22,7 +22,7 @@ public class TimeWarpSpell extends Spell
         this.setRegistryName(Exorcery.MOD_ID, name)
                 .setManaCost(SpellConfig.timeWarpManaCost)
                 .setCastTime(SpellConfig.timeWarpCastTime)
-                .setType(SpellType.NORMAL); // TODO: revisit
+                .setType(SpellType.NORMAL);
         this.TIME = time;
     }
 

@@ -22,6 +22,10 @@ public class SpellConfig implements IBaseConfig
     public static int timeWarpManaCost;
     public static int timeWarpCastTime;
     public static int timeWarpSteps;
+    public static int frostManaCost;
+    public static int frostCastTime;
+    public static int frostRadius;
+    public static int frostDuration;
 
     private final ForgeConfigSpec.IntValue TELEPORT_MANA_COST_MULTIPLIER;
     private final ForgeConfigSpec.IntValue TELEPORT_CAST_TIME;
@@ -37,6 +41,10 @@ public class SpellConfig implements IBaseConfig
     private final ForgeConfigSpec.IntValue TIME_WARP_MANA_COST;
     private final ForgeConfigSpec.IntValue TIME_WARP_CAST_TIME;
     private final ForgeConfigSpec.IntValue TIME_WARP_STEPS;
+    private final ForgeConfigSpec.IntValue FROST_MANA_COST;
+    private final ForgeConfigSpec.IntValue FROST_CAST_TIME;
+    private final ForgeConfigSpec.IntValue FROST_RADIUS;
+    private final ForgeConfigSpec.IntValue FROST_DURATION;
 
     public SpellConfig(ForgeConfigSpec.Builder builder)
     {
@@ -132,6 +140,30 @@ public class SpellConfig implements IBaseConfig
                 .worldRestart()
                 .defineInRange("timeWarpSteps", 50, 0, 6000);
 
+        builder.pop().comment("Frost").push("frost");
+
+        FROST_MANA_COST = builder
+                .comment("Mana cost of the frost spell")
+                .translation("config.exorcery.spell.frost_mana_cost")
+                .worldRestart()
+                .defineInRange("frostManaCost", 450, 0, 10000);
+
+        FROST_CAST_TIME = builder
+                .comment("Cast time of the frost spell (in ticks)")
+                .translation("config.exorcery.spell.frost_cast_time")
+                .worldRestart()
+                .defineInRange("frostCastTime", 0, 0, 6000);
+
+        FROST_RADIUS = builder
+                .comment("Radius of the frost spell")
+                .translation("config.exorcery.spell.frost_radius")
+                .defineInRange("frostRadius", 5, 1, 50);
+
+        FROST_DURATION = builder
+                .comment("Effect duration of the frost spell")
+                .translation("config.exorcery.spell.frost_duration")
+                .defineInRange("frostDuration", 100, 0, 20000000);
+
         builder.pop(2);
     }
 
@@ -152,5 +184,9 @@ public class SpellConfig implements IBaseConfig
         timeWarpManaCost = TIME_WARP_MANA_COST.get();
         timeWarpCastTime = TIME_WARP_CAST_TIME.get();
         timeWarpSteps = TIME_WARP_STEPS.get();
+        frostManaCost = FROST_MANA_COST.get();
+        frostCastTime = FROST_CAST_TIME.get();
+        frostRadius = FROST_RADIUS.get();
+        frostDuration = FROST_DURATION.get();
     }
 }

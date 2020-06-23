@@ -10,7 +10,8 @@ public enum SpellType
     NORMAL("normal", TextFormatting.WHITE, false),
     NATURAL("natural", TextFormatting.DARK_GREEN, false),
     FIRE("fire", TextFormatting.DARK_RED, true),
-    ENDER("ender", TextFormatting.DARK_PURPLE, true);
+    ENDER("ender", TextFormatting.DARK_PURPLE, true),
+    ICE("ice", TextFormatting.AQUA, false);
 
     private final String name;
     private final TextFormatting color;

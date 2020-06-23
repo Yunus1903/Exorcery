@@ -19,6 +19,7 @@ public class GeneralConfig implements IBaseConfig
         PLAYER_MANA = builder
                 .comment("The default mana value of the player")
                 .translation("config.exorcery.general.player_mana")
+                .worldRestart()
                 .defineInRange("playerMana", 1000, 1, 100000);
 
         builder.pop();
