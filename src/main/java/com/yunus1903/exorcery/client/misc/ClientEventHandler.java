@@ -87,7 +87,6 @@ public final class ClientEventHandler
     public static void onInitGui(GuiScreenEvent.InitGuiEvent.Pre event)
     {
         PlayerEntity player = Minecraft.getInstance().player;
-
         if (player == null) return;
 
         player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
@@ -96,6 +95,21 @@ public final class ClientEventHandler
             {
                 casting.stopCasting();
                 PacketHandler.sendToServer(new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
+            }
+        });
+    }
+
+    @SubscribeEvent
+    public static void onMouseScroll(InputEvent.MouseScrollEvent event)
+    {
+        PlayerEntity player = Minecraft.getInstance().player;
+        if (player == null) return;
+
+        player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+        {
+            if (casting.isCasting())
+            {
+                event.setCanceled(true);
             }
         });
     }
