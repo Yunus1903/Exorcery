@@ -42,7 +42,7 @@ public class FrostSpell extends Spell
         {
             if (entity instanceof LivingEntity)
             {
-                ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, SpellConfig.frostDuration, 10));
+                ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, SpellConfig.frostDuration, 10, false, false));
             }
         }
 
