@@ -26,6 +26,9 @@ public class SpellConfig implements IBaseConfig
     public static int frostCastTime;
     public static int frostRadius;
     public static int frostDuration;
+    public static int counterManaCost;
+    public static int counterCastTime;
+    public static int counterRadius;
 
     private final ForgeConfigSpec.IntValue TELEPORT_MANA_COST_MULTIPLIER;
     private final ForgeConfigSpec.IntValue TELEPORT_CAST_TIME;
@@ -45,6 +48,9 @@ public class SpellConfig implements IBaseConfig
     private final ForgeConfigSpec.IntValue FROST_CAST_TIME;
     private final ForgeConfigSpec.IntValue FROST_RADIUS;
     private final ForgeConfigSpec.IntValue FROST_DURATION;
+    private final ForgeConfigSpec.IntValue COUNTER_MANA_COST;
+    private final ForgeConfigSpec.IntValue COUNTER_CAST_TIME;
+    private final ForgeConfigSpec.IntValue COUNTER_RADIUS;
 
     public SpellConfig(ForgeConfigSpec.Builder builder)
     {
@@ -164,6 +170,25 @@ public class SpellConfig implements IBaseConfig
                 .translation("config.exorcery.spell.frost_duration")
                 .defineInRange("frostDuration", 100, 0, 20000000);
 
+        builder.pop().comment("Counter").push("counter");
+
+        COUNTER_MANA_COST = builder
+                .comment("Mana cost of the counter spell")
+                .translation("config.exorcery.spell.counter_mana_cost")
+                .worldRestart()
+                .defineInRange("counterManaCost", 600, 0, 10000);
+
+        COUNTER_CAST_TIME = builder
+                .comment("Cast time of the counter spell (in ticks)")
+                .translation("config.exorcery.spell.counter_cast_time")
+                .worldRestart()
+                .defineInRange("counterCastTime", 0, 0, 6000);
+
+        COUNTER_RADIUS = builder
+                .comment("Radius of the counter spell")
+                .translation("config.exorcery.spell.counter_radius")
+                .defineInRange("counterRadius", 5, 1, 50);
+
         builder.pop(2);
     }
 
@@ -188,5 +213,8 @@ public class SpellConfig implements IBaseConfig
         frostCastTime = FROST_CAST_TIME.get();
         frostRadius = FROST_RADIUS.get();
         frostDuration = FROST_DURATION.get();
+        counterManaCost = COUNTER_MANA_COST.get();
+        counterCastTime = COUNTER_CAST_TIME.get();
+        counterRadius = COUNTER_RADIUS.get();
     }
 }

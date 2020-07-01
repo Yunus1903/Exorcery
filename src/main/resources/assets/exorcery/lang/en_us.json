@@ -25,6 +25,9 @@
   "config.exorcery.spell.frost_cast_time": "Cast time of the frost spell (in ticks)",
   "config.exorcery.spell.frost_radius": "Radius of the frost spell",
   "config.exorcery.spell.frost_duration": "Effect duration of the frost spell",
+  "config.exorcery.spell.counter_mana_cost": "Mana cost of the counter spell",
+  "config.exorcery.spell.counter_cast_time": "Cast time of the counter spell (in ticks)",
+  "config.exorcery.spell.counter_radius": "Radius of the counter spell",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",
   "gui.exorcery.spell_selector.keybindings": "Keybindings",
@@ -53,5 +56,6 @@
   "spell.exorcery.time_warp_day": "Time Warp Day",
   "spell.exorcery.time_warp_night": "Time Warp Night",
   "spell.exorcery.frost": "Frost",
+  "spell.exorcery.counter": "Counter",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }
