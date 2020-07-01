@@ -48,7 +48,7 @@ public final class ExorcerySpells
     {
         for (Spell spell : SPELLS)
         {
-            ExorceryRegistry.SPELLS.register(spell);
+            ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).register(spell);
         }
     }
 }

@@ -31,6 +31,7 @@ public final class ExorceryCommand
     {
         Exorcery.LOGGER.info("Registering commands");
         dispatcher.register(Commands.literal("exorcery")
+                .requires(cs -> cs.hasPermissionLevel(2))
 //                .requires(cs -> cs.getEntity() instanceof ServerPlayerEntity)
                 .then(Give.register())
                 .then(Take.register())

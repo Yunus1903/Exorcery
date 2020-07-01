@@ -118,7 +118,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     @Override
     public String toString()
     {
-        return ExorceryRegistry.SPELLS.getKey(this).getPath();
+        return ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getKey(this).getPath();
     }
 
     public String getTranslationKey()

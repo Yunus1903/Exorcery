@@ -1,14 +1,15 @@
 package com.yunus1903.exorcery.common.item;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
-import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -25,11 +26,12 @@ import java.util.List;
  */
 public class ManaPotionItem extends ExorceryItem
 {
-    private final float MANA = 200F;
+    private final float mana;
 
-    public ManaPotionItem()
+    public ManaPotionItem(float mana)
     {
         super("mana_potion", new Item.Properties().maxStackSize(1));
+        this.mana = mana;
     }
 
     @Override
@@ -44,11 +46,11 @@ public class ManaPotionItem extends ExorceryItem
     {
         if (entityLiving instanceof PlayerEntity)
         {
-            IMana mana = entityLiving.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
+            IMana manaCapability = entityLiving.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
-            if (mana.get() >= mana.getMax()) return stack;
+            if (manaCapability.get() >= manaCapability.getMax()) return stack;
 
-            mana.add(MANA);
+            manaCapability.add(mana);
 
             if (!((PlayerEntity) entityLiving).isCreative())
             {
@@ -74,6 +76,6 @@ public class ManaPotionItem extends ExorceryItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(new StringTextComponent((int) MANA + " Mana").applyTextStyle(TextFormatting.GRAY));
+        tooltip.add(new StringTextComponent((int) mana + " Mana").applyTextStyle(TextFormatting.GRAY));
     }
 }
