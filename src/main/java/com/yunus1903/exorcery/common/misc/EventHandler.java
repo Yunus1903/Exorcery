@@ -1,13 +1,17 @@
 package com.yunus1903.exorcery.common.misc;
 
+import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
+import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
+import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
+import com.yunus1903.exorcery.common.network.packets.SyncMorphPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
@@ -50,7 +54,7 @@ public final class EventHandler
                 newMana.setRegenerationRate(oldMana.getRegenerationRate());
             });
 
-            syncSpellsAndManaToClient((ServerPlayerEntity) newPlayer);
+            syncCapabilities((ServerPlayerEntity) newPlayer);
         }
     }
 
@@ -59,10 +63,10 @@ public final class EventHandler
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
-            ISpells spells = event.getPlayer().getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
-            IMana mana = event.getPlayer().getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
+            event.getPlayer().getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
+            event.getPlayer().getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
-            syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
+            syncCapabilities((ServerPlayerEntity) event.getPlayer());
         }
     }
 
@@ -71,7 +75,7 @@ public final class EventHandler
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
-            syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
+            syncCapabilities((ServerPlayerEntity) event.getPlayer());
         }
     }
 
@@ -80,7 +84,7 @@ public final class EventHandler
     {
         if (event.getPlayer() instanceof ServerPlayerEntity)
         {
-            syncSpellsAndManaToClient((ServerPlayerEntity) event.getPlayer());
+            syncCapabilities((ServerPlayerEntity) event.getPlayer());
         }
     }
 
@@ -104,16 +108,26 @@ public final class EventHandler
         }
     }
 
-    private static void syncSpellsAndManaToClient(ServerPlayerEntity player)
+    private static void syncCapabilities(ServerPlayerEntity player)
     {
-        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent((spells) ->
+        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
         {
             PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
         });
 
-        player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent((mana) ->
+        player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
         {
             PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
+        });
+
+        player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
+        {
+            PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
+        });
+
+        player.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
+        {
+            PacketHandler.sendToPlayer(player, new SyncMorphPacket(morph.getMorphedEntities()));
         });
     }
 }
