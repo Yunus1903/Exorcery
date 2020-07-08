@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.init;
 
+import com.yunus1903.exorcery.common.effect.FluidWalkEffect;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
@@ -17,6 +18,7 @@ import java.util.List;
 public final class ExorceryEffects
 {
     private static final List<Effect> EFFECTS = new ArrayList<>();
+    public static final Effect FLUID_WALK = register(new FluidWalkEffect());
 
     private static Effect register(Effect effect)
     {
