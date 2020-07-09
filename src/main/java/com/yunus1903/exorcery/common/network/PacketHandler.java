@@ -37,6 +37,7 @@ public final class PacketHandler
         HANDLER.registerMessage(id++, SyncManaPacket.class, SyncManaPacket::encode, SyncManaPacket::decode, SyncManaPacket.Handler::handle);
         HANDLER.registerMessage(id++, SyncCastingPacket.class, SyncCastingPacket::encode, SyncCastingPacket::decode, SyncCastingPacket.Handler::handle);
         HANDLER.registerMessage(id++, SyncMorphPacket.class, SyncMorphPacket::encode, SyncMorphPacket::decode, SyncMorphPacket.Handler::handle);
+        HANDLER.registerMessage(id++, MagicalPotionEntityInteractPacket.class, MagicalPotionEntityInteractPacket::encode, MagicalPotionEntityInteractPacket::decode, MagicalPotionEntityInteractPacket.Handler::handle);
     }
 
     public static void sendToServer(Object msg)
