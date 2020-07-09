@@ -116,4 +116,9 @@ public final class SpellScrollItem extends ExorceryItem
             }
         }
     }
+
+    public boolean hasSpell()
+    {
+        return spell != null;
+    }
 }

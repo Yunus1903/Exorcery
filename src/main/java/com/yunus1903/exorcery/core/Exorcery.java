@@ -12,9 +12,11 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
+import com.yunus1903.exorcery.common.data.ExorceryItemTagsProvider;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.init.ExorcerySpells;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -89,7 +91,11 @@ public class Exorcery
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event)
     {
-
+        DataGenerator generator = event.getGenerator();
+        if (event.includeServer())
+        {
+            generator.addProvider(new ExorceryItemTagsProvider(generator));
+        }
     }
 
     @SubscribeEvent
