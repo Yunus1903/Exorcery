@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.data;
 
+import com.yunus1903.exorcery.common.ExorceryTags;
 import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
@@ -32,9 +33,9 @@ public class ExorceryRecipeProvider extends RecipeProvider
                 .build(consumer);
 
         ShapelessRecipeBuilder.shapelessRecipe(ExorceryItems.SPELL_SCROLL_EMPTY)
-                .addIngredient(ExorceryItemTagsProvider.SPELL_SCROLLS)
+                .addIngredient(ExorceryTags.Items.SPELL_SCROLLS)
                 .setGroup(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().toString())
-                .addCriterion("has_spell_scroll", hasItem(ExorceryItemTagsProvider.SPELL_SCROLLS))
+                .addCriterion("has_spell_scroll", hasItem(ExorceryTags.Items.SPELL_SCROLLS))
                 .build(consumer, ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().toString() + "_spell_scrolls_tag");
     }
 

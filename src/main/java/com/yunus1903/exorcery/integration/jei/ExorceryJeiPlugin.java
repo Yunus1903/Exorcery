@@ -1,6 +1,6 @@
 package com.yunus1903.exorcery.integration.jei;
 
-import com.yunus1903.exorcery.common.data.ExorceryItemTagsProvider;
+import com.yunus1903.exorcery.common.ExorceryTags;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
 import mezz.jei.api.IModPlugin;
@@ -34,7 +34,7 @@ public class ExorceryJeiPlugin implements IModPlugin
     @Override
     public void registerRecipes(IRecipeRegistration registration)
     {
-        Collection<Item> items =  ExorceryItemTagsProvider.SPELL_SCROLLS.getAllElements();
+        Collection<Item> items =  ExorceryTags.Items.SPELL_SCROLLS.getAllElements();
 
         Collection<Object> collection = new ArrayList<>();
 
