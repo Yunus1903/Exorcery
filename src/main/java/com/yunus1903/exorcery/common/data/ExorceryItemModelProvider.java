@@ -39,6 +39,9 @@ public class ExorceryItemModelProvider extends ItemModelProvider
 
         registerSimpleItem(ExorceryItems.MANA_POTION.getRegistryName().getPath())
                 .texture("layer1", new ResourceLocation("minecraft", "item/potion"));
+
+        registerSimpleItem(ExorceryItems.MAGICAL_POTION.getRegistryName().getPath())
+                .texture("layer1", new ResourceLocation("minecraft", "item/potion"));
     }
 
     @Override
