@@ -1,10 +1,7 @@
 package com.yunus1903.exorcery.common.data;
 
 import com.yunus1903.exorcery.init.ExorceryItems;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.Items;
 
 import java.util.function.Consumer;
@@ -33,6 +30,12 @@ public class ExorceryRecipeProvider extends RecipeProvider
                 .addCriterion("has_paper", hasItem(Items.PAPER))
                 .addCriterion("has_emerald", hasItem(Items.EMERALD))
                 .build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(ExorceryItems.SPELL_SCROLL_EMPTY)
+                .addIngredient(ExorceryItemTagsProvider.SPELL_SCROLLS)
+                .setGroup(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().toString())
+                .addCriterion("has_spell_scroll", hasItem(ExorceryItemTagsProvider.SPELL_SCROLLS))
+                .build(consumer, ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().toString() + "_spell_scrolls_tag");
     }
 
     @Override

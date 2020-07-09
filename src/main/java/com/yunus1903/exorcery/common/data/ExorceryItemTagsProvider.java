@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class ExorceryItemTagsProvider extends ItemTagsProvider
 {
-    private static final Tag<Item> SPELL_SCROLLS = new ItemTags.Wrapper(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls"));
+    public static final Tag<Item> SPELL_SCROLLS = new ItemTags.Wrapper(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls"));
 
     public ExorceryItemTagsProvider(DataGenerator generatorIn)
     {
