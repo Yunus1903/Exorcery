@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,5 +51,10 @@ public final class ExorceryItems
         {
             event.getRegistry().register(item);
         }
+    }
+
+    public static List<Item> getItems()
+    {
+        return Collections.unmodifiableList(ITEMS);
     }
 }

@@ -32,6 +32,24 @@ minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        data {
+            workingDirectory project.file('run')
+
+            if (findProject(':Workspace') != null) {
+                ideaModule '1.15.Exorcery.main'
+            }
+
+            args '--mod', 'exorcery', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+
+            mods {
+                exorcery {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -74,7 +92,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
                 "Specification-Version": "1",
                 "Implementation-Title": project.name,
                 "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"Yunus1903",
+                "Implementation-Vendor" : "Yunus1903",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -92,7 +110,7 @@ jar {
             "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"Yunus1903",
+            "Implementation-Vendor" : "Yunus1903",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
