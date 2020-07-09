@@ -82,6 +82,27 @@ public class SpellWidget extends Widget
         InputMappings.Input key = Exorcery.keybindingHandler.getKey(spell);
         if (key != null) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + GLFW.glfwGetKeyName(key.getKeyCode(), key.getKeyCode()));
         else if (gui.keybindMode) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + I18n.format("gui.exorcery.tooltip.keybinding.none"));
-        GuiUtils.drawHoveringText(tooltip, p_renderToolTip_1_, p_renderToolTip_2_, gui.getMinecraft().getMainWindow().getScaledWidth(), gui.getMinecraft().getMainWindow().getScaledHeight(), -1, gui.getMinecraft().fontRenderer);
+        if (InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
+        {
+            String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
+            String line1 = I18n.format(translationKey + ".line1");
+            String line2 = I18n.format(translationKey + ".line2");
+
+            if (!line1.equals(translationKey + ".line1") || line1.isEmpty())
+            {
+                tooltip.add("");
+                tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + line1);
+                if (!line2.equals(translationKey + ".line2") || line2.isEmpty())
+                    tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + line2);
+            }
+        }
+        GuiUtils.drawHoveringText(tooltip,
+                p_renderToolTip_1_,
+                p_renderToolTip_2_,
+                gui.getMinecraft().getMainWindow().getScaledWidth(),
+                gui.getMinecraft().getMainWindow().getScaledHeight(),
+                -1,
+                gui.getMinecraft().fontRenderer
+        );
     }
 }

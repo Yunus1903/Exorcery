@@ -6,7 +6,9 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.common.spell.Spell;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -16,8 +18,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -81,9 +88,32 @@ public final class SpellScrollItem extends ExorceryItem
         return "item.exorcery.spell_scroll";
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        if (spell != null) tooltip.add(spell.getName().applyTextStyle(spell.getType().getColor()));
+        if (spell != null)
+        {
+            tooltip.add(spell.getName().applyTextStyle(spell.getType().getColor()));
+            if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
+            {
+                String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
+                ITextComponent line1 = new TranslationTextComponent(translationKey + ".line1");
+                ITextComponent line2 = new TranslationTextComponent(translationKey + ".line2");
+
+                if (!line1.getString().equals(translationKey + ".line1") || line1.getString().isEmpty())
+                {
+                    tooltip.add(new StringTextComponent(""));
+                    tooltip.add(line1.applyTextStyle(TextFormatting.GRAY));
+                    if (!line2.getString().equals(translationKey + ".line2") || line2.getString().isEmpty())
+                        tooltip.add(line2.applyTextStyle(TextFormatting.GRAY));
+                }
+            }
+            else
+            {
+                tooltip.add(new StringTextComponent(""));
+                tooltip.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description").applyTextStyle(TextFormatting.GOLD));
+            }
+        }
     }
 }
