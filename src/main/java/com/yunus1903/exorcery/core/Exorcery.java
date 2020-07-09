@@ -12,6 +12,7 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
+import com.yunus1903.exorcery.common.data.ExorceryItemModelProvider;
 import com.yunus1903.exorcery.common.data.ExorceryItemTagsProvider;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
@@ -92,6 +93,10 @@ public class Exorcery
     public static void gatherData(final GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
+        if (event.includeClient())
+        {
+            generator.addProvider(new ExorceryItemModelProvider(generator, event.getExistingFileHelper()));
+        }
         if (event.includeServer())
         {
             generator.addProvider(new ExorceryItemTagsProvider(generator));
