@@ -33,7 +33,11 @@
   "config.exorcery.spell.counter_cast_time": "Cast time of the counter spell (in ticks)",
   "config.exorcery.spell.counter_radius": "Radius of the counter spell",
   "config.exorcery.spell.infusion_cast_time": "Cast time of the infusion spell (in ticks)",
+  "config.exorcery.spell.fluidWalk_mana_cost": "Mana cost of the fluid walk spell",
+  "config.exorcery.spell.fluidWalk_cast_time": "Cast time of the fluid walk spell (in ticks)",
+  "config.exorcery.spell.fluidWalk_duration": "Effect duration of the fluid Walk spell",
   "effect.exorcery.polymorph": "Polymorph",
+  "effect.exorcery.fluid_walk": "Fluid Walk",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",
   "gui.exorcery.spell_selector.keybindings": "Keybindings",
@@ -114,5 +118,7 @@
   "spell.exorcery.counter.description.line2": "from casting a spell",
   "spell.exorcery.infusion": "Infusion",
   "spell.exorcery.infusion.description.line1": "Infuse specific items",
+  "spell.exorcery.fluid_walk": "Fluid Walk",
+  "spell.exorcery.fluid_walk.description.line1": "Walk on liquids!",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }

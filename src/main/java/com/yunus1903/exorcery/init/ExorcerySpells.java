@@ -38,6 +38,14 @@ public final class ExorcerySpells
     public static final Spell FROST = register(new FrostSpell());
     public static final Spell COUNTER = register(new CounterSpell());
     public static final Spell INFUSION = register(new InfusionSpell());
+    public static final Spell FLUID_WALK = register(new EffectSpell("fluid_walk",
+            ExorceryEffects.FLUID_WALK,
+            fluidWalkDuration,
+            1,
+            fluidWalkManaCost,
+            fluidWalkCastTime,
+            SpellType.NORMAL
+    ));
 
     private static Spell register(Spell spell)
     {

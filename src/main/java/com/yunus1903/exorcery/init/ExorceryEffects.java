@@ -1,6 +1,7 @@
 package com.yunus1903.exorcery.init;
 
 import com.yunus1903.exorcery.common.effect.PolymorphEffect;
+import com.yunus1903.exorcery.common.effect.FluidWalkEffect;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.EntityType;
 import net.minecraft.potion.Effect;
@@ -30,6 +31,7 @@ public final class ExorceryEffects
     public static final Effect POLYMORPH_SKELETON = register(new PolymorphEffect(EntityType.SKELETON, 0xC1C1C1));
     public static final Effect POLYMORPH_VILLAGER = register(new PolymorphEffect(EntityType.VILLAGER, 0x563C33));
     public static final Effect POLYMORPH_ZOMBIE = register(new PolymorphEffect(EntityType.ZOMBIE, 0x00AFAF));
+    public static final Effect FLUID_WALK = register(new FluidWalkEffect());
 
     private static Effect register(Effect effect)
     {
