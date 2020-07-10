@@ -28,7 +28,7 @@ public class InfusionRecipe implements IInfusionRecipe
     @Override
     public ItemStack getInput()
     {
-        return input;
+        return input.copy();
     }
 
     @Override
@@ -40,6 +40,6 @@ public class InfusionRecipe implements IInfusionRecipe
     @Override
     public ItemStack getOutput()
     {
-        return output;
+        return output.copy();
     }
 }
