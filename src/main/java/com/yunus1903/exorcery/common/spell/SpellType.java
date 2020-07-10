@@ -11,7 +11,8 @@ public enum SpellType
     NATURAL("natural", TextFormatting.DARK_GREEN, false),
     FIRE("fire", TextFormatting.DARK_RED, true),
     ENDER("ender", TextFormatting.DARK_PURPLE, true),
-    ICE("ice", TextFormatting.AQUA, false);
+    ICE("ice", TextFormatting.AQUA, false),
+    MAGIC("magic", TextFormatting.LIGHT_PURPLE, true);
 
     private final String name;
     private final TextFormatting color;

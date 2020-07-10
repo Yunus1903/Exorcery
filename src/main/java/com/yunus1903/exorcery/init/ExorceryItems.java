@@ -35,6 +35,7 @@ public final class ExorceryItems
     public static final Item SPELL_SCROLL_TIME_WARP_NIGHT = register(new SpellScrollItem(ExorcerySpells.TIME_WARP_NIGHT));
     public static final Item SPELL_SCROLL_FROST = register(new SpellScrollItem(ExorcerySpells.FROST));
     public static final Item SPELL_SCROLL_COUNTER = register(new SpellScrollItem(ExorcerySpells.COUNTER));
+    public static final Item SPELL_SCROLL_INFUSION = register(new SpellScrollItem(ExorcerySpells.INFUSION));
     public static final Item MANA_POTION = register(new ManaPotionItem(200));
     public static final Item MAGICAL_POTION = register(new MagicalPotionItem());
 

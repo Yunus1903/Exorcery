@@ -32,6 +32,7 @@
   "config.exorcery.spell.counter_mana_cost": "Mana cost of the counter spell",
   "config.exorcery.spell.counter_cast_time": "Cast time of the counter spell (in ticks)",
   "config.exorcery.spell.counter_radius": "Radius of the counter spell",
+  "config.exorcery.spell.infusion_cast_time": "Cast time of the infusion spell (in ticks)",
   "effect.exorcery.polymorph": "Polymorph",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",
@@ -50,6 +51,7 @@
   "gui.exorcery.tooltip.mana_cost": "Mana Cost",
   "gui.exorcery.tooltip.mana_cost_free": "Free",
   "gui.exorcery.tooltip.while_running": "Can be casted while running",
+  "gui.jei.category.infusion": "Infusion",
   "item.exorcery.spell_scroll": "Spell Scroll",
   "item.exorcery.spell_scroll_empty": "Empty Spell Scroll",
   "item.exorcery.mana_potion": "Mana Potion",
@@ -110,5 +112,7 @@
   "spell.exorcery.counter": "Counter",
   "spell.exorcery.counter.description.line1": "Stop surrounding players",
   "spell.exorcery.counter.description.line2": "from casting a spell",
+  "spell.exorcery.infusion": "Infusion",
+  "spell.exorcery.infusion.description.line1": "Infuse specific items",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }

@@ -160,6 +160,16 @@ public class SpellSelectorScreen extends Screen
     @Override
     public void tick()
     {
+        minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
+        {
+            for (Spell spell : spells.getSpells())
+            {
+                spell.setTargetEntity(minecraft);
+                spell.setTargetLocation(minecraft);
+                spell.calculateManaCost(minecraft.player);
+            }
+        });
+
         if (keybindMode)
         {
             if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_ESCAPE))
@@ -170,19 +180,7 @@ public class SpellSelectorScreen extends Screen
         }
         else
         {
-            if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
-            {
-                minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
-                {
-                    for (Spell spell : spells.getSpells())
-                    {
-                        spell.setTargetEntity(minecraft);
-                        spell.setTargetLocation(minecraft);
-                        spell.calculateManaCost(minecraft.player);
-                    }
-                });
-            }
-            else
+            if (!InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), ClientProxy.KEY_SPELL_SELECTOR.getKey().getKeyCode()))
             {
                 for (Widget btn : buttons)
                 {

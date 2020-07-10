@@ -1,11 +1,14 @@
 package com.yunus1903.exorcery.integration.jei;
 
 import com.yunus1903.exorcery.common.ExorceryTags;
+import com.yunus1903.exorcery.common.infusion.InfusionRecipeRegistry;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,6 +35,14 @@ public class ExorceryJeiPlugin implements IModPlugin
     }
 
     @Override
+    public void registerCategories(IRecipeCategoryRegistration registration)
+    {
+        IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
+
+        registration.addRecipeCategories(new InfusionRecipeCategory(guiHelper));
+    }
+
+    @Override
     public void registerRecipes(IRecipeRegistration registration)
     {
         Collection<Item> items =  ExorceryTags.Items.SPELL_SCROLLS.getAllElements();
@@ -48,5 +59,7 @@ public class ExorceryJeiPlugin implements IModPlugin
         }
 
         registration.addRecipes(collection, VanillaRecipeCategoryUid.ANVIL);
+
+        registration.addRecipes(InfusionRecipeRegistry.getRecipes(), InfusionRecipeCategory.UID);
     }
 }
