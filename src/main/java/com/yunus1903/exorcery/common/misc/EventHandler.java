@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.misc;
 
+import com.yunus1903.exorcery.common.ExorceryTags;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
@@ -98,7 +99,7 @@ public final class EventHandler
     @SubscribeEvent
     public static void onAnvilRepair(AnvilRepairEvent event)
     {
-        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getItemResult().getItem()))
+        if (ExorceryTags.Items.SPELL_SCROLLS.contains(event.getItemResult().getItem()))
         {
             event.getPlayer().inventory.addItemStackToInventory(event.getItemInput());
         }

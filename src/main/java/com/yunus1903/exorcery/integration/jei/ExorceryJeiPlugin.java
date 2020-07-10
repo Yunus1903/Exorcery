@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.integration.jei;
 
+import com.yunus1903.exorcery.common.ExorceryTags;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
 import mezz.jei.api.IModPlugin;
@@ -8,7 +9,6 @@ import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,7 +34,7 @@ public class ExorceryJeiPlugin implements IModPlugin
     @Override
     public void registerRecipes(IRecipeRegistration registration)
     {
-        Collection<Item> items =  ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).getAllElements();
+        Collection<Item> items =  ExorceryTags.Items.SPELL_SCROLLS.getAllElements();
 
         Collection<Object> collection = new ArrayList<>();
 

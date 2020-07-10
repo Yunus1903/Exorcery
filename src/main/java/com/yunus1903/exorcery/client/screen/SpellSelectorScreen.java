@@ -43,25 +43,37 @@ public class SpellSelectorScreen extends Screen
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
         super.render(p_render_1_, p_render_2_, p_render_3_);
+        boolean isHovering = false;
         for (Widget btn : buttons)
         {
-            if (btn.isHovered()) btn.renderToolTip(p_render_1_, p_render_2_);
+            if (btn.isHovered())
+            {
+                btn.renderToolTip(p_render_1_, p_render_2_);
+                isHovering = true;
+            }
         }
+
+        int scaledWidth = minecraft.getMainWindow().getScaledWidth();
+        int scaledHeight = minecraft.getMainWindow().getScaledHeight();
 
         if (keybindMode)
         {
             List<String> text = new ArrayList<>();
-            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line1"));
+            text.add(TextFormatting.YELLOW + "" + TextFormatting.UNDERLINE + I18n.format("gui.exorcery.spell_selector.keybindings.info.line1"));
             text.add("");
             text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line2"));
             text.add("");
             text.add(I18n.format("gui.exorcery.spell_selector.keybindings.info.line3"));
             text.add("");
             text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line4"));
-            int scaledWidth = minecraft.getMainWindow().getScaledWidth();
-            int scaledHeight = minecraft.getMainWindow().getScaledHeight();
 
             GuiUtils.drawHoveringText(text, 4, scaledHeight - 103, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
+        }
+        else if (isHovering)
+        {
+            List<String> text = new ArrayList<>();
+            text.add(I18n.format("gui.exorcery.spell_selector.spell_description"));
+            GuiUtils.drawHoveringText(text, 4, scaledHeight - 23, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
         }
     }
 
@@ -193,6 +205,8 @@ public class SpellSelectorScreen extends Screen
     public void onKeyPress(int keyCode)
     {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) return;
+        if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) return;
+        if (keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) return;
         if (GLFW.glfwGetKeyName(keyCode, GLFW.glfwGetKeyScancode(keyCode)) == null) return;
 
         for (KeyBinding key : minecraft.gameSettings.keyBindings)
