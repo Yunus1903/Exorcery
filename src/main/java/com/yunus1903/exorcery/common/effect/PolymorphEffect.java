@@ -70,4 +70,9 @@ public class PolymorphEffect extends Effect
     {
         return (new TranslationTextComponent(entityType.getTranslationKey())).appendText(" ").appendSibling(new TranslationTextComponent(getName()));
     }
+
+    public EntityType<? extends LivingEntity> getEntityType()
+    {
+        return entityType;
+    }
 }

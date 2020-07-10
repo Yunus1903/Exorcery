@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,5 +51,10 @@ public final class ExorceryPotions
         {
             event.getRegistry().register(potion);
         }
+    }
+
+    public static List<Potion> getPotions()
+    {
+        return Collections.unmodifiableList(POTIONS);
     }
 }

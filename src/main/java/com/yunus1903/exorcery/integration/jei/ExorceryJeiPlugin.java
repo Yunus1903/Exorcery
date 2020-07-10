@@ -1,18 +1,27 @@
 package com.yunus1903.exorcery.integration.jei;
 
 import com.yunus1903.exorcery.common.ExorceryTags;
+import com.yunus1903.exorcery.common.effect.PolymorphEffect;
 import com.yunus1903.exorcery.common.infusion.InfusionRecipeRegistry;
+import com.yunus1903.exorcery.common.spell.SpellType;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
+import com.yunus1903.exorcery.init.ExorceryPotions;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -61,5 +70,28 @@ public class ExorceryJeiPlugin implements IModPlugin
         registration.addRecipes(collection, VanillaRecipeCategoryUid.ANVIL);
 
         registration.addRecipes(InfusionRecipeRegistry.getRecipes(), InfusionRecipeCategory.UID);
+
+        for (Potion potion : ExorceryPotions.getPotions())
+        {
+            if (potion.getEffects().get(0).getPotion() instanceof PolymorphEffect)
+            {
+                PolymorphEffect effect = (PolymorphEffect) potion.getEffects().get(0).getPotion();
+                effect.getEntityType();
+
+                registration.addIngredientInfo(
+                        PotionUtils.addPotionToItemStack(
+                                new ItemStack(Items.POTION),
+                                potion),
+                        VanillaTypes.ITEM,
+                        "To create this potion, right click a " +
+                                I18n.format(effect.getEntityType().getTranslationKey()) +
+                                " with a " +
+                                SpellType.MAGIC.getColor().toString() +
+                                I18n.format(ExorceryItems.MAGICAL_POTION.getTranslationKey()) +
+                                TextFormatting.RESET.toString() +
+                                "."
+                );
+            }
+        }
     }
 }
