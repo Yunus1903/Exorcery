@@ -30,6 +30,9 @@ public class SpellConfig implements IBaseConfig
     public static int counterCastTime;
     public static int counterRadius;
     public static int infusionCastTime;
+    public static int fluidWalkManaCost;
+    public static int fluidWalkCastTime;
+    public static int fluidWalkDuration;
 
     private final ForgeConfigSpec.IntValue TELEPORT_MANA_COST_MULTIPLIER;
     private final ForgeConfigSpec.IntValue TELEPORT_CAST_TIME;
@@ -53,6 +56,9 @@ public class SpellConfig implements IBaseConfig
     private final ForgeConfigSpec.IntValue COUNTER_CAST_TIME;
     private final ForgeConfigSpec.IntValue COUNTER_RADIUS;
     private final ForgeConfigSpec.IntValue INFUSION_CAST_TIME;
+    private final ForgeConfigSpec.IntValue FLUID_WALK_MANA_COST;
+    private final ForgeConfigSpec.IntValue FLUID_WALK_CAST_TIME;
+    private final ForgeConfigSpec.IntValue FLUID_WALK_DURATION;
 
     public SpellConfig(ForgeConfigSpec.Builder builder)
     {
@@ -199,6 +205,25 @@ public class SpellConfig implements IBaseConfig
                 .worldRestart()
                 .defineInRange("infusionCastTime", 100, 0, 6000);
 
+        builder.pop().comment("FluidWalk").push("fluidwalk");
+
+        FLUID_WALK_MANA_COST = builder
+                .comment("Mana cost of the fluid walk spell")
+                .translation("config.exorcery.spell.fluidWalk_mana_cost")
+                .worldRestart()
+                .defineInRange("fluidWalkManaCost", 350, 0, 10000);
+
+        FLUID_WALK_CAST_TIME = builder
+                .comment("Cast time of the fluid walk spell (in ticks)")
+                .translation("config.exorcery.spell.fluidWalk_cast_time")
+                .worldRestart()
+                .defineInRange("fluidWalkCastTime", 80, 0, 6000);
+
+        FLUID_WALK_DURATION = builder
+                .comment("Effect duration of the fluid Walk spell")
+                .translation("config.exorcery.spell.fluidWalk_duration")
+                .defineInRange("fluidWalkDuration", 600, 0, 20000000);
+
         builder.pop(2);
     }
 
@@ -227,5 +252,8 @@ public class SpellConfig implements IBaseConfig
         counterCastTime = COUNTER_CAST_TIME.get();
         counterRadius = COUNTER_RADIUS.get();
         infusionCastTime = INFUSION_CAST_TIME.get();
+        fluidWalkManaCost = FLUID_WALK_MANA_COST.get();
+        fluidWalkCastTime = FLUID_WALK_CAST_TIME.get();
+        fluidWalkDuration = FLUID_WALK_DURATION.get();
     }
 }
