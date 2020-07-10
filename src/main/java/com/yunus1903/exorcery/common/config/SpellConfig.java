@@ -29,6 +29,7 @@ public class SpellConfig implements IBaseConfig
     public static int counterManaCost;
     public static int counterCastTime;
     public static int counterRadius;
+    public static int infusionCastTime;
 
     private final ForgeConfigSpec.IntValue TELEPORT_MANA_COST_MULTIPLIER;
     private final ForgeConfigSpec.IntValue TELEPORT_CAST_TIME;
@@ -51,6 +52,7 @@ public class SpellConfig implements IBaseConfig
     private final ForgeConfigSpec.IntValue COUNTER_MANA_COST;
     private final ForgeConfigSpec.IntValue COUNTER_CAST_TIME;
     private final ForgeConfigSpec.IntValue COUNTER_RADIUS;
+    private final ForgeConfigSpec.IntValue INFUSION_CAST_TIME;
 
     public SpellConfig(ForgeConfigSpec.Builder builder)
     {
@@ -189,6 +191,14 @@ public class SpellConfig implements IBaseConfig
                 .translation("config.exorcery.spell.counter_radius")
                 .defineInRange("counterRadius", 5, 1, 50);
 
+        builder.pop().comment("Infusion").push("infusion");
+
+        INFUSION_CAST_TIME = builder
+                .comment("Cast time of the infusion spell (in ticks)")
+                .translation("config.exorcery.spell.infusion_cast_time")
+                .worldRestart()
+                .defineInRange("infusionCastTime", 100, 0, 6000);
+
         builder.pop(2);
     }
 
@@ -216,5 +226,6 @@ public class SpellConfig implements IBaseConfig
         counterManaCost = COUNTER_MANA_COST.get();
         counterCastTime = COUNTER_CAST_TIME.get();
         counterRadius = COUNTER_RADIUS.get();
+        infusionCastTime = INFUSION_CAST_TIME.get();
     }
 }
