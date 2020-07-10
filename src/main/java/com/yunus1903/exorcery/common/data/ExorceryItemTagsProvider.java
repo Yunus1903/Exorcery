@@ -13,8 +13,6 @@ import net.minecraft.item.Item;
  */
 public class ExorceryItemTagsProvider extends ItemTagsProvider
 {
-
-
     public ExorceryItemTagsProvider(DataGenerator generatorIn)
     {
         super(generatorIn);
