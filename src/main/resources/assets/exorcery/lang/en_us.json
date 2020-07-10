@@ -1,4 +1,8 @@
 {
+  "advancements.exorcery.root.title": "Exorcery",
+  "advancements.exorcery.root.description": "This seems like something new",
+  "advancements.exorcery.mana.title": "Mana",
+  "advancements.exorcery.mana.description": "Some type of energy?",
   "argument.exorcery.spell.invalid": "Unknown spell '%s'",
   "chat.exorcery.forgotten": "You have forgotten a spell",
   "chat.exorcery.mounted": "You can't do that while mounted",

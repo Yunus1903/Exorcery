@@ -12,6 +12,7 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
+import com.yunus1903.exorcery.common.data.ExorceryAdvancementProvider;
 import com.yunus1903.exorcery.common.data.ExorceryItemModelProvider;
 import com.yunus1903.exorcery.common.data.ExorceryItemTagsProvider;
 import com.yunus1903.exorcery.common.data.ExorceryRecipeProvider;
@@ -102,6 +103,7 @@ public class Exorcery
         {
             generator.addProvider(new ExorceryItemTagsProvider(generator));
             generator.addProvider(new ExorceryRecipeProvider(generator));
+            generator.addProvider(new ExorceryAdvancementProvider(generator));
         }
     }
 

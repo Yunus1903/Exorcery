@@ -1,0 +1,35 @@
+{
+  "parent": "exorcery:exorcery/root",
+  "display": {
+    "icon": {
+      "item": "exorcery:mana_potion"
+    },
+    "title": {
+      "translate": "advancements.exorcery.mana.title"
+    },
+    "description": {
+      "translate": "advancements.exorcery.mana.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_mana_potion": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "exorcery:mana_potion"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mana_potion"
+    ]
+  ]
+}

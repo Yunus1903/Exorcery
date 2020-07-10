@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "exorcery:spell_scroll_empty"
+    },
+    "title": {
+      "translate": "advancements.exorcery.root.title"
+    },
+    "description": {
+      "translate": "advancements.exorcery.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/block/andesite.png"
+  },
+  "criteria": {
+    "has_spell_scroll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "exorcery:spell_scrolls"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spell_scroll"
+    ]
+  ]
+}
