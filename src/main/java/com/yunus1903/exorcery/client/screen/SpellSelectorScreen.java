@@ -116,39 +116,49 @@ public class SpellSelectorScreen extends Screen
 
             for (int i = 0; i < spellList.size(); i++)
             {
-                if (i >= 8) return;
+                if (i >= 16) return;
                 int x = scaledWidth / 2;
                 int y = scaledHeight / 2;
+
+                float offset = i >= 8 ? 1.7F : 1.0F;
 
                 switch (i)
                 {
                     case 0:
-                        y -= CENTER_OFFSET_STRAIGHT * scale;
+                    case 8:
+                        y -= CENTER_OFFSET_STRAIGHT * scale * offset;
                         break;
                     case 1:
-                        y += CENTER_OFFSET_STRAIGHT * scale;
+                    case 9:
+                        y += CENTER_OFFSET_STRAIGHT * scale * offset;
                         break;
                     case 2:
-                        x += CENTER_OFFSET_STRAIGHT * scale;
+                    case 10:
+                        x += CENTER_OFFSET_STRAIGHT * scale * offset;
                         break;
                     case 3:
-                        x -= CENTER_OFFSET_STRAIGHT * scale;
+                    case 11:
+                        x -= CENTER_OFFSET_STRAIGHT * scale * offset;
                         break;
                     case 4:
-                        x += CENTER_OFFSET_SIDE * scale;
-                        y -= CENTER_OFFSET_SIDE * scale;
+                    case 12:
+                        x += CENTER_OFFSET_SIDE * scale * offset;
+                        y -= CENTER_OFFSET_SIDE * scale * offset;
                         break;
                     case 5:
-                        x -= CENTER_OFFSET_SIDE * scale;
-                        y += CENTER_OFFSET_SIDE * scale;
+                    case 13:
+                        x -= CENTER_OFFSET_SIDE * scale * offset;
+                        y += CENTER_OFFSET_SIDE * scale * offset;
                         break;
                     case 6:
-                        x -= CENTER_OFFSET_SIDE * scale;
-                        y -= CENTER_OFFSET_SIDE * scale;
+                    case 14:
+                        x -= CENTER_OFFSET_SIDE * scale * offset;
+                        y -= CENTER_OFFSET_SIDE * scale * offset;
                         break;
                     case 7:
-                        x += CENTER_OFFSET_SIDE * scale;
-                        y += CENTER_OFFSET_SIDE * scale;
+                    case 15:
+                        x += CENTER_OFFSET_SIDE * scale * offset;
+                        y += CENTER_OFFSET_SIDE * scale * offset;
                         break;
                 }
 
