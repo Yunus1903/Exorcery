@@ -7,6 +7,9 @@ import com.yunus1903.exorcery.common.capabilities.casting.ICasting;
 import com.yunus1903.exorcery.common.capabilities.mana.IMana;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaCapability;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaStorage;
+import com.yunus1903.exorcery.common.capabilities.morph.IMorph;
+import com.yunus1903.exorcery.common.capabilities.morph.MorphCapability;
+import com.yunus1903.exorcery.common.capabilities.morph.MorphStorage;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
@@ -70,6 +73,7 @@ public class Exorcery
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), ManaCapability::new);
         CapabilityManager.INSTANCE.register(ISpells.class, new SpellsStorage(), SpellsCapability::new);
         CapabilityManager.INSTANCE.register(ICasting.class, new CastingStorage(), CastingCapability::new);
+        CapabilityManager.INSTANCE.register(IMorph.class, new MorphStorage(), MorphCapability::new);
         PacketHandler.register();
     }
 

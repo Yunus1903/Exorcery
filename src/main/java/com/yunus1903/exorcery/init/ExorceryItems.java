@@ -1,6 +1,7 @@
 package com.yunus1903.exorcery.init;
 
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
+import com.yunus1903.exorcery.common.item.MagicalPotionItem;
 import com.yunus1903.exorcery.common.item.ManaPotionItem;
 import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.core.Exorcery;
@@ -35,6 +36,7 @@ public final class ExorceryItems
     public static final Item SPELL_SCROLL_FROST = register(new SpellScrollItem(ExorcerySpells.FROST));
     public static final Item SPELL_SCROLL_COUNTER = register(new SpellScrollItem(ExorcerySpells.COUNTER));
     public static final Item MANA_POTION = register(new ManaPotionItem(200));
+    public static final Item MAGICAL_POTION = register(new MagicalPotionItem());
 
     private static Item register(Item item)
     {
