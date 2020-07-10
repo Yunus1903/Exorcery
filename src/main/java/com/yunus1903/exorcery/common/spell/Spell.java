@@ -186,6 +186,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
             calculateManaCost(player);
 
+            if (manaCost == Float.MAX_VALUE) return false;
+
             IMana mana = player.getCapability(ManaProvider.MANA_CAPABILITY).orElse(new ManaCapability());
 
             if (mana.get() >= manaCost || player.isCreative())

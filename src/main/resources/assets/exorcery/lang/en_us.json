@@ -110,5 +110,7 @@
   "spell.exorcery.counter": "Counter",
   "spell.exorcery.counter.description.line1": "Stop surrounding players",
   "spell.exorcery.counter.description.line2": "from casting a spell",
+  "spell.exorcery.infusion": "Infusion",
+  "spell.exorcery.infusion.description.line1": "Infuse specific items",
   "subtitles.exorcery.spell_chanting": "Chanting Spell"
 }
