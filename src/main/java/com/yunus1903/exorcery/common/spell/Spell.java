@@ -169,6 +169,8 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     {
         if (isCasting) return false;
 
+        calculateManaCost(player);
+
         if (bypassManaAndSync)
         {
             //This runs on client if server tells client to cast
@@ -183,8 +185,6 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
 
             this.targetEntity = targetEntity;
             this.targetLocation = targetLocation;
-
-            calculateManaCost(player);
 
             if (manaCost == Float.MAX_VALUE) return false;
 
