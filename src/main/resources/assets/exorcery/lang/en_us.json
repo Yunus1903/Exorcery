@@ -32,6 +32,7 @@
   "config.exorcery.spell.counter_mana_cost": "Mana cost of the counter spell",
   "config.exorcery.spell.counter_cast_time": "Cast time of the counter spell (in ticks)",
   "config.exorcery.spell.counter_radius": "Radius of the counter spell",
+  "config.exorcery.spell.infusion_cast_time": "Cast time of the infusion spell (in ticks)",
   "effect.exorcery.polymorph": "Polymorph",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",

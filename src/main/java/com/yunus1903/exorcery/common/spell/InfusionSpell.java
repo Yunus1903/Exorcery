@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.common.spell;
 
+import com.yunus1903.exorcery.common.config.SpellConfig;
 import com.yunus1903.exorcery.common.infusion.InfusionRecipeRegistry;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +23,7 @@ public class InfusionSpell extends Spell
     public InfusionSpell()
     {
         this.setRegistryName(Exorcery.MOD_ID, "infusion")
-                .setCastTime(60) // todo config
+                .setCastTime(SpellConfig.infusionCastTime)
                 .setType(SpellType.MAGIC);
     }
 
