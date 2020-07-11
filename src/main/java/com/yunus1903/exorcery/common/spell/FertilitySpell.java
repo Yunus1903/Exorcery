@@ -57,10 +57,11 @@ public class FertilitySpell extends Spell
             }
         });
 
-        List<Entity> entities =  world.getEntitiesInAABBexcluding(player, new AxisAlignedBB(x - radius, y - 2, z - radius, x + radius, y + 3, z + radius), Entity::isLiving);
+        List<Entity> entities =  world.getEntitiesInAABBexcluding(player, new AxisAlignedBB(x - radius, y - 2, z - radius, x + radius, y + 3, z + radius), Entity::isAlive);
 
         for (Entity entity : entities)
         {
+            if (entity instanceof AnimalEntity)
             {
                 ((AnimalEntity) entity).setInLove(player);
             }
