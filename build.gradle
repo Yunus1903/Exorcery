@@ -118,7 +118,7 @@ jar {
 
 task generateChangelog(type: GitChangelogTask) {
     file = new File("changelog.html")
-    untaggedName = "v${mod_version}"
+    untaggedName = "${minecraft_version}-${mod_version}"
     fromRepo = file(".")
     toRef = "HEAD"
     templateContent = file("changelog.mustache").getText("UTF-8")
