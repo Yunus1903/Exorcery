@@ -1,4 +1,4 @@
-# Exorcery [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://raw.githubusercontent.com/Yunus1903/Exorcery/1.15/dev/LICENSE) [![](http://jenkins.yukay.info/buildStatus/icon?job=Minecraft+Mods%2FExorcery)](https://github.com/Yunus1903/Exorcery) [![](http://cf.way2muchnoise.eu/full_376695_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/exorcery) [![](http://cf.way2muchnoise.eu/versions/376695.svg)](https://www.curseforge.com/minecraft/mc-mods/exorcery)
+# Exorcery [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://raw.githubusercontent.com/Yunus1903/Exorcery/1.16/dev/LICENSE) [![](http://jenkins.yukay.info/buildStatus/icon?job=Minecraft+Mods%2FExorcery)](https://github.com/Yunus1903/Exorcery) [![](http://cf.way2muchnoise.eu/full_376695_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/exorcery) [![](http://cf.way2muchnoise.eu/versions/376695.svg)](https://www.curseforge.com/minecraft/mc-mods/exorcery)
 
 #### Exorcery will give you the ability to cast spells and feel magic and sorcery flow trough you.
 
