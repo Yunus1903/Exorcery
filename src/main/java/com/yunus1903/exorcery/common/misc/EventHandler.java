@@ -19,8 +19,6 @@ import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -92,7 +90,7 @@ public final class EventHandler
     @SubscribeEvent
     public static void onAnvilUpdate(AnvilUpdateEvent event)
     {
-        if (ItemTags.getCollection().getOrCreate(new ResourceLocation(Exorcery.MOD_ID, "spell_scrolls")).contains(event.getLeft().getItem()) && event.getRight().getItem() == ExorceryItems.SPELL_SCROLL_EMPTY)
+        if (ExorceryTags.Items.SPELL_SCROLLS.contains(event.getLeft().getItem()) && event.getRight().getItem() == ExorceryItems.SPELL_SCROLL_EMPTY)
         {
             event.setOutput(new ItemStack(event.getLeft().getItem()));
             event.setCost(5);
