@@ -12,7 +12,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -102,7 +101,7 @@ public final class TickHandler
                             }
                         }
 
-                        BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
+                        Vector3d prevPos = new Vector3d(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
                         if (!player.getPositionVec().equals(prevPos) && !casting.getSpell().getWhileRunning())
                         {
                             casting.stopCasting();

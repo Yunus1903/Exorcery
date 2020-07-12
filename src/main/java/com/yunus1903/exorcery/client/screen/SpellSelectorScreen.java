@@ -64,11 +64,11 @@ public class SpellSelectorScreen extends Screen
         {
             List<ITextComponent> text = new ArrayList<>();
             text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line1").func_240701_a_(TextFormatting.YELLOW, TextFormatting.UNDERLINE));
-            text.add(new StringTextComponent(""));
+            text.add(new StringTextComponent(" "));
             text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line2").func_240701_a_(TextFormatting.YELLOW));
-            text.add(new StringTextComponent(""));
+            text.add(new StringTextComponent(" "));
             text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line3"));
-            text.add(new StringTextComponent(""));
+            text.add(new StringTextComponent(" "));
             text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line4").func_240701_a_(TextFormatting.YELLOW));
 
             GuiUtils.drawHoveringText(matrixStack, text, 4, scaledHeight - 103, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);

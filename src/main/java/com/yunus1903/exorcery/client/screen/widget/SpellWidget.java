@@ -73,7 +73,7 @@ public class SpellWidget extends Widget
     public void renderToolTip(MatrixStack matrixStack, int p_renderToolTip_1_, int p_renderToolTip_2_)
     {
         List<ITextComponent> tooltip = new ArrayList<>();
-        tooltip.add(TextComponentUtils.func_240647_a_(getMessage()).func_240699_a_(spell.getType().getColor()));
+        tooltip.add(getMessage().copyRaw().func_240699_a_(spell.getType().getColor()));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.mana_cost").func_240699_a_(TextFormatting.GRAY).func_230529_a_(new StringTextComponent(": ").func_240699_a_(TextFormatting.GRAY)).func_230529_a_(spell.getManaCost() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? new StringTextComponent(Character.toString('\u221e')) : new StringTextComponent(String.valueOf((int) spell.getManaCost()))));
         tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.cast_time").func_240699_a_(TextFormatting.GRAY).func_230529_a_(new StringTextComponent(": ").func_240699_a_(TextFormatting.GRAY)).func_230529_a_(spell.getCastTime() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.cast_time_instant").func_240699_a_(TextFormatting.YELLOW) : new StringTextComponent(spell.getCastTime() / 20 + " ").func_230529_a_(new TranslationTextComponent("gui.exorcery.tooltip.cast_time_seconds"))));
