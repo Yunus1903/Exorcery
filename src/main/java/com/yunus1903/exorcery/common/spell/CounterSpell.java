@@ -31,7 +31,7 @@ public class CounterSpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        BlockPos pos = player.getPosition();
+        BlockPos pos = new BlockPos(player.getPositionVec());
 
         final int radius = SpellConfig.counterRadius;
 

@@ -13,7 +13,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -96,14 +96,14 @@ public final class TickHandler
                             {
                                 if (entity instanceof AnimalEntity)
                                 {
-                                    Vec3d pos = RandomPositionGenerator.findRandomTargetBlockAwayFrom((CreatureEntity) entity, 20, 4, player.getPositionVec());
+                                    Vector3d pos = RandomPositionGenerator.findRandomTargetBlockAwayFrom((CreatureEntity) entity, 20, 4, player.getPositionVec());
                                     if (pos != null) ((AnimalEntity) entity).getNavigator().tryMoveToXYZ(pos.x, pos.y, pos.z, 2.0D);
                                 }
                             }
                         }
 
                         BlockPos prevPos = new BlockPos(player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ);
-                        if (!player.getPosition().equals(prevPos) && !casting.getSpell().getWhileRunning())
+                        if (!player.getPositionVec().equals(prevPos) && !casting.getSpell().getWhileRunning())
                         {
                             casting.stopCasting();
                             PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));

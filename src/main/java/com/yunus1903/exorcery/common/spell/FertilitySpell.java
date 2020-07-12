@@ -33,7 +33,7 @@ public class FertilitySpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        BlockPos playerPos = player.getPosition();
+        BlockPos playerPos = new BlockPos(player.getLookVec());
         int x = playerPos.getX();
         int y = playerPos.getY();
         int z = playerPos.getZ();

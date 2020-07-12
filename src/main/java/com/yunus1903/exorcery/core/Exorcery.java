@@ -19,6 +19,7 @@ import com.yunus1903.exorcery.common.data.*;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.init.ExorcerySpells;
+import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -102,7 +103,9 @@ public class Exorcery
         }
         if (event.includeServer())
         {
-            generator.addProvider(new ExorceryItemTagsProvider(generator));
+            BlockTagsProvider blockTagsProvider = new ExorceryBlockTagsProvider(generator);
+            generator.addProvider(blockTagsProvider);
+            generator.addProvider(new ExorceryItemTagsProvider(generator, blockTagsProvider));
             generator.addProvider(new ExorceryRecipeProvider(generator));
             generator.addProvider(new ExorceryAdvancementProvider(generator));
             generator.addProvider(new ExorceryLootTableProvider(generator));

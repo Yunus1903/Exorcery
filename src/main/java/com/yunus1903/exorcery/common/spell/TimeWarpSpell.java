@@ -6,6 +6,8 @@ import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.IWorldInfo;
+import net.minecraft.world.storage.ServerWorldInfo;
 
 /**
  * @author Yunus1903
@@ -39,7 +41,11 @@ public class TimeWarpSpell extends Spell
 
             TickHandler.scheduleLoopTask(targetTicks, () ->
             {
-                world.setDayTime(world.getDayTime() + STEPS);
+                IWorldInfo worldInfo = world.getWorldInfo();
+                if (worldInfo instanceof ServerWorldInfo)
+                {
+                    ((ServerWorldInfo) worldInfo).setDayTime(world.getDayTime() + STEPS);
+                }
             });
         }
         return super.onSpellCast(world, player);

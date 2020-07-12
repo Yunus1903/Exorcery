@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.client.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yunus1903.exorcery.client.screen.widget.KeybindingsWidget;
 import com.yunus1903.exorcery.client.screen.widget.SpellWidget;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
@@ -9,9 +10,11 @@ import com.yunus1903.exorcery.core.ClientProxy;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,7 +22,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Yunus1903
@@ -40,15 +44,15 @@ public class SpellSelectorScreen extends Screen
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_)
+    public void render(MatrixStack matrixStack, int p_render_1_, int p_render_2_, float p_render_3_)
     {
-        super.render(p_render_1_, p_render_2_, p_render_3_);
+        super.render(matrixStack, p_render_1_, p_render_2_, p_render_3_);
         boolean isHovering = false;
         for (Widget btn : buttons)
         {
             if (btn.isHovered())
             {
-                btn.renderToolTip(p_render_1_, p_render_2_);
+                btn.renderToolTip(matrixStack, p_render_1_, p_render_2_);
                 isHovering = true;
             }
         }
@@ -58,22 +62,22 @@ public class SpellSelectorScreen extends Screen
 
         if (keybindMode)
         {
-            List<String> text = new ArrayList<>();
-            text.add(TextFormatting.YELLOW + "" + TextFormatting.UNDERLINE + I18n.format("gui.exorcery.spell_selector.keybindings.info.line1"));
-            text.add("");
-            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line2"));
-            text.add("");
-            text.add(I18n.format("gui.exorcery.spell_selector.keybindings.info.line3"));
-            text.add("");
-            text.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.spell_selector.keybindings.info.line4"));
+            List<ITextComponent> text = new ArrayList<>();
+            text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line1").func_240701_a_(TextFormatting.YELLOW, TextFormatting.UNDERLINE));
+            text.add(new StringTextComponent(""));
+            text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line2").func_240701_a_(TextFormatting.YELLOW));
+            text.add(new StringTextComponent(""));
+            text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line3"));
+            text.add(new StringTextComponent(""));
+            text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line4").func_240701_a_(TextFormatting.YELLOW));
 
-            GuiUtils.drawHoveringText(text, 4, scaledHeight - 103, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
+            GuiUtils.drawHoveringText(matrixStack, text, 4, scaledHeight - 103, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
         }
         else if (isHovering)
         {
-            List<String> text = new ArrayList<>();
-            text.add(I18n.format("gui.exorcery.spell_selector.spell_description"));
-            GuiUtils.drawHoveringText(text, 4, scaledHeight - 23, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
+            List<ITextComponent> text = new ArrayList<>();
+            text.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description"));
+            GuiUtils.drawHoveringText(matrixStack, text, 4, scaledHeight - 23, scaledWidth, scaledHeight, 120, minecraft.fontRenderer);
         }
     }
 
@@ -103,7 +107,7 @@ public class SpellSelectorScreen extends Screen
 
             if (spellList.isEmpty())
             {
-                minecraft.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_mana"));
+                minecraft.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_mana"), Util.DUMMY_UUID);
                 return;
             }
 

@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.client.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.yunus1903.exorcery.common.capabilities.mana.ManaProvider;
 import com.yunus1903.exorcery.core.Exorcery;
@@ -40,7 +41,7 @@ public class ManaGui
                 }
                 break;
             case EXPERIENCE:
-                if (!(mc.player.isCreative() || mc.player.isSpectator())) renderMana();
+                if (!(mc.player.isCreative() || mc.player.isSpectator())) renderMana(event.getMatrixStack());
                 break;
         }
     }
@@ -59,7 +60,7 @@ public class ManaGui
         }
     }
 
-    private static void renderMana()
+    private static void renderMana(MatrixStack matrixStack)
     {
         Minecraft mc = Minecraft.getInstance();
         IngameGui gui = mc.ingameGUI;
@@ -76,8 +77,8 @@ public class ManaGui
             int y = scaledHeight - 32 + 3 - 8;
 
             int k = (int) (mana.get() / mana.getMax() * 183.0F);
-            gui.blit(x, y, 0, 0, 182, 5);
-            if (k > 0) gui.blit(x, y, 0, 5, k, 5);
+            gui.blit(matrixStack, x, y, 0, 0, 182, 5);
+            if (k > 0) gui.blit(matrixStack, x, y, 0, 5, k, 5);
 
             mc.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
             mc.getProfiler().endStartSection("manaNumber");
@@ -85,11 +86,11 @@ public class ManaGui
             String s = "" + (int) mana.get();
             x = (scaledWidth - mc.fontRenderer.getStringWidth(s)) / 2;
             y = scaledHeight - 31 - 4 - 8;
-            mc.fontRenderer.drawString(s, (float) (x + 1), (float) y, 0);
-            mc.fontRenderer.drawString(s, (float) (x - 1), (float) y, 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) (y + 1), 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) (y - 1), 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) y, 0x26EEEE);
+            mc.fontRenderer.drawString(matrixStack, s, (float) (x + 1), (float) y, 0);
+            mc.fontRenderer.drawString(matrixStack, s, (float) (x - 1), (float) y, 0);
+            mc.fontRenderer.drawString(matrixStack, s, (float) x, (float) (y + 1), 0);
+            mc.fontRenderer.drawString(matrixStack, s, (float) x, (float) (y - 1), 0);
+            mc.fontRenderer.drawString(matrixStack, s, (float) x, (float) y, 0x26EEEE);
 
             mc.getProfiler().endSection();
         });

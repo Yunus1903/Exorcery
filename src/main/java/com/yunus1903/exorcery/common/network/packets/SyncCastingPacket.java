@@ -73,8 +73,8 @@ public class SyncCastingPacket
                         {
                             Minecraft.getInstance().ingameGUI.setOverlayMessage(
                                     new TranslationTextComponent("gui.exorcery.actionbar.casting")
-                                            .appendText(": " + msg.spell.getType().getColor())
-                                            .appendSibling(msg.spell.getName()),
+                                            .func_240702_b_(": " + msg.spell.getType().getColor())
+                                            .func_230529_a_(msg.spell.getName()),
                                     false
                             );
                         }

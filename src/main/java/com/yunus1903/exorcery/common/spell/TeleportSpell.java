@@ -10,7 +10,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,7 +31,7 @@ public class TeleportSpell extends Spell
     public void calculateManaCost(PlayerEntity player)
     {
         if (targetLocation == null) setManaCost(Float.MAX_VALUE);
-        else setManaCost((float) Math.sqrt(player.getDistanceSq(new Vec3d(targetLocation))) * SpellConfig.teleportManaCostMultiplier);
+        else setManaCost((float) Math.sqrt(player.getDistanceSq(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ())) * SpellConfig.teleportManaCostMultiplier);
     }
 
     @OnlyIn(Dist.CLIENT)

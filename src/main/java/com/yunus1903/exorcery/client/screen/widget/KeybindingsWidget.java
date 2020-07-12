@@ -17,9 +17,8 @@ public class KeybindingsWidget extends Widget
 
     public KeybindingsWidget(int xIn, int yIn, SpellSelectorScreen gui)
     {
-        super(xIn, yIn, (new TranslationTextComponent("gui.exorcery.spell_selector.keybindings").getString()));
+        super(xIn, yIn, 80, 20, new TranslationTextComponent("gui.exorcery.spell_selector.keybindings"));
         this.gui = gui;
-        setWidth(80);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class KeybindingsWidget extends Widget
     {
         gui.keybindMode = !gui.keybindMode;
 
-        if (gui.keybindMode) setMessage((new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.close").getString()));
-        else setMessage((new TranslationTextComponent("gui.exorcery.spell_selector.keybindings").getString()));
+        if (gui.keybindMode) setMessage(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.close"));
+        else setMessage(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings"));
     }
 }

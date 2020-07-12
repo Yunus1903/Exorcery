@@ -33,7 +33,7 @@ public final class SoundHandler
                 player.getPosY(),
                 player.getPosZ(),
                 16,
-                player.dimension,
+                player.world.func_234923_W_(),
                 new SStopSoundPacket(new ResourceLocation(Exorcery.MOD_ID, "spell_chanting"), SoundCategory.VOICE));
     }
 }

@@ -8,6 +8,7 @@ import com.yunus1903.exorcery.common.spell.Spell;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.world.storage.ServerWorldInfo;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -74,7 +75,7 @@ public class KeybindingHandler
     {
         if (mc.isSingleplayer() && mc.player != null)
         {
-            String worldName = mc.getIntegratedServer().getWorld(mc.player.dimension).getWorldInfo().getWorldName();
+            String worldName = ((ServerWorldInfo) mc.getIntegratedServer().getWorld(mc.player.world.func_234923_W_()).getWorldInfo()).getWorldName();
             if (!main.has(worldName)) main.add(worldName, new JsonObject());
             return main.getAsJsonObject(worldName);
         }

@@ -67,7 +67,7 @@ public final class PacketHandler
 
     public static void sendToNearby(World world, Entity entity, Object msg)
     {
-        sendToNearby(world, new BlockPos(entity), msg);
+        sendToNearby(world, new BlockPos(entity.getPositionVec()), msg);
     }
 
 }

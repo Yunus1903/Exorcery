@@ -32,7 +32,7 @@ public class FrostSpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        BlockPos playerPos = player.getPosition();
+        BlockPos playerPos = new BlockPos(player.getLookVec());
 
         final int radius = SpellConfig.frostRadius;
 

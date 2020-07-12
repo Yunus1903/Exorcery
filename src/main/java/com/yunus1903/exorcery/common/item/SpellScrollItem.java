@@ -13,14 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.*;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -61,7 +55,7 @@ public final class SpellScrollItem extends ExorceryItem
         {
             if (worldIn.isRemote)
             {
-                playerIn.sendMessage(new TranslationTextComponent("chat.exorcery.spell_known"));
+                playerIn.sendMessage(new TranslationTextComponent("chat.exorcery.spell_known"), Util.DUMMY_UUID);
             }
             return new ActionResult<>(ActionResultType.FAIL, itemStack);
         }
@@ -75,7 +69,7 @@ public final class SpellScrollItem extends ExorceryItem
         }
         else
         {
-            playerIn.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
+            playerIn.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"), Util.DUMMY_UUID);
             playerIn.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
         }
         return new ActionResult<>(ActionResultType.CONSUME, itemStack);
@@ -94,7 +88,7 @@ public final class SpellScrollItem extends ExorceryItem
     {
         if (spell != null)
         {
-            tooltip.add(spell.getName().applyTextStyle(spell.getType().getColor()));
+            tooltip.add(TextComponentUtils.func_240647_a_(spell.getName()).func_240699_a_(spell.getType().getColor()));
             if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
             {
                 String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
@@ -104,15 +98,15 @@ public final class SpellScrollItem extends ExorceryItem
                 if (!line1.getString().equals(translationKey + ".line1") || line1.getString().isEmpty())
                 {
                     tooltip.add(new StringTextComponent(""));
-                    tooltip.add(line1.applyTextStyle(TextFormatting.GRAY));
+                    tooltip.add(TextComponentUtils.func_240647_a_(line1).func_240699_a_(TextFormatting.GRAY));
                     if (!line2.getString().equals(translationKey + ".line2") || line2.getString().isEmpty())
-                        tooltip.add(line2.applyTextStyle(TextFormatting.GRAY));
+                        tooltip.add(TextComponentUtils.func_240647_a_(line2).func_240699_a_(TextFormatting.GRAY));
                 }
             }
             else
             {
                 tooltip.add(new StringTextComponent(""));
-                tooltip.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description").applyTextStyle(TextFormatting.GOLD));
+                tooltip.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description").func_240699_a_(TextFormatting.GOLD));
             }
         }
     }

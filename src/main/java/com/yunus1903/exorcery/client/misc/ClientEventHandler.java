@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,14 +44,14 @@ public final class ClientEventHandler
 
             if (mc.player.isRidingHorse())
             {
-                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.mounted"));
+                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.mounted"), Util.DUMMY_UUID);
                 return;
             }
 
             ISpells spells = mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).orElse(new SpellsCapability());
             if (spells.getSpells().isEmpty())
             {
-                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_spells"));
+                mc.player.sendMessage(new TranslationTextComponent("chat.exorcery.no_spells"), Util.DUMMY_UUID);
                 return;
             }
 

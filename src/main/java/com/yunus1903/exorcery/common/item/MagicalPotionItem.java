@@ -92,8 +92,8 @@ public class MagicalPotionItem extends ExorceryItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(new TranslationTextComponent("item.exorcery.magical_potion.tooltip.line1").applyTextStyle(TextFormatting.GRAY));
-        tooltip.add(new TranslationTextComponent("item.exorcery.magical_potion.tooltip.line2").applyTextStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("item.exorcery.magical_potion.tooltip.line1").func_240699_a_(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("item.exorcery.magical_potion.tooltip.line2").func_240699_a_(TextFormatting.GRAY));
     }
 
     public static void entityInteract(ItemStack stack, ServerPlayerEntity player, Entity target)

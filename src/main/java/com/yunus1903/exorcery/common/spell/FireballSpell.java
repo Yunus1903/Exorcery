@@ -5,7 +5,7 @@ import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 /**
@@ -28,7 +28,7 @@ public class FireballSpell extends Spell
     {
         if (!world.isRemote())
         {
-            Vec3d target = player.getLookVec();
+            Vector3d target = player.getLookVec();
             SmallFireballEntity smallFireballEntity = new SmallFireballEntity(
                     world,
                     player.getPosX() + target.x / 2,

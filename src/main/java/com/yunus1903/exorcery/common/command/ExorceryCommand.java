@@ -17,6 +17,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collection;
@@ -60,7 +61,7 @@ public final class ExorceryCommand
                                                 {
                                                     spells.addSpell(spell);
                                                     PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-                                                    player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
+                                                    player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"), Util.DUMMY_UUID);
                                                     player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                                                 }
                                             });
@@ -83,7 +84,7 @@ public final class ExorceryCommand
                                                     {
                                                         spells.addSpell(spell);
                                                         PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"));
+                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.spell_learned"), Util.DUMMY_UUID);
                                                         player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                                                     }
                                                 }
@@ -117,7 +118,7 @@ public final class ExorceryCommand
                                                 {
                                                     spells.getSpells().remove(spell);
                                                     PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-                                                    player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"));
+                                                    player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"), Util.DUMMY_UUID);
                                                 }
                                             });
                                         }
@@ -139,7 +140,7 @@ public final class ExorceryCommand
                                                     {
                                                         spells.getSpells().remove(spell);
                                                         PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"));
+                                                        player.sendMessage(new TranslationTextComponent("chat.exorcery.forgotten"), Util.DUMMY_UUID);
                                                     }
                                                 }
                                             });

@@ -38,7 +38,7 @@ minecraft {
             workingDirectory project.file('run')
 
             if (findProject(':Workspace') != null) {
-                ideaModule '1.15.Exorcery.main'
+                ideaModule '1.16.Exorcery.main'
             }
 
             args '--mod', 'exorcery', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')

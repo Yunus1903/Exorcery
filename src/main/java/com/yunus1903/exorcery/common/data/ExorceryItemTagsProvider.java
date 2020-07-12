@@ -3,6 +3,7 @@ package com.yunus1903.exorcery.common.data;
 import com.yunus1903.exorcery.common.ExorceryTags;
 import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.init.ExorceryItems;
+import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.Item;
@@ -13,9 +14,9 @@ import net.minecraft.item.Item;
  */
 public class ExorceryItemTagsProvider extends ItemTagsProvider
 {
-    public ExorceryItemTagsProvider(DataGenerator generatorIn)
+    public ExorceryItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagsProvider)
     {
-        super(generatorIn);
+        super(generatorIn, blockTagsProvider);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class ExorceryItemTagsProvider extends ItemTagsProvider
         {
             if (item instanceof SpellScrollItem && ((SpellScrollItem) item).hasSpell())
             {
-                getBuilder(ExorceryTags.Items.SPELL_SCROLLS).add(item);
+                func_240522_a_(ExorceryTags.Items.SPELL_SCROLLS).func_240532_a_(item);
             }
         }
     }
