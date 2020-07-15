@@ -4,6 +4,7 @@ import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
 import com.yunus1903.exorcery.common.capabilities.morph.IMorph;
 import com.yunus1903.exorcery.common.capabilities.morph.MorphCapability;
+import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
@@ -34,8 +35,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Exorcery.MOD_ID)
 public final class ClientEventHandler
 {
-    public static IMorph morphCapability = new MorphCapability(); // This because client world capabilities are dead
-
     @SubscribeEvent
     public static void onKeyInput(InputEvent.KeyInputEvent event)
     {
@@ -126,67 +125,37 @@ public final class ClientEventHandler
     {
         LivingEntity originalEntity = event.getEntity();
 
-//        originalEntity.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
-//        {
-//            if (morph.isMorphed(originalEntity))
-//            {
-//                event.setCanceled(true);
-//                LivingEntity entity = morph.getMorphedEntityType(originalEntity).create(originalEntity.world);
-//
-//                entity.rotationYaw = originalEntity.rotationYaw;
-//                entity.rotationPitch = originalEntity.rotationPitch;
-//                entity.prevRotationYaw = originalEntity.prevRotationYaw;
-//                entity.prevRotationPitch = originalEntity.prevRotationPitch;
-//
-//                entity.renderYawOffset = originalEntity.renderYawOffset;
-//                entity.prevRenderYawOffset = originalEntity.prevRenderYawOffset;
-//                entity.rotationYawHead = originalEntity.rotationYawHead;
-//                entity.prevRotationYawHead = originalEntity.prevRotationYawHead;
-//
-//                entity.limbSwing = originalEntity.limbSwing;
-//                entity.limbSwingAmount = originalEntity.limbSwingAmount;
-//                entity.prevLimbSwingAmount = originalEntity.prevLimbSwingAmount;
-//                entity.prevSwingProgress = originalEntity.prevSwingProgress;
-//
-//                Minecraft.getInstance().getRenderManager().getRenderer(entity)
-//                        .render(entity,
-//                                originalEntity.getYaw(event.getPartialRenderTick()),
-//                                event.getPartialRenderTick(),
-//                                event.getMatrixStack(),
-//                                event.getBuffers(),
-//                                event.getLight()
-//                        );
-//            }
-//        });
-
-        if (morphCapability.isMorphed(originalEntity))
+        originalEntity.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
         {
-            event.setCanceled(true);
-            LivingEntity entity = morphCapability.getMorphedEntityType(originalEntity).create(originalEntity.world);
+            if (morph.isMorphed(originalEntity))
+            {
+                event.setCanceled(true);
+                LivingEntity entity = morph.getMorphedEntityType(originalEntity).create(originalEntity.world);
 
-            entity.rotationYaw = originalEntity.rotationYaw;
-            entity.rotationPitch = originalEntity.rotationPitch;
-            entity.prevRotationYaw = originalEntity.prevRotationYaw;
-            entity.prevRotationPitch = originalEntity.prevRotationPitch;
+                entity.rotationYaw = originalEntity.rotationYaw;
+                entity.rotationPitch = originalEntity.rotationPitch;
+                entity.prevRotationYaw = originalEntity.prevRotationYaw;
+                entity.prevRotationPitch = originalEntity.prevRotationPitch;
 
-            entity.renderYawOffset = originalEntity.renderYawOffset;
-            entity.prevRenderYawOffset = originalEntity.prevRenderYawOffset;
-            entity.rotationYawHead = originalEntity.rotationYawHead;
-            entity.prevRotationYawHead = originalEntity.prevRotationYawHead;
+                entity.renderYawOffset = originalEntity.renderYawOffset;
+                entity.prevRenderYawOffset = originalEntity.prevRenderYawOffset;
+                entity.rotationYawHead = originalEntity.rotationYawHead;
+                entity.prevRotationYawHead = originalEntity.prevRotationYawHead;
 
-            entity.limbSwing = originalEntity.limbSwing;
-            entity.limbSwingAmount = originalEntity.limbSwingAmount;
-            entity.prevLimbSwingAmount = originalEntity.prevLimbSwingAmount;
-            entity.prevSwingProgress = originalEntity.prevSwingProgress;
+                entity.limbSwing = originalEntity.limbSwing;
+                entity.limbSwingAmount = originalEntity.limbSwingAmount;
+                entity.prevLimbSwingAmount = originalEntity.prevLimbSwingAmount;
+                entity.prevSwingProgress = originalEntity.prevSwingProgress;
 
-            Minecraft.getInstance().getRenderManager().getRenderer(entity)
-                    .render(entity,
-                            originalEntity.getYaw(event.getPartialRenderTick()),
-                            event.getPartialRenderTick(),
-                            event.getMatrixStack(),
-                            event.getBuffers(),
-                            event.getLight()
-                    );
-        }
+                Minecraft.getInstance().getRenderManager().getRenderer(entity)
+                        .render(entity,
+                                originalEntity.getYaw(event.getPartialRenderTick()),
+                                event.getPartialRenderTick(),
+                                event.getMatrixStack(),
+                                event.getBuffers(),
+                                event.getLight()
+                        );
+            }
+        });
     }
 }
