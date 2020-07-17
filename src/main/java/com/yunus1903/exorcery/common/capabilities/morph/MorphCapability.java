@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Yunus1903
@@ -30,7 +31,12 @@ public class MorphCapability implements IMorph
     @Override
     public void setMorphedEntities(HashMap<LivingEntity, EntityType<? extends LivingEntity>> morphedEntities)
     {
+        HashMap<LivingEntity, EntityType<? extends LivingEntity>> buf = getMorphedEntities();
         this.morphedEntities = morphedEntities;
+        for (Map.Entry<LivingEntity, EntityType<? extends LivingEntity>> entry : buf.entrySet())
+        {
+            entry.getKey().recalculateSize();
+        }
     }
 
     @Nullable
@@ -45,11 +51,13 @@ public class MorphCapability implements IMorph
     {
         if (morphedEntities.containsKey(entity)) morphedEntities.replace(entity, entityType);
         else morphedEntities.put(entity, entityType);
+        entity.recalculateSize();
     }
 
     @Override
     public void stopMorph(LivingEntity entity)
     {
         if (morphedEntities.containsKey(entity)) morphedEntities.remove(entity);
+        entity.recalculateSize();
     }
 }
