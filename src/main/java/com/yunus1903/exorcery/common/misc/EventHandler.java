@@ -16,10 +16,12 @@ import com.yunus1903.exorcery.common.network.packets.SyncMorphPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -104,6 +106,25 @@ public final class EventHandler
         if (ExorceryTags.Items.SPELL_SCROLLS.contains(event.getItemResult().getItem()))
         {
             event.getPlayer().inventory.addItemStackToInventory(event.getItemInput());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityEyeHeightChange(EntityEvent.EyeHeight event)
+    {
+        if (event.getEntity() instanceof LivingEntity)
+        {
+            LivingEntity originalEntity = (LivingEntity) event.getEntity();
+
+            originalEntity.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
+            {
+                if (morph.isMorphed(originalEntity))
+                {
+                    LivingEntity entity = morph.getMorphedEntityType(originalEntity).create(originalEntity.world);
+
+                    event.setNewHeight(entity.getEyeHeight());
+                }
+            });
         }
     }
 
