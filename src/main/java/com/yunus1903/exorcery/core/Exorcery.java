@@ -1,6 +1,7 @@
 package com.yunus1903.exorcery.core;
 
 import com.yunus1903.exorcery.client.misc.KeybindingHandler;
+import com.yunus1903.exorcery.client.render.entity.SmallSpiderRenderer;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingCapability;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingStorage;
 import com.yunus1903.exorcery.common.capabilities.casting.ICasting;
@@ -16,11 +17,14 @@ import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
 import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.data.*;
+import com.yunus1903.exorcery.common.entity.SmallSpiderEntity;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
 import com.yunus1903.exorcery.common.network.PacketHandler;
+import com.yunus1903.exorcery.init.ExorceryEntities;
 import com.yunus1903.exorcery.init.ExorcerySpells;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,6 +33,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -73,12 +78,15 @@ public class Exorcery
         CapabilityManager.INSTANCE.register(ICasting.class, new CastingStorage(), CastingCapability::new);
         CapabilityManager.INSTANCE.register(IMorph.class, new MorphStorage(), MorphCapability::new);
         PacketHandler.register();
+        GlobalEntityTypeAttributes.put(ExorceryEntities.SMALL_SPIDER, SmallSpiderEntity.func_234277_m_().func_233813_a_());
     }
 
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent event)
     {
         keybindingHandler = new KeybindingHandler(event.getMinecraftSupplier().get());
+
+        RenderingRegistry.registerEntityRenderingHandler(ExorceryEntities.SMALL_SPIDER, SmallSpiderRenderer::new);
     }
 
     @SubscribeEvent

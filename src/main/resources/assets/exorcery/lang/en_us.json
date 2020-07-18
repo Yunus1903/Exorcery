@@ -38,6 +38,7 @@
   "config.exorcery.spell.fluidWalk_duration": "Effect duration of the fluid Walk spell",
   "effect.exorcery.polymorph": "Polymorph",
   "effect.exorcery.fluid_walk": "Fluid Walk",
+  "entity.exorcery.small_spider": "Small Spider",
   "gui.exorcery.actionbar.casting": "Casting",
   "gui.exorcery.spell_selector": "Spell Selector",
   "gui.exorcery.spell_selector.keybindings": "Keybindings",
