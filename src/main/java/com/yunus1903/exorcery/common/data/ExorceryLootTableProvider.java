@@ -4,13 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.core.Exorcery;
+import com.yunus1903.exorcery.init.ExorceryEntities;
 import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.KilledByPlayer;
+import net.minecraft.loot.functions.LootingEnchantBonus;
+import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
@@ -44,6 +49,8 @@ public class ExorceryLootTableProvider extends LootTableProvider
 
     protected void registerLootTables()
     {
+        // Chests
+
         for (ResourceLocation resourceLocation : LootTables.func_215796_a()) // This is temporary
         {
             if (resourceLocation.getPath().contains(CHESTS))
@@ -64,6 +71,21 @@ public class ExorceryLootTableProvider extends LootTableProvider
                 getBuilder(new ResourceLocation(Exorcery.MOD_ID, INJECT + resourceLocation.getPath())).addLootPool(builder);
             }
         }
+
+        // Entities
+
+        getBuilder(ExorceryEntities.SMALL_SPIDER.getLootTable()).setParameterSet(LootParameterSets.ENTITY)
+                .addLootPool(LootPool.builder()
+                        .rolls(ConstantRange.of(1))
+                        .addEntry(ItemLootEntry.builder(Items.STRING)
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F)))
+                                .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
+                .addLootPool(LootPool.builder()
+                        .rolls(ConstantRange.of(1))
+                        .addEntry(ItemLootEntry.builder(Items.SPIDER_EYE)
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(-1.0F, 1.0F)))
+                                .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))
+                        .acceptCondition(KilledByPlayer.builder()));
     }
 
     private LootTable.Builder getBuilder(ResourceLocation resourceLocation)
