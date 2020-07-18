@@ -28,6 +28,10 @@ repositories {
     maven { url "http://dvs1.progwml6.com/files/maven/" }
 }
 
+sourceSets {
+    main.resources.srcDirs += 'src/main/generated_resources'
+}
+
 minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
 
@@ -41,7 +45,7 @@ minecraft {
                 ideaModule '1.15.Exorcery.main'
             }
 
-            args '--mod', 'exorcery', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+            args '--mod', 'exorcery', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources')
 
             mods {
                 exorcery {
