@@ -6,6 +6,8 @@ import com.yunus1903.exorcery.common.item.ManaPotionItem;
 import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,6 +41,11 @@ public final class ExorceryItems
     public static final Item SPELL_SCROLL_FLUID_WALK = register(new SpellScrollItem(ExorcerySpells.FLUID_WALK));
     public static final Item MANA_POTION = register(new ManaPotionItem(200));
     public static final Item MAGICAL_POTION = register(new MagicalPotionItem());
+    public static final Item SMALL_SPIDER_SPAWN_EGG = register(new SpawnEggItem(ExorceryEntities.SMALL_SPIDER,
+            0x130900,
+            0x0A0000,
+            new Item.Properties().group(ItemGroup.MISC))
+            .setRegistryName(Exorcery.MOD_ID, "small_spider_spawn_egg"));
 
     private static Item register(Item item)
     {
