@@ -24,6 +24,12 @@ import java.util.Map;
  */
 public class ExorceryLootTableProvider extends LootTableProvider
 {
+    private static final String INJECT = "inject/";
+    private static final String BLOCKS = "blocks/";
+    private static final String CHESTS = "chests/";
+    private static final String ENTITIES  = "entities/";
+    private static final String GAMEPLAY  = "gameplay/";
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     private final HashMap<ResourceLocation, LootTable.Builder> lootTables = new HashMap<>();
@@ -40,7 +46,7 @@ public class ExorceryLootTableProvider extends LootTableProvider
     {
         for (ResourceLocation resourceLocation : LootTables.func_215796_a()) // This is temporary
         {
-            if (resourceLocation.getPath().contains("chests/"))
+            if (resourceLocation.getPath().contains(CHESTS))
             {
                 LootPool.Builder builder = LootPool.builder()
                         .name(Exorcery.MOD_ID)
@@ -55,7 +61,7 @@ public class ExorceryLootTableProvider extends LootTableProvider
                     }
                 }
 
-                getBuilder(new ResourceLocation(Exorcery.MOD_ID, "inject/" + resourceLocation.getPath())).addLootPool(builder);
+                getBuilder(new ResourceLocation(Exorcery.MOD_ID, INJECT + resourceLocation.getPath())).addLootPool(builder);
             }
         }
     }
