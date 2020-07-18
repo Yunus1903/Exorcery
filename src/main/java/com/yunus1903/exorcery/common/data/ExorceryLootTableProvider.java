@@ -2,8 +2,9 @@ package com.yunus1903.exorcery.common.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yunus1903.exorcery.common.ExorceryTags;
+import com.yunus1903.exorcery.common.item.SpellScrollItem;
 import com.yunus1903.exorcery.core.Exorcery;
+import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
@@ -23,6 +24,12 @@ import java.util.Map;
  */
 public class ExorceryLootTableProvider extends LootTableProvider
 {
+    private static final String INJECT = "inject/";
+    private static final String BLOCKS = "blocks/";
+    private static final String CHESTS = "chests/";
+    private static final String ENTITIES  = "entities/";
+    private static final String GAMEPLAY  = "gameplay/";
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     private final HashMap<ResourceLocation, LootTable.Builder> lootTables = new HashMap<>();
@@ -35,25 +42,41 @@ public class ExorceryLootTableProvider extends LootTableProvider
         this.generator = dataGeneratorIn;
     }
 
-    @Override
-    public void act(DirectoryCache cache)
+    protected void registerLootTables()
     {
-        for (ResourceLocation resourceLocation : LootTables.func_215796_a())
+        for (ResourceLocation resourceLocation : LootTables.func_215796_a()) // This is temporary
         {
-            if (resourceLocation.getPath().contains("chests/"))
+            if (resourceLocation.getPath().contains(CHESTS))
             {
                 LootPool.Builder builder = LootPool.builder()
                         .name(Exorcery.MOD_ID)
                         .bonusRolls(0, 1);
 
-                for (Item item : ExorceryTags.Items.SPELL_SCROLLS.getAllElements())
+                //for (Item item : ExorceryTags.Items.SPELL_SCROLLS.getAllElements()) // Breaks
+                for (Item item : ExorceryItems.getItems()) // Temp fix
                 {
-                    builder.addEntry(ItemLootEntry.builder(item));
+                    if (item instanceof SpellScrollItem && ((SpellScrollItem) item).hasSpell()) // Temp fix
+                    {
+                        builder.addEntry(ItemLootEntry.builder(item));
+                    }
                 }
 
-                lootTables.put(new ResourceLocation(Exorcery.MOD_ID, "inject/" + resourceLocation.getPath()), LootTable.builder().addLootPool(builder));
+                getBuilder(new ResourceLocation(Exorcery.MOD_ID, INJECT + resourceLocation.getPath())).addLootPool(builder);
             }
         }
+    }
+
+    private LootTable.Builder getBuilder(ResourceLocation resourceLocation)
+    {
+        LootTable.Builder builder = LootTable.builder();
+        lootTables.put(resourceLocation, builder);
+        return builder;
+    }
+
+    @Override
+    public void act(DirectoryCache cache)
+    {
+        registerLootTables();
 
         HashMap<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<ResourceLocation, LootTable.Builder> entry : lootTables.entrySet())

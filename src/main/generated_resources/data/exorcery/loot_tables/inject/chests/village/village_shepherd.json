@@ -1,0 +1,50 @@
+{
+  "pools": [
+    {
+      "name": "exorcery",
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_teleport"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_speed"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_fertility"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_fireball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_time_warp_day"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_time_warp_night"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_frost"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_counter"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_infusion"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "exorcery:spell_scroll_fluid_walk"
+        }
+      ]
+    }
+  ]
+}
