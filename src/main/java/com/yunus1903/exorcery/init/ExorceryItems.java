@@ -43,7 +43,7 @@ public final class ExorceryItems
     public static final Item MAGICAL_POTION = register(new MagicalPotionItem());
     public static final Item SMALL_SPIDER_SPAWN_EGG = register(new SpawnEggItem(ExorceryEntities.SMALL_SPIDER,
             0x130900,
-            0x0A0000,
+            0x5e0606,
             new Item.Properties().group(ItemGroup.MISC))
             .setRegistryName(Exorcery.MOD_ID, "small_spider_spawn_egg"));
 
