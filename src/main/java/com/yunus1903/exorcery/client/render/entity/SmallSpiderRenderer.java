@@ -20,7 +20,7 @@ public class SmallSpiderRenderer<T extends SmallSpiderEntity> extends MobRendere
 
     public SmallSpiderRenderer(EntityRendererManager renderManagerIn)
     {
-        super(renderManagerIn, new SmallSpiderModel<>(), 0.28F);
+        super(renderManagerIn, new SmallSpiderModel<>(), 0.18F);
     }
 
     @Override

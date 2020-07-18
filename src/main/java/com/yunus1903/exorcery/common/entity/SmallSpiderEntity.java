@@ -37,6 +37,6 @@ public class SmallSpiderEntity extends SpiderEntity
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
-        return 0.2F;
+        return sizeIn.height * 0.7F;
     }
 }
