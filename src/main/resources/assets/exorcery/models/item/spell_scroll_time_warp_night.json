@@ -1,6 +1,0 @@
-{
-  "parent": "exorcery:item/spell_scroll_empty",
-  "textures": {
-    "layer0": "exorcery:item/spell_scroll"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "exorcery:item/mana_potion",
-    "layer1": "item/potion"
-  }
-}
