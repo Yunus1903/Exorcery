@@ -35,10 +35,9 @@ public class ExorceryLootTableProvider extends LootTableProvider
         this.generator = dataGeneratorIn;
     }
 
-    @Override
-    public void act(DirectoryCache cache)
+    protected void registerLootTables()
     {
-        for (ResourceLocation resourceLocation : LootTables.func_215796_a())
+        for (ResourceLocation resourceLocation : LootTables.func_215796_a()) // This is temporary
         {
             if (resourceLocation.getPath().contains("chests/"))
             {
@@ -51,9 +50,22 @@ public class ExorceryLootTableProvider extends LootTableProvider
                     builder.addEntry(ItemLootEntry.builder(item));
                 }
 
-                lootTables.put(new ResourceLocation(Exorcery.MOD_ID, "inject/" + resourceLocation.getPath()), LootTable.builder().addLootPool(builder));
+                getBuilder(new ResourceLocation(Exorcery.MOD_ID, "inject/" + resourceLocation.getPath())).addLootPool(builder);
             }
         }
+    }
+
+    private LootTable.Builder getBuilder(ResourceLocation resourceLocation)
+    {
+        LootTable.Builder builder = LootTable.builder();
+        lootTables.put(resourceLocation, builder);
+        return builder;
+    }
+
+    @Override
+    public void act(DirectoryCache cache)
+    {
+        registerLootTables();
 
         HashMap<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<ResourceLocation, LootTable.Builder> entry : lootTables.entrySet())
