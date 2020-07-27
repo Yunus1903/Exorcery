@@ -19,28 +19,14 @@ public final class LootHandler
     @SubscribeEvent
     public static void onLootTableLoad(LootTableLoadEvent event)
     {
-        String prefix = "minecraft:chests/";
+        final ResourceLocation chests = new ResourceLocation("chests");
+
         String name = event.getName().toString();
 
-        if (name.startsWith(prefix))
+        if (name.startsWith(chests.toString() + "/"))
         {
-            String file = name.substring(10);
+            String file = name.substring(chests.getNamespace().length() + 1);
             event.getTable().addPool(getInjectPool(file));
-
-//            String file = name.substring(name.indexOf(prefix) + prefix.length());
-//            switch (file)
-//            {
-//                case "village/village_plains_house":
-//                case "buried_treasure":
-//                case "end_city_treasure":
-//                case "igloo_chest":
-//                //case "simple_dungeon":
-//                case "stronghold_library":
-//                    event.getTable().addPool(getInjectPool(file));
-//                    break;
-//                default:
-//                    break;
-//            }
         }
     }
 
