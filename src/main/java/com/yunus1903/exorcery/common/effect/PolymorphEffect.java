@@ -68,7 +68,7 @@ public class PolymorphEffect extends Effect
     @Override
     public ITextComponent getDisplayName()
     {
-        return (new TranslationTextComponent(entityType.getTranslationKey())).func_240702_b_(" ").func_230529_a_(new TranslationTextComponent(getName()));
+        return (new TranslationTextComponent(entityType.getTranslationKey())).appendString(" ").append(new TranslationTextComponent(getName()));
     }
 
     public EntityType<? extends LivingEntity> getEntityType()

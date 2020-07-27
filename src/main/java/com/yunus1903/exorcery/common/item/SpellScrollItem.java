@@ -88,7 +88,7 @@ public final class SpellScrollItem extends ExorceryItem
     {
         if (spell != null)
         {
-            tooltip.add(spell.getName().copyRaw().func_240699_a_(spell.getType().getColor()));
+            tooltip.add(spell.getName().copyRaw().mergeStyle(spell.getType().getColor()));
             if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
             {
                 String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
@@ -98,15 +98,15 @@ public final class SpellScrollItem extends ExorceryItem
                 if (!line1.getString().equals(translationKey + ".line1") || line1.getString().isEmpty())
                 {
                     tooltip.add(new StringTextComponent(""));
-                    tooltip.add(line1.copyRaw().func_240699_a_(TextFormatting.GRAY));
+                    tooltip.add(line1.copyRaw().mergeStyle(TextFormatting.GRAY));
                     if (!line2.getString().equals(translationKey + ".line2") || line2.getString().isEmpty())
-                        tooltip.add(line2.copyRaw().func_240699_a_(TextFormatting.GRAY));
+                        tooltip.add(line2.copyRaw().mergeStyle(TextFormatting.GRAY));
                 }
             }
             else
             {
                 tooltip.add(new StringTextComponent(""));
-                tooltip.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description").func_240699_a_(TextFormatting.GOLD));
+                tooltip.add(new TranslationTextComponent("gui.exorcery.spell_selector.spell_description").mergeStyle(TextFormatting.GOLD));
             }
         }
     }

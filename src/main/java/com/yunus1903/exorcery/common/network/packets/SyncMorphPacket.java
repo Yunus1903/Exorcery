@@ -1,6 +1,7 @@
 package com.yunus1903.exorcery.common.network.packets;
 
 import com.yunus1903.exorcery.client.misc.ClientEventHandler;
+import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -68,12 +69,10 @@ public class SyncMorphPacket
             {
                 ctx.get().enqueueWork(() ->
                 {
-//                    Minecraft.getInstance().world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
-//                    {
-//                        morph.setMorphedEntities(msg.morphedEntities);
-//                    });
-
-                    ClientEventHandler.morphCapability.setMorphedEntities(msg.morphedEntities);
+                    Minecraft.getInstance().world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
+                    {
+                        morph.setMorphedEntities(msg.morphedEntities);
+                    });
                 });
             }
             ctx.get().setPacketHandled(true);
