@@ -35,6 +35,37 @@ public class ExorceryAdvancementProvider implements IDataProvider
         this.generator = generatorIn;
     }
 
+    protected void registerAdvancements(Consumer<Advancement> consumer)
+    {
+        Advancement root = register(consumer, new ResourceLocation(Exorcery.MOD_ID, "exorcery/root"), Advancement.Builder.builder()
+                .withDisplay(ExorceryItems.SPELL_SCROLL_EMPTY,
+                        new TranslationTextComponent("advancements.exorcery.root.title"),
+                        new TranslationTextComponent("advancements.exorcery.root.description"),
+                        new ResourceLocation("textures/block/andesite.png"),
+                        FrameType.TASK,
+                        true,
+                        true,
+                        false)
+                .withCriterion("has_spell_scroll", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ExorceryTags.Items.SPELL_SCROLLS).build())));
+
+        Advancement mana = register(consumer, new ResourceLocation(Exorcery.MOD_ID, "exorcery/mana"), Advancement.Builder.builder()
+                .withParent(root)
+                .withDisplay(ExorceryItems.MANA_POTION,
+                        new TranslationTextComponent("advancements.exorcery.mana.title"),
+                        new TranslationTextComponent("advancements.exorcery.mana.description"),
+                        null,
+                        FrameType.TASK,
+                        false,
+                        false,
+                        false)
+                .withCriterion("has_mana_potion", InventoryChangeTrigger.Instance.forItems(ExorceryItems.MANA_POTION)));
+    }
+
+    private Advancement register(Consumer<Advancement> consumer, ResourceLocation resourceLocation, Advancement.Builder builder)
+    {
+        return builder.register(consumer, resourceLocation.toString());
+    }
+
     @Override
     public void act(DirectoryCache cache) throws IOException
     {
@@ -61,30 +92,7 @@ public class ExorceryAdvancementProvider implements IDataProvider
             }
         };
 
-        Advancement root = Advancement.Builder.builder()
-                .withDisplay(ExorceryItems.SPELL_SCROLL_EMPTY,
-                        new TranslationTextComponent("advancements.exorcery.root.title"),
-                        new TranslationTextComponent("advancements.exorcery.root.description"),
-                        new ResourceLocation("textures/block/andesite.png"),
-                        FrameType.TASK,
-                        true,
-                        true,
-                        false)
-                .withCriterion("has_spell_scroll", InventoryChangeTrigger.Instance.forItems(ItemPredicate.Builder.create().tag(ExorceryTags.Items.SPELL_SCROLLS).build()))
-                .register(consumer, Exorcery.MOD_ID + ":exorcery/root");
-
-        Advancement mana = Advancement.Builder.builder()
-                .withParent(root)
-                .withDisplay(ExorceryItems.MANA_POTION,
-                        new TranslationTextComponent("advancements.exorcery.mana.title"),
-                        new TranslationTextComponent("advancements.exorcery.mana.description"),
-                        null,
-                        FrameType.TASK,
-                        false,
-                        false,
-                        false)
-                .withCriterion("has_mana_potion", InventoryChangeTrigger.Instance.forItems(ExorceryItems.MANA_POTION))
-                .register(consumer, Exorcery.MOD_ID + ":exorcery/mana");
+        registerAdvancements(consumer);
     }
 
     private static Path getPath(Path pathIn, Advancement advancementIn)
