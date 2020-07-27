@@ -124,6 +124,5 @@ public class Exorcery
     public void onServerStarting(final FMLServerStartingEvent event)
     {
         server = event.getServer();
-        ExorceryCommand.register(event.getCommandDispatcher());
     }
 }

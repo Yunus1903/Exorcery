@@ -9,6 +9,7 @@ import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
+import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.network.PacketHandler;
 import com.yunus1903.exorcery.common.network.packets.SyncCastingPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncManaPacket;
@@ -21,6 +22,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -33,6 +35,12 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)
 public final class EventHandler
 {
+    @SubscribeEvent
+    public static void onCommandsRegister(RegisterCommandsEvent event)
+    {
+        ExorceryCommand.register(event.getDispatcher());
+    }
+
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event)
     {

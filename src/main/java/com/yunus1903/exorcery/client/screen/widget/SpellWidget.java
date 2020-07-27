@@ -73,14 +73,14 @@ public class SpellWidget extends Widget
     public void renderToolTip(MatrixStack matrixStack, int p_renderToolTip_1_, int p_renderToolTip_2_)
     {
         List<ITextComponent> tooltip = new ArrayList<>();
-        tooltip.add(getMessage().copyRaw().func_240699_a_(spell.getType().getColor()));
+        tooltip.add(getMessage().copyRaw().mergeStyle(spell.getType().getColor()));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.mana_cost").func_240699_a_(TextFormatting.GRAY).func_230529_a_(new StringTextComponent(": ").func_240699_a_(TextFormatting.GRAY)).func_230529_a_(spell.getManaCost() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? new StringTextComponent(Character.toString('\u221e')) : new StringTextComponent(String.valueOf((int) spell.getManaCost()))));
-        tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.cast_time").func_240699_a_(TextFormatting.GRAY).func_230529_a_(new StringTextComponent(": ").func_240699_a_(TextFormatting.GRAY)).func_230529_a_(spell.getCastTime() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.cast_time_instant").func_240699_a_(TextFormatting.YELLOW) : new StringTextComponent(spell.getCastTime() / 20 + " ").func_230529_a_(new TranslationTextComponent("gui.exorcery.tooltip.cast_time_seconds"))));
-        if (spell.getWhileRunning()) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.while_running").func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.mana_cost").mergeStyle(TextFormatting.GRAY).append(new StringTextComponent(": ").mergeStyle(TextFormatting.GRAY)).append(spell.getManaCost() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.mana_cost_free") : spell.getManaCost() == Float.MAX_VALUE ? new StringTextComponent(Character.toString('\u221e')) : new StringTextComponent(String.valueOf((int) spell.getManaCost()))));
+        tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.cast_time").mergeStyle(TextFormatting.GRAY).append(new StringTextComponent(": ").mergeStyle(TextFormatting.GRAY)).append(spell.getCastTime() <= 0 ? new TranslationTextComponent("gui.exorcery.tooltip.cast_time_instant").mergeStyle(TextFormatting.YELLOW) : new StringTextComponent(spell.getCastTime() / 20 + " ").append(new TranslationTextComponent("gui.exorcery.tooltip.cast_time_seconds"))));
+        if (spell.getWhileRunning()) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.while_running").mergeStyle(TextFormatting.BLUE));
         InputMappings.Input key = Exorcery.keybindingHandler.getKey(spell);
-        if (key != null) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.keybinding").func_230529_a_(new StringTextComponent(": " + GLFW.glfwGetKeyName(key.getKeyCode(), key.getKeyCode()))).func_240699_a_(TextFormatting.YELLOW));
-        else if (gui.keybindMode) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.keybinding").func_230529_a_(new StringTextComponent(": ")).func_230529_a_(new TranslationTextComponent("gui.exorcery.tooltip.keybinding.none")).func_240699_a_(TextFormatting.YELLOW));
+        if (key != null) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.keybinding").append(new StringTextComponent(": " + GLFW.glfwGetKeyName(key.getKeyCode(), key.getKeyCode()))).mergeStyle(TextFormatting.YELLOW));
+        else if (gui.keybindMode) tooltip.add(new TranslationTextComponent("gui.exorcery.tooltip.keybinding").append(new StringTextComponent(": ")).append(new TranslationTextComponent("gui.exorcery.tooltip.keybinding.none")).mergeStyle(TextFormatting.YELLOW));
         if (InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
         {
             String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
@@ -90,9 +90,9 @@ public class SpellWidget extends Widget
             if (!line1.equals(translationKey + ".line1") || line1.isEmpty())
             {
                 tooltip.add(new StringTextComponent(""));
-                tooltip.add(new StringTextComponent(line1).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
+                tooltip.add(new StringTextComponent(line1).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
                 if (!line2.equals(translationKey + ".line2") || line2.isEmpty())
-                    tooltip.add(new StringTextComponent(line2).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
+                    tooltip.add(new StringTextComponent(line2).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
             }
         }
         GuiUtils.drawHoveringText(matrixStack,

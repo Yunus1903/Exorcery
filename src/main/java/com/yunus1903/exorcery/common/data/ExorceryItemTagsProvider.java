@@ -26,7 +26,7 @@ public class ExorceryItemTagsProvider extends ItemTagsProvider
         {
             if (item instanceof SpellScrollItem && ((SpellScrollItem) item).hasSpell())
             {
-                func_240522_a_(ExorceryTags.Items.SPELL_SCROLLS).func_240532_a_(item);
+                getOrCreateBuilder(ExorceryTags.Items.SPELL_SCROLLS).addItemEntry(item);
             }
         }
     }
