@@ -189,7 +189,7 @@ public class SpellSelectorScreen extends Screen
             if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_ESCAPE))
             {
                 keybindMode = false;
-                onClose();
+                closeScreen();
             }
         }
         else
@@ -203,7 +203,7 @@ public class SpellSelectorScreen extends Screen
                         ((SpellWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
                     }
                 }
-                onClose();
+                closeScreen();
             }
         }
     }
