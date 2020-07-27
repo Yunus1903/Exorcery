@@ -76,6 +76,6 @@ public class ManaPotionItem extends ExorceryItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(new StringTextComponent((int) mana + " Mana").func_240699_a_(TextFormatting.GRAY));
+        tooltip.add(new StringTextComponent((int) mana + " Mana").mergeStyle(TextFormatting.GRAY));
     }
 }

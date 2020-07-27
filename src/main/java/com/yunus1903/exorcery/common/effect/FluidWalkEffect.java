@@ -40,7 +40,7 @@ public class FluidWalkEffect extends Effect
                     }
 
                     p.fallDistance = 0.0F;
-                    p.func_230245_c_(true);
+                    p.setOnGround(true);
                 }
             }
         }
