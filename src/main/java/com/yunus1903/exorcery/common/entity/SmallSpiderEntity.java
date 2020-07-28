@@ -24,7 +24,9 @@ public class SmallSpiderEntity extends SpiderEntity
 
     public static AttributeModifierMap.MutableAttribute func_234277_m_()
     {
-        return SpiderEntity.func_234305_eI_().func_233815_a_(Attributes.MAX_HEALTH, 8.0D).func_233815_a_(Attributes.MOVEMENT_SPEED, 0.5F);
+        return SpiderEntity.func_234305_eI_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 8.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5F);
     }
 
     @Nullable

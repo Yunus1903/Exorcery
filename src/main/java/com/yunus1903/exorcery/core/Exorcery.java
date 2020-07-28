@@ -78,7 +78,7 @@ public class Exorcery
         CapabilityManager.INSTANCE.register(ICasting.class, new CastingStorage(), CastingCapability::new);
         CapabilityManager.INSTANCE.register(IMorph.class, new MorphStorage(), MorphCapability::new);
         PacketHandler.register();
-        GlobalEntityTypeAttributes.put(ExorceryEntities.SMALL_SPIDER, SmallSpiderEntity.func_234277_m_().func_233813_a_());
+        GlobalEntityTypeAttributes.put(ExorceryEntities.SMALL_SPIDER, SmallSpiderEntity.func_234277_m_().create());
     }
 
     @SubscribeEvent
