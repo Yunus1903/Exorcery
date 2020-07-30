@@ -29,7 +29,7 @@ repositories {
 }
 
 sourceSets {
-    main.resources.srcDirs += 'src/main/generated_resources'
+    main.resources.srcDirs += 'src/main/generated/resources'
 }
 
 minecraft {
@@ -45,7 +45,7 @@ minecraft {
                 ideaModule '1.16.Exorcery.main'
             }
 
-            args '--mod', 'exorcery', '--all', '--output', file('src/main/generated_resources/'), '--existing', file('src/main/resources')
+            args '--mod', 'exorcery', '--all', '--output', file('src/main/generated/resources/'), '--existing', file('src/main/resources')
 
             mods {
                 exorcery {
