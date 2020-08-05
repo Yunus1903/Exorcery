@@ -99,6 +99,7 @@ public class Exorcery
         DataGenerator generator = event.getGenerator();
         if (event.includeClient())
         {
+            generator.addProvider(new ExorceryLanguageProvider(generator));
             generator.addProvider(new ExorceryItemModelProvider(generator, event.getExistingFileHelper()));
         }
         if (event.includeServer())
