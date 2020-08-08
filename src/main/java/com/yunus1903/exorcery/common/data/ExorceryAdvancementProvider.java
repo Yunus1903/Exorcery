@@ -27,7 +27,7 @@ import java.util.function.Consumer;
  */
 public class ExorceryAdvancementProvider implements IDataProvider
 {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final DataGenerator generator;
 
     public ExorceryAdvancementProvider(DataGenerator generatorIn)
@@ -69,7 +69,7 @@ public class ExorceryAdvancementProvider implements IDataProvider
     @Override
     public void act(DirectoryCache cache) throws IOException
     {
-        Path path = this.generator.getOutputFolder();
+        Path path = generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         Consumer<Advancement> consumer = advancement ->
         {
@@ -85,9 +85,9 @@ public class ExorceryAdvancementProvider implements IDataProvider
                 {
                     IDataProvider.save(GSON, cache, advancement.copy().serialize(), path1);
                 }
-                catch (IOException ioexception)
+                catch (IOException e)
                 {
-                    Exorcery.LOGGER.error("Couldn't save advancement {}", path1, ioexception);
+                    Exorcery.LOGGER.error("Couldn't save advancement {}", path1, e);
                 }
             }
         };
