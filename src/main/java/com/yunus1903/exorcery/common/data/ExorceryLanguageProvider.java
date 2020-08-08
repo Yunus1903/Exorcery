@@ -41,6 +41,12 @@ public class ExorceryLanguageProvider extends LanguageProvider
         addMisc();
     }
 
+    @Override
+    public String getName()
+    {
+        return "Exorcery " + super.getName();
+    }
+
     private void addItems()
     {
         add("item.exorcery.spell_scroll", "Spell Scroll");
