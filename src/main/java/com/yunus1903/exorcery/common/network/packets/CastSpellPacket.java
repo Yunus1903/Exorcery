@@ -4,17 +4,20 @@ import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsProvider;
 import com.yunus1903.exorcery.common.spell.Spell;
+import com.yunus1903.exorcery.common.util.BlockSpellTarget;
+import com.yunus1903.exorcery.common.util.EntitySpellTarget;
+import com.yunus1903.exorcery.common.util.SpellTarget;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
@@ -25,30 +28,18 @@ public class CastSpellPacket
 {
     private final Spell spell;
     private final PlayerEntity player;
-    private LivingEntity targetEntity;
-    private BlockPos targetLocation;
+    private final SpellTarget target;
 
     public CastSpellPacket(Spell spell, PlayerEntity player)
     {
-        this(spell, player, null, null);
+        this(spell, player, null);
     }
 
-    public CastSpellPacket(Spell spell, PlayerEntity player, LivingEntity target)
-    {
-        this(spell, player, target, null);
-    }
-
-    public CastSpellPacket(Spell spell, PlayerEntity player, BlockPos target)
-    {
-        this(spell, player, null, target);
-    }
-
-    public CastSpellPacket(Spell spell, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation)
+    public CastSpellPacket(Spell spell, PlayerEntity player, @Nullable SpellTarget target)
     {
         this.spell = spell;
         this.player = player;
-        this.targetEntity = targetEntity;
-        this.targetLocation = targetLocation;
+        this.target = target;
     }
 
     public static void encode(CastSpellPacket pkt, PacketBuffer buf)
@@ -58,15 +49,26 @@ public class CastSpellPacket
             buf.writeUniqueId(pkt.player.getUniqueID());
             buf.writeInt(spells.getSpellId(pkt.spell));
 
-            int target = 0;
-            if (pkt.targetEntity != null && pkt.targetLocation != null) target = 3;
-            else if (pkt.targetEntity != null) target = 1;
-            else if (pkt.targetLocation != null) target = 2;
-
-            buf.writeInt(target);
-
-            if (target == 1 || target == 3) buf.writeInt(pkt.targetEntity.getEntityId());
-            if (target == 2 || target == 3) buf.writeBlockPos(pkt.targetLocation);
+            if (pkt.target != null)
+            {
+                if (pkt.target instanceof BlockSpellTarget)
+                {
+                    buf.writeInt(1);
+                    boolean exists = pkt.target.getType() == SpellTarget.Type.BLOCK;
+                    buf.writeBoolean(exists);
+                    if (exists) buf.writeBlockPos(((BlockSpellTarget) pkt.target).getPos());
+                    return;
+                }
+                else if (pkt.target instanceof EntitySpellTarget)
+                {
+                    buf.writeInt(2);
+                    boolean exists = pkt.target.getType() == SpellTarget.Type.ENTITY;
+                    buf.writeBoolean(exists);
+                    if (exists) buf.writeInt(((EntitySpellTarget) pkt.target).getEntity().getEntityId());
+                    return;
+                }
+            }
+            buf.writeInt(0);
         });
     }
 
@@ -76,10 +78,7 @@ public class CastSpellPacket
 
         if (Exorcery.instance.server == null)
         {
-            DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
-            {
-                player.set(Minecraft.getInstance().player);
-            });
+            DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
             buf.readUniqueId();
         }
         else
@@ -90,28 +89,17 @@ public class CastSpellPacket
         ISpells spells = player.get().getCapability(SpellsProvider.SPELLS_CAPABILITY, null).orElse(new SpellsCapability());
         Spell spell = spells.getSpellById(buf.readInt());
 
-        int target = buf.readInt();
-
-        LivingEntity targetEntity;
-        BlockPos targetLocation;
-
-        switch (target)
+        int test = buf.readInt();
+        switch (test)
         {
-            case 0:
-                return new CastSpellPacket(spell, player.get());
             case 1:
-                targetEntity = (LivingEntity) player.get().world.getEntityByID(buf.readInt());
-                return new CastSpellPacket(spell, player.get(), targetEntity);
+                if (buf.readBoolean()) return new CastSpellPacket(spell, player.get(), new BlockSpellTarget(null, buf.readBlockPos()));
+                else return new CastSpellPacket(spell, player.get(), new BlockSpellTarget(true, null, null));
             case 2:
-                targetLocation = buf.readBlockPos();
-                return new CastSpellPacket(spell, player.get(), targetLocation);
-            case 3:
-                targetEntity = (LivingEntity) player.get().world.getEntityByID(buf.readInt());
-                targetLocation = buf.readBlockPos();
-                return new CastSpellPacket(spell, player.get(), targetEntity, targetLocation);
-            default:
-                return null;
+                if (buf.readBoolean()) return new CastSpellPacket(spell, player.get(), new EntitySpellTarget((LivingEntity) player.get().world.getEntityByID(buf.readInt())));
+                else return new CastSpellPacket(spell, player.get(), new EntitySpellTarget(true, null));
         }
+        return new CastSpellPacket(spell, player.get());
     }
 
     public static class Handler
@@ -123,7 +111,7 @@ public class CastSpellPacket
                 ctx.get().enqueueWork(() ->
                 {
                     ServerPlayerEntity player = ctx.get().getSender();
-                    msg.spell.castSpell(player.world, player, msg.targetEntity, msg.targetLocation);
+                    msg.spell.castSpell(player.world, player, msg.target);
                 });
             }
             else if (ctx.get().getDirection().getReceptionSide().isClient())
@@ -132,10 +120,7 @@ public class CastSpellPacket
                 {
                     AtomicReference<PlayerEntity> player = new AtomicReference<>();
 
-                    DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
-                    {
-                        player.set(Minecraft.getInstance().player);
-                    });
+                    DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
                     msg.spell.castSpell(player.get().world, player.get(), true);
                 });
             }

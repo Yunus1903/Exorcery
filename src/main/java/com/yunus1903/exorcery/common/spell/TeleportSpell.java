@@ -1,6 +1,8 @@
 package com.yunus1903.exorcery.common.spell;
 
 import com.yunus1903.exorcery.common.config.SpellConfig;
+import com.yunus1903.exorcery.common.util.BlockSpellTarget;
+import com.yunus1903.exorcery.common.util.SpellTarget;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,12 +10,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Yunus1903
@@ -31,37 +33,43 @@ public class TeleportSpell extends Spell
     @Override
     public void calculateManaCost(PlayerEntity player)
     {
-        if (targetLocation == null) setManaCost(Float.MAX_VALUE);
-        else setManaCost((float) Math.sqrt(player.getDistanceSq(new Vec3d(targetLocation))) * SpellConfig.teleportManaCostMultiplier);
+        if (getTarget() != null && getTarget().getType() == SpellTarget.Type.BLOCK)
+        {
+            BlockSpellTarget target = (BlockSpellTarget) getTarget();
+            setManaCost((float) Math.sqrt(player.getDistanceSq(target.getPos().getX(), target.getPos().getY(), target.getPos().getZ())) * SpellConfig.teleportManaCostMultiplier);
+        }
+        else setManaCost(Float.MAX_VALUE);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Nullable
     @Override
-    public void setTargetEntity(Minecraft mc)
+    public SpellTarget determineTarget(Minecraft mc)
     {
         RayTraceResult result = mc.player.pick(67, mc.getRenderPartialTicks(), true);
 
-        if (result.getType() == RayTraceResult.Type.BLOCK && result instanceof BlockRayTraceResult)
+        if (result.getType() == RayTraceResult.Type.BLOCK)
         {
             // TODO: find better way of doing this
 
-            targetLocation = ((BlockRayTraceResult) result).getPos();
-            if (!mc.world.isAirBlock(targetLocation)) targetLocation = targetLocation.add(0, 1, 0);
-            if (!mc.world.isAirBlock(targetLocation)) targetLocation = targetLocation.add(0, -2, 0);
-            if (!mc.world.isAirBlock(targetLocation)) targetLocation = targetLocation.add(0, 1, 0);
+            BlockPos target = ((BlockRayTraceResult) result).getPos();
+            if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
+            if (!mc.world.isAirBlock(target)) target = target.add(0, -2, 0);
+            if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
+            return new BlockSpellTarget(((BlockRayTraceResult) result).getFace(), target);
         }
-        else targetLocation = null;
+        return new BlockSpellTarget(true, null, null);
     }
 
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        if (targetLocation != null)
+        if (getTarget() != null && getTarget().getType() == SpellTarget.Type.BLOCK)
         {
+            BlockSpellTarget target = (BlockSpellTarget) getTarget();
             world.setEntityState(player, (byte) 46);
             if (!world.isRemote())
             {
-                player.setPositionAndUpdate(targetLocation.getX(), targetLocation.getY(), targetLocation.getZ());
+                player.setPositionAndUpdate(target.getPos().getX(), target.getPos().getY(), target.getPos().getZ());
                 world.playMovingSound(null, player, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1, 1);
             }
             return super.onSpellCast(world, player);

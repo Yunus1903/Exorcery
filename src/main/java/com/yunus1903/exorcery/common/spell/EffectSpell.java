@@ -1,5 +1,7 @@
 package com.yunus1903.exorcery.common.spell;
 
+import com.yunus1903.exorcery.common.util.EntitySpellTarget;
+import com.yunus1903.exorcery.common.util.SpellTarget;
 import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
@@ -7,12 +9,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Yunus1903
@@ -47,36 +48,36 @@ public class EffectSpell extends Spell
     @Override
     public void calculateManaCost(PlayerEntity player)
     {
-        if (targetEntity != null) setManaCost(manaCostOther);
+        if (getTarget() != null && getTarget().getType() == SpellTarget.Type.ENTITY) setManaCost(manaCostOther);
         else setManaCost(manaCostSelf);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Nullable
     @Override
-    public void setTargetEntity(Minecraft mc)
+    public SpellTarget determineTarget(Minecraft mc)
     {
         RayTraceResult result = mc.objectMouseOver;
         if (result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
         {
-            targetEntity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
+            return new EntitySpellTarget((LivingEntity) ((EntityRayTraceResult) result).getEntity());
         }
-        else targetEntity = null;
+        else return new EntitySpellTarget(true, null);
     }
 
     @Override
-    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, LivingEntity targetEntity, BlockPos targetLocation)
+    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, SpellTarget target)
     {
         if (!world.isRemote())
         {
-            if (targetEntity == null)
+            if (target == null || target.getType() != SpellTarget.Type.ENTITY)
             {
                 player.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
             }
             else
             {
-                targetEntity.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
+                ((EntitySpellTarget) target).getEntity().addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
             }
         }
-        return super.onSpellCast(world, player, targetEntity, targetLocation);
+        return super.onSpellCast(world, player, target);
     }
 }

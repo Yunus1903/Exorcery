@@ -174,8 +174,7 @@ public class SpellSelectorScreen extends Screen
         {
             for (Spell spell : spells.getSpells())
             {
-                spell.setTargetEntity(minecraft);
-                spell.setTargetLocation(minecraft);
+                spell.setTarget(spell.determineTarget(minecraft));
                 spell.calculateManaCost(minecraft.player);
             }
         });
@@ -196,7 +195,7 @@ public class SpellSelectorScreen extends Screen
                 {
                     if (btn instanceof SpellWidget && btn.isHovered())
                     {
-                        ((SpellWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player);
+                        ((SpellWidget) btn).getSpell().castSpell(minecraft.world, minecraft.player, ((SpellWidget) btn).getSpell().getTarget());
                     }
                 }
                 onClose();
