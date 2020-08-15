@@ -13,6 +13,7 @@ import com.yunus1903.exorcery.common.capabilities.morph.MorphStorage;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsStorage;
+import com.yunus1903.exorcery.common.command.ExorceryCommand;
 import com.yunus1903.exorcery.common.config.ExorceryConfig;
 import com.yunus1903.exorcery.common.data.*;
 import com.yunus1903.exorcery.common.misc.ExorceryRegistry;
