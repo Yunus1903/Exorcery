@@ -30,28 +30,23 @@ import javax.annotation.Nullable;
  */
 public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryEntry<Spell>
 {
-    private float manaCost = 0f;
-    private int castTime = 0;
-    private SpellType type = SpellType.NORMAL;
-    private boolean whileRunning = false;
+
+    private final int castTime;
+    private final SpellType type;
+    private final boolean whileRunning;
+
+    private float manaCost = 0.0F;
     @Nullable
     private String translationKey;
-
     private boolean isCasting = false;
-
     @Nullable
     private SpellTarget target;
 
-    public static int getIdFromSpell(Spell spell)
+    public Spell(Properties properties)
     {
-        ForgeRegistry<Spell> registry = ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS);
-        int id = registry.getID(spell);
-        return spell == null ? 0 : id;
-    }
-
-    public static Spell getSpellById(int id)
-    {
-        return ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValue(id);
+        this.castTime = properties.castTime;
+        this.type = properties.type;
+        this.whileRunning = properties.whileRunning;
     }
 
     public float getManaCost()
@@ -70,32 +65,14 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         return castTime;
     }
 
-    public Spell setCastTime(int timeInTicks)
-    {
-        castTime = timeInTicks;
-        return this;
-    }
-
     public SpellType getType()
     {
         return type;
     }
 
-    public Spell setType(SpellType type)
-    {
-        this.type = type;
-        return this;
-    }
-
     public boolean getWhileRunning()
     {
         return whileRunning;
-    }
-
-    public Spell setWhileRunning(boolean whileRunning)
-    {
-        this.whileRunning = whileRunning;
-        return this;
     }
 
     public void calculateManaCost(PlayerEntity player) { }
@@ -237,5 +214,42 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, @Nullable SpellTarget target)
     {
         return onSpellCast(world, player);
+    }
+
+    public static int getIdFromSpell(Spell spell)
+    {
+        ForgeRegistry<Spell> registry = ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS);
+        int id = registry.getID(spell);
+        return spell == null ? 0 : id;
+    }
+
+    public static Spell getSpellById(int id)
+    {
+        return ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getValue(id);
+    }
+
+    protected static class Properties
+    {
+        private int castTime = 0;
+        private SpellType type = SpellType.NORMAL;
+        private boolean whileRunning = false;
+
+        public Properties castTime(int castTime)
+        {
+            this.castTime = castTime;
+            return this;
+        }
+
+        public Properties type(SpellType type)
+        {
+            this.type = type;
+            return this;
+        }
+
+        public Properties castableWhileRunning()
+        {
+            whileRunning = true;
+            return this;
+        }
     }
 }

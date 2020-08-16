@@ -21,11 +21,13 @@ public class CounterSpell extends Spell
 {
     public CounterSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "counter")
-                .setManaCost(SpellConfig.counterManaCost)
-                .setCastTime(SpellConfig.counterCastTime)
-                .setType(SpellType.NORMAL)
-                .setWhileRunning(true);
+        super(new Properties()
+                .castTime(SpellConfig.counterCastTime)
+                .type(SpellType.NORMAL)
+                .castableWhileRunning()
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "counter");
+        this.setManaCost(SpellConfig.counterManaCost);
     }
 
     @Override

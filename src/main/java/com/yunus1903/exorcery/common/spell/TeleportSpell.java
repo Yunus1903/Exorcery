@@ -25,9 +25,11 @@ public class TeleportSpell extends Spell
 {
     public TeleportSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "teleport")
-                .setCastTime(SpellConfig.teleportCastTime)
-                .setType(SpellType.ENDER);
+        super(new Properties()
+                .castTime(SpellConfig.teleportCastTime)
+                .type(SpellType.ENDER)
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "teleport");
     }
 
     @Override

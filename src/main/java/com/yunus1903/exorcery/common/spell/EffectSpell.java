@@ -34,15 +34,17 @@ public class EffectSpell extends Spell
 
     public EffectSpell(String name, Effect effect, int effectDuration, int effectAmplifier, float manaCostSelf, float manaCostOther, int castTime, SpellType type)
     {
+        super(new Properties()
+                .castTime(castTime)
+                .type(type)
+        );
         this.effect = effect;
         this.effectDuration = effectDuration;
         this.effectAmplifier = effectAmplifier;
         this.manaCostSelf = manaCostSelf;
         this.manaCostOther = manaCostOther;
-        this.setRegistryName(Exorcery.MOD_ID, name)
-                .setManaCost(manaCostSelf)
-                .setCastTime(castTime)
-                .setType(type);
+        this.setRegistryName(Exorcery.MOD_ID, name);
+        this.setManaCost(manaCostSelf);
     }
 
     @Override
