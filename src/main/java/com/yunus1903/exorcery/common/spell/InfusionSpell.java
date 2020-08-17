@@ -22,9 +22,11 @@ public class InfusionSpell extends Spell
 
     public InfusionSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "infusion")
-                .setCastTime(SpellConfig.infusionCastTime)
-                .setType(SpellType.MAGIC);
+        super(new Properties()
+                .castTime(SpellConfig.infusionCastTime)
+                .type(SpellType.MAGIC)
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "infusion");
     }
 
     @Override

@@ -16,11 +16,13 @@ public class FireballSpell extends Spell
 {
     public FireballSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "fireball")
-                .setManaCost(SpellConfig.fireballManaCost)
-                .setCastTime(SpellConfig.fireballCastTime)
-                .setType(SpellType.FIRE)
-                .setWhileRunning(true);
+        super(new Properties()
+                .castTime(SpellConfig.fireballCastTime)
+                .type(SpellType.FIRE)
+                .castableWhileRunning()
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "fireball");
+        this.setManaCost(SpellConfig.fireballManaCost);
     }
 
     @Override

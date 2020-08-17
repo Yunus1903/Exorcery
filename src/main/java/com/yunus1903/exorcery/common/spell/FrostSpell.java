@@ -22,11 +22,13 @@ public class FrostSpell extends Spell
 {
     public FrostSpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "frost")
-                .setManaCost(SpellConfig.frostManaCost)
-                .setCastTime(SpellConfig.frostCastTime)
-                .setType(SpellType.ICE)
-                .setWhileRunning(true);
+        super(new Properties()
+                .castTime(SpellConfig.frostCastTime)
+                .type(SpellType.ICE)
+                .castableWhileRunning()
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "frost");
+        this.setManaCost(SpellConfig.frostManaCost);
     }
 
     @Override

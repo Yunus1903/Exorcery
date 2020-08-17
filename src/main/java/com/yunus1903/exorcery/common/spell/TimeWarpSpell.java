@@ -13,17 +13,19 @@ import net.minecraft.world.World;
  */
 public class TimeWarpSpell extends Spell
 {
-    private final int STEPS = SpellConfig.timeWarpSteps;
+    private final int steps = SpellConfig.timeWarpSteps;
 
-    private final int TIME;
+    private final int time;
 
     public TimeWarpSpell(String name, int time)
     {
-        this.setRegistryName(Exorcery.MOD_ID, name)
-                .setManaCost(SpellConfig.timeWarpManaCost)
-                .setCastTime(SpellConfig.timeWarpCastTime)
-                .setType(SpellType.NORMAL);
-        this.TIME = time;
+        super(new Properties()
+                .castTime(SpellConfig.timeWarpCastTime)
+                .type(SpellType.NORMAL)
+        );
+        this.setRegistryName(Exorcery.MOD_ID, name);
+        this.setManaCost(SpellConfig.timeWarpManaCost);
+        this.time = time;
     }
 
     @Override
@@ -33,9 +35,9 @@ public class TimeWarpSpell extends Spell
         {
             int current = (int) world.getDayTime();
             int delta = current % 24000;
-            int targetTime = current - delta + (delta >= TIME ? TIME + 24000 : TIME);
+            int targetTime = current - delta + (delta >= time ? time + 24000 : time);
             int currentTicks = world.getServer().getTickCounter();
-            int targetTicks = currentTicks + (targetTime - current) / STEPS;
+            int targetTicks = currentTicks + (targetTime - current) / steps;
 
             TickHandler.scheduleLoopTask(targetTicks, () ->
             {

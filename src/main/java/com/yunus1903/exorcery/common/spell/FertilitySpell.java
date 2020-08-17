@@ -24,10 +24,12 @@ public class FertilitySpell extends Spell
 {
     public FertilitySpell()
     {
-        this.setRegistryName(Exorcery.MOD_ID, "fertility")
-                .setManaCost(SpellConfig.fertilityManaCost)
-                .setCastTime(SpellConfig.fertilityCastTime)
-                .setType(SpellType.NATURAL);
+        super(new Properties()
+                .castTime(SpellConfig.fertilityCastTime)
+                .type(SpellType.NATURAL)
+        );
+        this.setRegistryName(Exorcery.MOD_ID, "fertility");
+        this.setManaCost(SpellConfig.fertilityManaCost);
     }
 
     @Override
