@@ -6,12 +6,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.*;
 
 /**
+ * Custom registries
  * @author Yunus1903
  */
 public final class ExorceryRegistry
 {
     private static final int MAX_VARINT = Integer.MAX_VALUE - 1;
 
+    /**
+     * Custom registry for {@link Spell spells}
+     */
     public static IForgeRegistry<Spell> SPELLS;
 
     public static void createRegistries()

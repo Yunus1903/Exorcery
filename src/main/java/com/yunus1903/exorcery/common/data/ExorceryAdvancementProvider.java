@@ -14,6 +14,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.function.Consumer;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link Advancement advancements}
  * @author Yunus1903
  * @since 14/08/2020
  */

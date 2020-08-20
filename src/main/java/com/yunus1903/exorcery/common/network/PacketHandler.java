@@ -16,6 +16,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /**
+ * Handler class to register and send custom network packets
  * @author Yunus1903
  */
 public final class PacketHandler

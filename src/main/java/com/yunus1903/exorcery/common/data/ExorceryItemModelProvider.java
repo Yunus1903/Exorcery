@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link ItemModelBuilder itemmodels}
  * @author Yunus1903
  * @since 09/07/2020
  */

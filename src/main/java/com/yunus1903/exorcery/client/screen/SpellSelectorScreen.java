@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Selector {@link Screen} for {@link Spell spells}
  * @author Yunus1903
  */
 @OnlyIn(Dist.CLIENT)

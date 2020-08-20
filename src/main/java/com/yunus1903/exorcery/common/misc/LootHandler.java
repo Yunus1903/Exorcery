@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Handler class to inject {@link net.minecraft.loot.LootTable loottables}
  * @author Yunus1903
  * @since 17/04/2020
  */

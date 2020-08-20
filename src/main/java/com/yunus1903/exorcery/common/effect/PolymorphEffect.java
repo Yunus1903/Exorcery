@@ -14,6 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 /**
+ * {@link Effect} that causes you to morph into a {@link EntityType entity}
  * @author Yunus1903
  * @since 06/05/2020
  */

@@ -17,6 +17,7 @@ import java.io.*;
 import java.util.Map;
 
 /**
+ * Custom {@link Spell} keybinding handler
  * @author Yunus1903
  * @since 15/05/2020
  */

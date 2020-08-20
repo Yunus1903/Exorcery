@@ -17,6 +17,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 import java.util.function.Supplier;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for localization
  * @author Yunus1903
  * @since 05/08/2020
  */

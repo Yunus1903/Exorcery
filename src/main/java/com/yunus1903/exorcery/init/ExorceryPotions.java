@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Mod {@link Potion potions} registry
  * @author Yunus1903
  * @since 26/06/2020
  */

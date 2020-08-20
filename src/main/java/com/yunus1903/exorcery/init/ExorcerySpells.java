@@ -11,6 +11,7 @@ import java.util.List;
 import static com.yunus1903.exorcery.common.config.SpellConfig.*;
 
 /**
+ * Mod {@link Spell spells} registry
  * @author Yunus1903
  */
 public final class ExorcerySpells

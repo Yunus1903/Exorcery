@@ -7,6 +7,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
 /**
+ * Mod {@link net.minecraft.tags.Tag tags}
  * @author Yunus1903
  * @since 09/07/2020
  */

@@ -30,6 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Event handler class
  * @author Yunus1903
  */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)

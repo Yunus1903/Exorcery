@@ -2,8 +2,6 @@ package com.yunus1903.exorcery.client.misc;
 
 import com.yunus1903.exorcery.client.screen.SpellSelectorScreen;
 import com.yunus1903.exorcery.common.capabilities.casting.CastingProvider;
-import com.yunus1903.exorcery.common.capabilities.morph.IMorph;
-import com.yunus1903.exorcery.common.capabilities.morph.MorphCapability;
 import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import com.yunus1903.exorcery.common.capabilities.spells.ISpells;
 import com.yunus1903.exorcery.common.capabilities.spells.SpellsCapability;
@@ -28,6 +26,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Client-side only event handler class
  * @author Yunus1903
  * @since 12/04/2020
  */

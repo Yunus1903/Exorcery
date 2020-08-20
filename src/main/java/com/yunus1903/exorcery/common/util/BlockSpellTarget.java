@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import javax.annotation.Nullable;
 
 /**
+ * {@link net.minecraft.block.Block Block} type {@link com.yunus1903.exorcery.common.spell.Spell spell} target
  * @author Yunus1903
  * @since 15/08/2020
  */

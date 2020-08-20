@@ -36,6 +36,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * Main mod class
  * @author Yunus1903
  */
 @Mod(Exorcery.MOD_ID)

@@ -10,6 +10,7 @@ import net.minecraft.potion.Potions;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 
 /**
+ * Proxy class
  * @author Yunus1903
  */
 public class CommonProxy
