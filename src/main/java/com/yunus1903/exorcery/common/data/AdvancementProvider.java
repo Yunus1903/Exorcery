@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
+ * Abstract class for a custom {@link Advancement advancement} {@link DataGenerator datagenerator}
  * @author Yunus1903
  * @since 10/07/2020
  */

@@ -22,6 +22,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.*;
 
 /**
+ * Selector {@link Screen} for {@link Spell spells}
  * @author Yunus1903
  */
 @OnlyIn(Dist.CLIENT)

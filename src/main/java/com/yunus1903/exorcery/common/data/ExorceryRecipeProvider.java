@@ -8,6 +8,7 @@ import net.minecraft.item.Items;
 import java.util.function.Consumer;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link IFinishedRecipe recipes}
  * @author Yunus1903
  * @since 09/07/2020
  */

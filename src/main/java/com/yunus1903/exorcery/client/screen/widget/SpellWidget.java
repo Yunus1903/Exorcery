@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * {@link SpellSelectorScreen} {@link Widget widget} for {@link Spell spells}
  * @author Yunus1903
  * @since 12/04/2020
  */

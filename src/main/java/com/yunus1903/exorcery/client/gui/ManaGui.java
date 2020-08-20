@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Overlay GUI for displaying {@link com.yunus1903.exorcery.common.capabilities.mana.IMana mana}
  * @author Yunus1903
  */
 @OnlyIn(Dist.CLIENT)

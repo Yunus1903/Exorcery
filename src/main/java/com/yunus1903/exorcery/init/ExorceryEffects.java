@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Mod {@link Effect effects} registry
  * @author Yunus1903
  * @since 24/06/2020
  */

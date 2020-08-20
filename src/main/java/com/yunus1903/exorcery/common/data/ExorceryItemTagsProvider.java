@@ -8,6 +8,7 @@ import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.Item;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link net.minecraft.tags.ItemTags itemtags}
  * @author Yunus1903
  * @since 09/07/2020
  */

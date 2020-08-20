@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Handler class for custom {@link net.minecraftforge.common.capabilities.Capability capabilities}
  * @author Yunus1903
  */
 @Mod.EventBusSubscriber(modid = Exorcery.MOD_ID)

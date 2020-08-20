@@ -23,6 +23,7 @@ import java.util.List;
 import static net.minecraftforge.event.TickEvent.*;
 
 /**
+ * Handler class for {@link net.minecraftforge.event.TickEvent tickevents}
  * @author Yunus1903
  * @since 13/04/2020
  */

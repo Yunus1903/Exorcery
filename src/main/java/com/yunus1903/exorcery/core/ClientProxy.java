@@ -9,6 +9,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_GRAVE_ACCENT;
 
 /**
+ * Client-side only proxy class
  * @author Yunus1903
  */
 @OnlyIn(Dist.CLIENT)

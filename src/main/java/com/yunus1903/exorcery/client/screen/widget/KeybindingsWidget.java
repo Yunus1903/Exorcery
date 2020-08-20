@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
+ * {@link SpellSelectorScreen} {@link Widget widget} for setting {@link com.yunus1903.exorcery.client.misc.KeybindingHandler keybinding} mode
  * @author Yunus1903
  * @since 14/05/2020
  */

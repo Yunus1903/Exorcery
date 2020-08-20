@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link LootTable loottables}
  * @author Yunus1903
  * @since 11/07/2020
  */

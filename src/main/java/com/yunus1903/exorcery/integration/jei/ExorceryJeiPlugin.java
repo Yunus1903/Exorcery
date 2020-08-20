@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * JEI plugin for mod integration
  * @author Yunus1903
  * @since 01/05/2020
  */

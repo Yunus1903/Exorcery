@@ -4,6 +4,7 @@ import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 
 /**
+ * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link net.minecraft.tags.BlockTags blocktags}
  * @author Yunus1903
  * @since 12/07/2020
  */

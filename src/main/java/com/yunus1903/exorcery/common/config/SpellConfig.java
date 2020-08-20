@@ -3,6 +3,7 @@ package com.yunus1903.exorcery.common.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 /**
+ * {@link com.yunus1903.exorcery.common.spell.Spell Spell} config
  * @author Yunus1903
  * @since 26/04/2020
  */

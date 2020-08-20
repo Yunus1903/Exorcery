@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Handler class to register custom {@link SoundEvent sounds}
  * @author Yunus1903
  * @since 14/04/2020
  */

@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
 /**
+ * Mod {@link ForgeConfigSpec config} handler class
  * @author Yunus1903
  * @since 26/04/2020
  */

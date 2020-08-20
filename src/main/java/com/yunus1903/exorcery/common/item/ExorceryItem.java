@@ -7,6 +7,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 /**
+ * Abstract class for custom mod {@link Item items}
  * @author Yunus1903
  * @since 04/05/2020
  */

@@ -3,6 +3,7 @@ package com.yunus1903.exorcery.common.spell;
 import net.minecraft.util.text.TextFormatting;
 
 /**
+ * Type enum of {@link Spell}
  * @author Yunus1903
  */
 public enum SpellType

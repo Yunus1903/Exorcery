@@ -8,6 +8,7 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 
 /**
+ * {@link Effect} that enables you to walk on water
  * @author Yunus1903
  * @since 30/06/2020
  */

@@ -22,6 +22,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.Collection;
 
 /**
+ * Main {@link CommandSource command} class for {@code /exorcery}
  * @author Yunus1903
  * @since 04/05/2020
  */

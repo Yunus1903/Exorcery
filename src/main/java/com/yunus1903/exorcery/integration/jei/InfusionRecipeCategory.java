@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
+ * JEI recipe category for {@link com.yunus1903.exorcery.common.infusion.InfusionRecipe InfusionRecipe}
  * @author Yunus1903
  * @since 10/07/2020
  */

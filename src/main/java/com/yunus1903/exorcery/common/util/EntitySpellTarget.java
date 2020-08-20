@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import javax.annotation.Nullable;
 
 /**
+ * {@link LivingEntity Entity} type {@link com.yunus1903.exorcery.common.spell.Spell spell} target
  * @author Yunus1903
  * @since 15/08/2020
  */

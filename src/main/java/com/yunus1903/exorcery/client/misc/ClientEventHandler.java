@@ -25,6 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
+ * Client-side only event handler class
  * @author Yunus1903
  * @since 12/04/2020
  */
