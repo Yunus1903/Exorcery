@@ -28,6 +28,7 @@ public final class SoundHandler
 
     public static void stopChanting(ServerPlayerEntity player)
     {
+        if (player.getServer() == null) return;
         player.getServer().getPlayerList().sendToAllNearExcept(
                 null,
                 player.getPosX(),

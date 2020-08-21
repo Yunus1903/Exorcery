@@ -37,8 +37,9 @@ public class TeleportSpell extends Spell
     {
         if (getTarget() != null && getTarget().getType() == SpellTarget.Type.BLOCK)
         {
-            BlockSpellTarget target = (BlockSpellTarget) getTarget();
-            setManaCost((float) Math.sqrt(player.getDistanceSq(target.getPos().getX(), target.getPos().getY(), target.getPos().getZ())) * SpellConfig.teleportManaCostMultiplier);
+            BlockPos pos = ((BlockSpellTarget) getTarget()).getPos();
+            if (pos != null)
+                setManaCost((float) Math.sqrt(player.getDistanceSq(pos.getX(), pos.getY(), pos.getZ())) * SpellConfig.teleportManaCostMultiplier);
         }
         else setManaCost(Float.MAX_VALUE);
     }
@@ -47,17 +48,20 @@ public class TeleportSpell extends Spell
     @Override
     public SpellTarget determineTarget(Minecraft mc)
     {
-        RayTraceResult result = mc.player.pick(67, mc.getRenderPartialTicks(), true);
-
-        if (result.getType() == RayTraceResult.Type.BLOCK)
+        if (mc.player != null && mc.world != null)
         {
-            // TODO: find better way of doing this
+            RayTraceResult result = mc.player.pick(67, mc.getRenderPartialTicks(), true);
 
-            BlockPos target = ((BlockRayTraceResult) result).getPos();
-            if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
-            if (!mc.world.isAirBlock(target)) target = target.add(0, -2, 0);
-            if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
-            return new BlockSpellTarget(((BlockRayTraceResult) result).getFace(), target);
+            if (result.getType() == RayTraceResult.Type.BLOCK)
+            {
+                // TODO: find better way of doing this
+
+                BlockPos target = ((BlockRayTraceResult) result).getPos();
+                if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
+                if (!mc.world.isAirBlock(target)) target = target.add(0, -2, 0);
+                if (!mc.world.isAirBlock(target)) target = target.add(0, 1, 0);
+                return new BlockSpellTarget(((BlockRayTraceResult) result).getFace(), target);
+            }
         }
         return new BlockSpellTarget(true, null, null);
     }
@@ -67,14 +71,17 @@ public class TeleportSpell extends Spell
     {
         if (getTarget() != null && getTarget().getType() == SpellTarget.Type.BLOCK)
         {
-            BlockSpellTarget target = (BlockSpellTarget) getTarget();
-            world.setEntityState(player, (byte) 46);
-            if (!world.isRemote())
+            BlockPos pos = ((BlockSpellTarget) getTarget()).getPos();
+            if (pos != null)
             {
-                player.setPositionAndUpdate(target.getPos().getX(), target.getPos().getY(), target.getPos().getZ());
-                world.playMovingSound(null, player, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1, 1);
+                world.setEntityState(player, (byte) 46);
+                if (!world.isRemote())
+                {
+                    player.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
+                    world.playMovingSound(null, player, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1, 1);
+                }
+                return super.onSpellCast(world, player);
             }
-            return super.onSpellCast(world, player);
         }
         return new ActionResult<>(ActionResultType.FAIL, this);
     }

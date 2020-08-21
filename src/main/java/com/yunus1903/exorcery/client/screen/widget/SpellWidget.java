@@ -24,8 +24,9 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SpellWidget extends Widget
 {
-    SpellSelectorScreen gui;
-    private Spell spell;
+    private final SpellSelectorScreen gui;
+    private final Spell spell;
+    private final ResourceLocation spellName;
 
     public SpellWidget(int x, int y, Spell spell, SpellSelectorScreen gui)
     {
@@ -36,6 +37,7 @@ public class SpellWidget extends Widget
         setHeight((int) (52 * gui.scale));
         this.x -= getWidth() / 2;
         this.y -= getHeight() / 2;
+        spellName = spell.getRegistryName();
     }
 
     public Spell getSpell()
@@ -46,7 +48,7 @@ public class SpellWidget extends Widget
     @Override
     public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_)
     {
-        ResourceLocation textureLocation = new ResourceLocation(spell.getRegistryName().getNamespace(), "textures/spell/" + spell.getRegistryName().getPath() + ".png");
+        ResourceLocation textureLocation = new ResourceLocation(spellName.getNamespace(), "textures/spell/" + spellName.getPath() + ".png");
         gui.getMinecraft().getTextureManager().bindTexture(textureLocation);
 
         int hoverSize = 0;
@@ -68,7 +70,7 @@ public class SpellWidget extends Widget
     @Override
     protected boolean isValidClickButton(int p_isValidClickButton_1_)
     {
-        return gui.keybindMode;
+        return gui.keybindingMode;
     }
 
     @Override
@@ -82,18 +84,18 @@ public class SpellWidget extends Widget
         if (spell.getWhileRunning()) tooltip.add(TextFormatting.BLUE + I18n.format("gui.exorcery.tooltip.while_running"));
         InputMappings.Input key = Exorcery.keybindingHandler.getKey(spell);
         if (key != null) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + GLFW.glfwGetKeyName(key.getKeyCode(), key.getKeyCode()));
-        else if (gui.keybindMode) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + I18n.format("gui.exorcery.tooltip.keybinding.none"));
+        else if (gui.keybindingMode) tooltip.add(TextFormatting.YELLOW + I18n.format("gui.exorcery.tooltip.keybinding") + ": " + I18n.format("gui.exorcery.tooltip.keybinding.none"));
         if (InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(gui.getMinecraft().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))
         {
-            String translationKey = "spell." + spell.getRegistryName().getNamespace() + "." + spell.getRegistryName().getPath() + ".description";
+            String translationKey = "spell." + spellName.getNamespace() + "." + spellName.getPath() + ".description";
             String line1 = I18n.format(translationKey + ".line1");
             String line2 = I18n.format(translationKey + ".line2");
 
-            if (!line1.equals(translationKey + ".line1") || line1.isEmpty())
+            if (line1.isEmpty() || !line1.equals(translationKey + ".line1"))
             {
                 tooltip.add("");
                 tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + line1);
-                if (!line2.equals(translationKey + ".line2") || line2.isEmpty())
+                if (line2.isEmpty() || !line2.equals(translationKey + ".line2"))
                     tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + line2);
             }
         }

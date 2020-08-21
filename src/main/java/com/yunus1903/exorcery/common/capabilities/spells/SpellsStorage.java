@@ -35,7 +35,7 @@ public class SpellsStorage implements Capability.IStorage<ISpells>
     public void readNBT(Capability<ISpells> capability, ISpells instance, Direction side, INBT nbt)
     {
         ListNBT listNBT =  (ListNBT) ((CompoundNBT) nbt).get("spells");
-        if (listNBT.isEmpty() || listNBT.getInt(0) == -1) return;
+        if (listNBT == null || listNBT.isEmpty() || listNBT.getInt(0) == -1) return;
         List<Spell> spells = new ArrayList<>();
         for (INBT id : listNBT)
         {

@@ -1,5 +1,6 @@
 package com.yunus1903.exorcery.integration.jei;
 
+import com.yunus1903.exorcery.client.gui.ManaGui;
 import com.yunus1903.exorcery.common.infusion.IInfusionRecipe;
 import com.yunus1903.exorcery.core.Exorcery;
 import mezz.jei.api.constants.VanillaTypes;
@@ -100,10 +101,6 @@ public class InfusionRecipeCategory implements IRecipeCategory<IInfusionRecipe>
         int x = 40 + mc.fontRenderer.getStringWidth(s) / 2;
         int y = 40;
 
-        mc.fontRenderer.drawString(s, (float) (x + 1), (float) y, 0);
-        mc.fontRenderer.drawString(s, (float) (x - 1), (float) y, 0);
-        mc.fontRenderer.drawString(s, (float) x, (float) (y + 1), 0);
-        mc.fontRenderer.drawString(s, (float) x, (float) (y - 1), 0);
-        mc.fontRenderer.drawString(s, (float) x, (float) y, 0x26EEEE);
+        ManaGui.drawMana(mc, s, x, y);
     }
 }

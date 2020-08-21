@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -41,10 +42,13 @@ public class MagicalPotionEntityInteractPacket
                 ctx.get().enqueueWork(() ->
                 {
                     ServerPlayerEntity player = ctx.get().getSender();
-                    ItemStack stack = player.getActiveItemStack();
-                    if (stack.getItem() == ExorceryItems.MAGICAL_POTION)
+                    if (player != null)
                     {
-                        MagicalPotionItem.entityInteract(stack, player, player.world.getEntityByID(msg.entityId));
+                        ItemStack stack = player.getActiveItemStack();
+                        if (stack.getItem() == ExorceryItems.MAGICAL_POTION)
+                        {
+                            MagicalPotionItem.entityInteract(stack, player, Objects.requireNonNull(player.world.getEntityByID(msg.entityId)));
+                        }
                     }
                 });
                 ctx.get().setPacketHandled(true);

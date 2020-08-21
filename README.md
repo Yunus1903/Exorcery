@@ -5,7 +5,7 @@
 ## Author: Yunus1903
 + Github: https://github.com/Yunus1903
 
-+ Twiter: https://twitter.com/yunus1903dj
++ Twitter: https://twitter.com/yunus1903dj
 
 ## License
 This project is licensed under [GNU General Public License v3.0](https://raw.githubusercontent.com/Yunus1903/Exorcery/1.15/dev/LICENSE).

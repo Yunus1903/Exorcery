@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Custom {@link Spell} keybinding handler
@@ -38,7 +39,7 @@ public class KeybindingHandler
         {
             try
             {
-                file.createNewFile();
+                if (!file.createNewFile()) Exorcery.LOGGER.warn("Could not create keybinding file!");
             }
             catch (IOException e)
             {
@@ -73,7 +74,7 @@ public class KeybindingHandler
     @Nullable
     private JsonObject getKeys()
     {
-        if (mc.isSingleplayer() && mc.player != null)
+        if (mc.isSingleplayer() && mc.player != null && mc.getIntegratedServer() != null)
         {
             String worldName = mc.getIntegratedServer().getWorld(mc.player.dimension).getWorldInfo().getWorldName();
             if (!main.has(worldName)) main.add(worldName, new JsonObject());

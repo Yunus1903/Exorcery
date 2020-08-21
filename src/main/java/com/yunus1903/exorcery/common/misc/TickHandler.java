@@ -87,7 +87,7 @@ public final class TickHandler
                 {
                     casting.tick();
 
-                    if (casting.isCasting())
+                    if (casting.isCasting() && casting.getSpell() != null)
                     {
                         if (casting.getSpell().getType().getFrightensAnimals())
                         {

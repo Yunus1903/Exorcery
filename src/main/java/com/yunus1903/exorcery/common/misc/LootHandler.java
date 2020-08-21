@@ -40,7 +40,7 @@ public final class LootHandler
                 .build();
     }
 
-    private static LootEntry.Builder getInjectEntry(String name, int weight)
+    private static LootEntry.Builder<?> getInjectEntry(String name, int weight)
     {
         ResourceLocation table = new ResourceLocation(Exorcery.MOD_ID, "inject/" + name);
         return TableLootEntry.builder(table).weight(weight);

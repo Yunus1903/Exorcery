@@ -12,6 +12,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
@@ -56,7 +57,7 @@ public class SyncCastingPacket
                     else
                     {
                         casting.stopCasting();
-                        SoundHandler.stopChanting(ctx.get().getSender());
+                        SoundHandler.stopChanting(Objects.requireNonNull(ctx.get().getSender()));
                     }
                 });
             }
@@ -69,7 +70,7 @@ public class SyncCastingPacket
                     DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
                     {
                         player.set(Minecraft.getInstance().player);
-                        if (msg.isCasting)
+                        if (msg.spell != null && msg.isCasting)
                         {
                             Minecraft.getInstance().ingameGUI.setOverlayMessage(
                                     new TranslationTextComponent("gui.exorcery.actionbar.casting")

@@ -59,7 +59,7 @@ public class EffectSpell extends Spell
     public SpellTarget determineTarget(Minecraft mc)
     {
         RayTraceResult result = mc.objectMouseOver;
-        if (result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
+        if (result != null && result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
         {
             return new EntitySpellTarget((LivingEntity) ((EntityRayTraceResult) result).getEntity());
         }
@@ -67,18 +67,14 @@ public class EffectSpell extends Spell
     }
 
     @Override
-    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, SpellTarget target)
+    protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player, @Nullable SpellTarget target)
     {
         if (!world.isRemote())
         {
-            if (target == null || target.getType() != SpellTarget.Type.ENTITY)
-            {
-                player.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
-            }
-            else
-            {
-                ((EntitySpellTarget) target).getEntity().addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
-            }
+            LivingEntity entity = null;
+            if (target != null && target.getType() == SpellTarget.Type.ENTITY) entity = ((EntitySpellTarget) target).getEntity();
+            if (entity == null) entity = player;
+            entity.addPotionEffect(new EffectInstance(effect, effectDuration, effectAmplifier));
         }
         return super.onSpellCast(world, player, target);
     }

@@ -53,7 +53,7 @@ public class MagicalPotionItem extends ExorceryItem
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
         {
             RayTraceResult result = Minecraft.getInstance().objectMouseOver;
-            if (result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
+            if (result != null && result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
             {
                 PacketHandler.sendToServer(new MagicalPotionEntityInteractPacket(((EntityRayTraceResult) result).getEntity().getEntityId()));
             }

@@ -22,14 +22,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistry;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * Abstract spell class, all spells are a instance of this class
  * @author Yunus1903
  */
-public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryEntry<Spell>
+public class Spell extends ForgeRegistryEntry<Spell>
 {
     private final int castTime;
     private final SpellType type;
@@ -145,7 +147,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
     @Override
     public String toString()
     {
-        return ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getKey(this).getPath();
+        return Objects.requireNonNull(ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS).getKey(this)).getPath();
     }
 
     /**
@@ -212,7 +214,6 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
         if (bypassManaAndSync)
         {
             //This runs on client if server tells client to cast
-
             onSpellCast(world, player, target); // Client-Side
             return true;
         }
@@ -242,7 +243,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                     world.playMovingSound(null, player, SoundHandler.SPELL_CHANTING, SoundCategory.VOICE, 1, 1);
                 }
 
-                TickHandler.scheduleTask(world.getServer().getTickCounter() + castTime, () ->
+                TickHandler.scheduleTask(Objects.requireNonNull(world.getServer()).getTickCounter() + castTime, () ->
                 {
                     player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
                     {
@@ -264,15 +265,13 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
                 });
                 return true;
             }
-            return false;
         }
         else
         {
             // This runs on client when it receives cast action
-
             PacketHandler.sendToServer(new CastSpellPacket(this, player, target));
-            return false;
         }
+        return false;
     }
 
     /**
@@ -308,7 +307,7 @@ public abstract class Spell extends net.minecraftforge.registries.ForgeRegistryE
      * @param spell Instance of {@link Spell}
      * @return The registry ID of the {@link Spell spell}
      */
-    public static int getIdFromSpell(Spell spell)
+    public static int getIdFromSpell(@Nullable Spell spell)
     {
         ForgeRegistry<Spell> registry = ExorceryRegistry.getForgeRegistry(ExorceryRegistry.SPELLS);
         int id = registry.getID(spell);

@@ -16,6 +16,7 @@ import com.yunus1903.exorcery.common.network.packets.SyncMorphPacket;
 import com.yunus1903.exorcery.common.network.packets.SyncSpellsPacket;
 import com.yunus1903.exorcery.core.Exorcery;
 import com.yunus1903.exorcery.init.ExorceryItems;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -121,8 +122,10 @@ public final class EventHandler
             {
                 if (morph.isMorphed(originalEntity))
                 {
-                    LivingEntity entity = morph.getMorphedEntityType(originalEntity).create(originalEntity.world);
-
+                    EntityType<? extends LivingEntity> entityType = morph.getMorphedEntityType(originalEntity);
+                    if (entityType == null) return;
+                    LivingEntity entity = entityType.create(originalEntity.world);
+                    if (entity == null) return;
                     event.setNewHeight(entity.getEyeHeight());
                 }
             });
@@ -131,24 +134,9 @@ public final class EventHandler
 
     private static void syncCapabilities(ServerPlayerEntity player)
     {
-        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
-        {
-            PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells()));
-        });
-
-        player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana ->
-        {
-            PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate()));
-        });
-
-        player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting ->
-        {
-            PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell()));
-        });
-
-        player.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
-        {
-            PacketHandler.sendToPlayer(player, new SyncMorphPacket(morph.getMorphedEntities()));
-        });
+        player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells -> PacketHandler.sendToPlayer(player, new SyncSpellsPacket(spells.getSpells())));
+        player.getCapability(ManaProvider.MANA_CAPABILITY).ifPresent(mana -> PacketHandler.sendToPlayer(player, new SyncManaPacket(mana.get(), mana.getMax(), mana.getRegenerationRate())));
+        player.getCapability(CastingProvider.CASTING_CAPABILITY).ifPresent(casting -> PacketHandler.sendToPlayer(player, new SyncCastingPacket(casting.isCasting(), casting.getSpell())));
+        player.world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph -> PacketHandler.sendToPlayer(player, new SyncMorphPacket(morph.getMorphedEntities())));
     }
 }

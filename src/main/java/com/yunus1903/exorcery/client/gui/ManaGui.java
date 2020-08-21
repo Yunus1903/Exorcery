@@ -23,10 +23,12 @@ public class ManaGui
 {
     private static final ResourceLocation MANA_BAR_LOCATION = new ResourceLocation(Exorcery.MOD_ID, "textures/gui/mana_bar.png");
 
+    @SuppressWarnings("deprecation")
     @SubscribeEvent
     public static void onRenderOverlay(RenderGameOverlayEvent.Pre event)
     {
         Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
 
         switch (event.getType())
         {
@@ -46,16 +48,20 @@ public class ManaGui
         }
     }
 
+    @SuppressWarnings("deprecation")
     @SubscribeEvent
     public static void onRenderOverlay(RenderGameOverlayEvent.Post event)
     {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+
         switch (event.getType())
         {
             case ARMOR:
             case HEALTH:
             case FOOD:
             case AIR:
-                if (!Minecraft.getInstance().player.isRidingHorse()) GlStateManager.popMatrix();
+                if (!mc.player.isRidingHorse()) GlStateManager.popMatrix();
                 break;
         }
     }
@@ -63,6 +69,7 @@ public class ManaGui
     private static void renderMana()
     {
         Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
         IngameGui gui = mc.ingameGUI;
 
         int scaledWidth = mc.getMainWindow().getScaledWidth();
@@ -83,16 +90,21 @@ public class ManaGui
             mc.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
             mc.getProfiler().endStartSection("manaNumber");
 
-            String s = "" + (int) mana.get();
+            String s = String.valueOf((int) mana.get());
             x = (scaledWidth - mc.fontRenderer.getStringWidth(s)) / 2;
             y = scaledHeight - 31 - 4 - 8;
-            mc.fontRenderer.drawString(s, (float) (x + 1), (float) y, 0);
-            mc.fontRenderer.drawString(s, (float) (x - 1), (float) y, 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) (y + 1), 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) (y - 1), 0);
-            mc.fontRenderer.drawString(s, (float) x, (float) y, 0x26EEEE);
+            drawMana(mc, s, x, y);
 
             mc.getProfiler().endSection();
         });
+    }
+
+    public static void drawMana(Minecraft mc, String mana, int x, int y)
+    {
+        mc.fontRenderer.drawString(mana, (float) (x + 1), (float) y, 0);
+        mc.fontRenderer.drawString(mana, (float) (x - 1), (float) y, 0);
+        mc.fontRenderer.drawString(mana, (float) x, (float) (y + 1), 0);
+        mc.fontRenderer.drawString(mana, (float) x, (float) (y - 1), 0);
+        mc.fontRenderer.drawString(mana, (float) x, (float) y, 0x26EEEE);
     }
 }

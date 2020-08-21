@@ -1,6 +1,5 @@
 package com.yunus1903.exorcery.core;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,9 +18,6 @@ public class ClientProxy extends CommonProxy
 
     static
     {
-        if (Minecraft.getInstance() != null)
-        {
-            ClientRegistry.registerKeyBinding(KEY_SPELL_SELECTOR);
-        }
+        ClientRegistry.registerKeyBinding(KEY_SPELL_SELECTOR);
     }
 }

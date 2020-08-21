@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -33,7 +34,7 @@ public class MorphStorage implements Capability.IStorage<IMorph>
         {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.put("entity", IntNBT.valueOf(a.getEntityId()));
-            compoundNBT.put("entityType", StringNBT.valueOf(ForgeRegistries.ENTITIES.getKey(b).toString()));
+            compoundNBT.put("entityType", StringNBT.valueOf(Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(b)).toString()));
             list.add(compoundNBT);
         });
 
@@ -43,6 +44,7 @@ public class MorphStorage implements Capability.IStorage<IMorph>
         return compoundNBT;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void readNBT(Capability<IMorph> capability, IMorph instance, Direction side, INBT nbt)
     {
@@ -50,28 +52,23 @@ public class MorphStorage implements Capability.IStorage<IMorph>
         ListNBT list = (ListNBT) c.get("list");
         HashMap<LivingEntity, EntityType<? extends LivingEntity>> entities = new HashMap<>();
 
+        assert list != null;
         list.forEach(a ->
         {
             CompoundNBT compoundNBT = (CompoundNBT) a;
 
             AtomicReference<LivingEntity> entity = new AtomicReference<>();
 
-            DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
-            {
-                entity.set((LivingEntity) Minecraft.getInstance().world.getEntityByID(compoundNBT.getInt("entity")));
-            });
+            DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> entity.set((LivingEntity) (Minecraft.getInstance().world != null ? Minecraft.getInstance().world.getEntityByID(compoundNBT.getInt("entity")) : null)));
 
-            DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, () -> () ->
-            {
-                Exorcery.instance.server.getWorlds().forEach(world ->
-                {
-                    Entity e = world.getEntityByID(compoundNBT.getInt("entity"));
-                    if (e instanceof LivingEntity)
+            DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, () -> () -> Exorcery.instance.server.getWorlds().forEach(world ->
                     {
-                        entity.set((LivingEntity) e);
-                    }
-                });
-            });
+                        Entity e = world.getEntityByID(compoundNBT.getInt("entity"));
+                        if (e instanceof LivingEntity)
+                        {
+                            entity.set((LivingEntity) e);
+                        }
+                    }));
 
             EntityType<? extends LivingEntity> entityType = (EntityType<? extends LivingEntity>) ForgeRegistries.ENTITIES.getValue(new ResourceLocation(compoundNBT.getString("entityType")));
             entities.put(entity.get(), entityType);

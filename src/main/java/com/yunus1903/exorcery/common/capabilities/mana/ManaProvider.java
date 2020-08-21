@@ -18,7 +18,7 @@ public class ManaProvider implements ICapabilitySerializable<CompoundNBT>
     @CapabilityInject(IMana.class)
     public static final Capability<IMana> MANA_CAPABILITY = null;
 
-    private IMana instance = MANA_CAPABILITY.getDefaultInstance();
+    private final IMana instance = MANA_CAPABILITY.getDefaultInstance();
 
     @Nonnull
     @Override
