@@ -77,7 +77,6 @@ public class ExorceryJeiPlugin implements IModPlugin
             if (potion.getEffects().get(0).getPotion() instanceof PolymorphEffect)
             {
                 PolymorphEffect effect = (PolymorphEffect) potion.getEffects().get(0).getPotion();
-                effect.getEntityType();
 
                 registration.addIngredientInfo(
                         PotionUtils.addPotionToItemStack(

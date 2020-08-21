@@ -19,7 +19,7 @@ public class CastingProvider implements ICapabilitySerializable<CompoundNBT>
     @CapabilityInject(ICasting.class)
     public static final Capability<ICasting> CASTING_CAPABILITY = null;
 
-    private ICasting instance = CASTING_CAPABILITY.getDefaultInstance();
+    private final ICasting instance = CASTING_CAPABILITY.getDefaultInstance();
 
     @Nonnull
     @Override

@@ -29,6 +29,7 @@ public final class PacketHandler
             .networkProtocolVersion(() -> PROTOCOL)
             .simpleChannel();
 
+    @SuppressWarnings("UnusedAssignment")
     public static void register()
     {
         int id = 0;

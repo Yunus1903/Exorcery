@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class InfusionRecipeRegistry
 {
-    private static List<IInfusionRecipe> recipes = new ArrayList<>();
+    private static final List<IInfusionRecipe> recipes = new ArrayList<>();
 
     /**
      * Register a {@link InfusionRecipe recipe}

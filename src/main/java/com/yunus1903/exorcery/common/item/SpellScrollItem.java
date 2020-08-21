@@ -22,6 +22,7 @@ import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Yunus1903
@@ -38,7 +39,7 @@ public final class SpellScrollItem extends ExorceryItem
 
     public SpellScrollItem(Spell spell)
     {
-        super("spell_scroll_" + spell.getRegistryName().getPath(), new Item.Properties().maxStackSize(1));
+        super("spell_scroll_" + Objects.requireNonNull(spell.getRegistryName()).getPath(), new Item.Properties().maxStackSize(1));
         this.spell = spell;
     }
 
@@ -86,7 +87,7 @@ public final class SpellScrollItem extends ExorceryItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        if (spell != null)
+        if (spell != null && spell.getRegistryName() != null)
         {
             tooltip.add(spell.getName().copyRaw().mergeStyle(spell.getType().getColor()));
             if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_RIGHT_SHIFT))

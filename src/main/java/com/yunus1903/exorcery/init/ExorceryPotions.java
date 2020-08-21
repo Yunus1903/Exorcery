@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Mod {@link Potion potions} registry
@@ -40,7 +41,7 @@ public final class ExorceryPotions
 
     private static Potion register(Potion potion)
     {
-        potion.setRegistryName(potion.getEffects().get(0).getPotion().getRegistryName());
+        potion.setRegistryName(Objects.requireNonNull(potion.getEffects().get(0).getPotion().getRegistryName()));
         POTIONS.add(potion);
         return potion;
     }

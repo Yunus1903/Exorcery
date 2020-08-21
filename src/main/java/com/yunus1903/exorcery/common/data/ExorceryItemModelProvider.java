@@ -11,6 +11,8 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 
+import java.util.Objects;
+
 /**
  * Mod {@link DataGenerator datagenerator} {@link net.minecraft.data.IDataProvider provider} for {@link ItemModelBuilder itemmodels}
  * @author Yunus1903
@@ -26,22 +28,22 @@ public class ExorceryItemModelProvider extends ItemModelProvider
     @Override
     protected void registerModels()
     {
-        registerSimpleItem(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().getPath());
+        registerSimpleItem(Objects.requireNonNull(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName()).getPath());
 
         for (Item item : ExorceryItems.getItems())
         {
             if (item instanceof SpellScrollItem && ((SpellScrollItem) item).hasSpell())
             {
-                getBuilder(item.getRegistryName().getPath())
+                getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath())
                         .parent(getExistingFile(new ResourceLocation(Exorcery.MOD_ID, "item/" + ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().getPath())))
                         .texture("layer0", new ResourceLocation(Exorcery.MOD_ID, "item/spell_scroll"));
             }
         }
 
-        registerSimpleItem(ExorceryItems.MANA_POTION.getRegistryName().getPath())
+        registerSimpleItem(Objects.requireNonNull(ExorceryItems.MANA_POTION.getRegistryName()).getPath())
                 .texture("layer1", new ResourceLocation("minecraft", "item/potion"));
 
-        registerSimpleItem(ExorceryItems.MAGICAL_POTION.getRegistryName().getPath())
+        registerSimpleItem(Objects.requireNonNull(ExorceryItems.MAGICAL_POTION.getRegistryName()).getPath())
                 .texture("layer1", new ResourceLocation("minecraft", "item/potion"));
     }
 

@@ -9,9 +9,12 @@ import com.yunus1903.exorcery.core.Exorcery;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.Objects;
 
 /**
  * {@link Effect} that causes you to morph into a {@link EntityType entity}
@@ -30,7 +33,7 @@ public class PolymorphEffect extends Effect
     public PolymorphEffect(EntityType<? extends LivingEntity> entityType, int color)
     {
         super(EffectType.NEUTRAL, color);
-        this.setRegistryName(Exorcery.MOD_ID, "polymorph_" + entityType.getRegistryName().getPath());
+        this.setRegistryName(Exorcery.MOD_ID, "polymorph_" + Objects.requireNonNull(entityType.getRegistryName()).getPath());
         this.entityType = entityType;
     }
 
@@ -41,14 +44,9 @@ public class PolymorphEffect extends Effect
         {
             IMorph morph = entityLivingBaseIn.world.getCapability(MorphProvider.MORPH_CAPABILITY).orElse(new MorphCapability());
 
-            if (entityLivingBaseIn.getActivePotionEffect(this).getDuration() <= 1)
-            {
-                morph.stopMorph(entityLivingBaseIn);
-            }
-            else
-            {
-                morph.morph(entityLivingBaseIn, entityType);
-            }
+            EffectInstance effect = entityLivingBaseIn.getActivePotionEffect(this);
+            if (effect != null && effect.getDuration() <= 1) morph.stopMorph(entityLivingBaseIn);
+            else morph.morph(entityLivingBaseIn, entityType);
 
             PacketHandler.sendToNearby(entityLivingBaseIn.world, entityLivingBaseIn, new SyncMorphPacket(morph.getMorphedEntities()));
         }

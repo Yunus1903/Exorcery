@@ -37,7 +37,7 @@ public class SyncSpellsPacket
     public static SyncSpellsPacket decode(PacketBuffer buf)
     {
         List<Spell> spells = new ArrayList<>();
-        int spellsIds[] = buf.readVarIntArray();
+        int[] spellsIds = buf.readVarIntArray();
         for (int id : spellsIds)
         {
             spells.add(Spell.getSpellById(id));

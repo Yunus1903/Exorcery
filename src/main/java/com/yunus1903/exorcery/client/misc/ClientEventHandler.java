@@ -25,6 +25,8 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Objects;
+
 /**
  * Client-side only event handler class
  * @author Yunus1903
@@ -38,6 +40,7 @@ public final class ClientEventHandler
     public static void onKeyInput(InputEvent.KeyInputEvent event)
     {
         Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.world == null) return;
 
         if (ClientProxy.KEY_SPELL_SELECTOR.isPressed())
         {
@@ -63,13 +66,13 @@ public final class ClientEventHandler
         {
             SpellSelectorScreen gui = (SpellSelectorScreen) mc.currentScreen;
 
-            if (gui.keybindMode)
+            if (gui.keybindingMode)
             {
                 gui.onKeyPress(event.getKey());
             }
         }
 
-        if (mc.player != null && mc.currentScreen == null)
+        if (mc.currentScreen == null)
         {
             mc.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
             {
@@ -129,7 +132,8 @@ public final class ClientEventHandler
             if (morph.isMorphed(originalEntity))
             {
                 event.setCanceled(true);
-                LivingEntity entity = morph.getMorphedEntityType(originalEntity).create(originalEntity.world);
+                LivingEntity entity = Objects.requireNonNull(morph.getMorphedEntityType(originalEntity)).create(originalEntity.world);
+                if (entity == null) return;
 
                 entity.rotationYaw = originalEntity.rotationYaw;
                 entity.rotationPitch = originalEntity.rotationPitch;

@@ -19,7 +19,7 @@ public class MorphProvider implements ICapabilitySerializable<CompoundNBT>
     @CapabilityInject(IMorph.class)
     public static final Capability<IMorph> MORPH_CAPABILITY = null;
 
-    private IMorph instance = MORPH_CAPABILITY.getDefaultInstance();
+    private final IMorph instance = MORPH_CAPABILITY.getDefaultInstance();
 
     @Nonnull
     @Override

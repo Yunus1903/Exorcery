@@ -78,7 +78,7 @@ public class CastSpellPacket
 
         if (Exorcery.instance.server == null)
         {
-            DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
+            DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
             buf.readUniqueId();
         }
         else
@@ -120,7 +120,7 @@ public class CastSpellPacket
                 {
                     AtomicReference<PlayerEntity> player = new AtomicReference<>();
 
-                    DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
+                    DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> () -> player.set(Minecraft.getInstance().player));
                     msg.spell.castSpell(player.get().world, player.get(), true);
                 });
             }

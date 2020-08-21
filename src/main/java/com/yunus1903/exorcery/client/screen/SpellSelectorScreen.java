@@ -37,7 +37,7 @@ public class SpellSelectorScreen extends Screen
 
     public float scale = 1.0F;
 
-    public boolean keybindMode = false;
+    public boolean keybindingMode = false;
 
     public SpellSelectorScreen()
     {
@@ -47,6 +47,7 @@ public class SpellSelectorScreen extends Screen
     @Override
     public void render(MatrixStack matrixStack, int p_render_1_, int p_render_2_, float p_render_3_)
     {
+        if (minecraft == null) return;
         super.render(matrixStack, p_render_1_, p_render_2_, p_render_3_);
         boolean isHovering = false;
         for (Widget btn : buttons)
@@ -61,7 +62,7 @@ public class SpellSelectorScreen extends Screen
         int scaledWidth = minecraft.getMainWindow().getScaledWidth();
         int scaledHeight = minecraft.getMainWindow().getScaledHeight();
 
-        if (keybindMode)
+        if (keybindingMode)
         {
             List<ITextComponent> text = new ArrayList<>();
             text.add(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.info.line1").mergeStyle(TextFormatting.YELLOW, TextFormatting.UNDERLINE));
@@ -91,6 +92,7 @@ public class SpellSelectorScreen extends Screen
     @Override
     protected void init()
     {
+        if (minecraft == null || minecraft.player == null) return;
         minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
         {
             List<Spell> spellList = new ArrayList<>();
@@ -175,6 +177,7 @@ public class SpellSelectorScreen extends Screen
     @Override
     public void tick()
     {
+        if (minecraft == null || minecraft.player == null || minecraft.world == null) return;
         minecraft.player.getCapability(SpellsProvider.SPELLS_CAPABILITY).ifPresent(spells ->
         {
             for (Spell spell : spells.getSpells())
@@ -184,11 +187,11 @@ public class SpellSelectorScreen extends Screen
             }
         });
 
-        if (keybindMode)
+        if (keybindingMode)
         {
             if (InputMappings.isKeyDown(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_ESCAPE))
             {
-                keybindMode = false;
+                keybindingMode = false;
                 closeScreen();
             }
         }
@@ -216,6 +219,7 @@ public class SpellSelectorScreen extends Screen
 
     public void onKeyPress(int keyCode)
     {
+        if (minecraft == null) return;
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) return;
         if (keyCode == GLFW.GLFW_KEY_LEFT_SHIFT) return;
         if (keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) return;

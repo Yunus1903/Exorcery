@@ -18,7 +18,7 @@ public class SpellsProvider implements ICapabilitySerializable<CompoundNBT>
     @CapabilityInject(ISpells.class)
     public static final Capability<ISpells> SPELLS_CAPABILITY = null;
 
-    private ISpells instance = SPELLS_CAPABILITY.getDefaultInstance();
+    private final ISpells instance = SPELLS_CAPABILITY.getDefaultInstance();
 
     @Nonnull
     @Override

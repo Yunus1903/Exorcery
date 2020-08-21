@@ -57,7 +57,7 @@ public class MorphCapability implements IMorph
     @Override
     public void stopMorph(LivingEntity entity)
     {
-        if (morphedEntities.containsKey(entity)) morphedEntities.remove(entity);
+        morphedEntities.remove(entity);
         entity.recalculateSize();
     }
 }

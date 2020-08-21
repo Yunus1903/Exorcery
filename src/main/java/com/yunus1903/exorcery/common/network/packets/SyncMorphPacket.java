@@ -1,6 +1,5 @@
 package com.yunus1903.exorcery.common.network.packets;
 
-import com.yunus1903.exorcery.client.misc.ClientEventHandler;
 import com.yunus1903.exorcery.common.capabilities.morph.MorphProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
@@ -15,6 +14,7 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -38,7 +38,7 @@ public class SyncMorphPacket
         {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.put("entity", IntNBT.valueOf(a.getEntityId()));
-            compoundNBT.put("entityType", StringNBT.valueOf(ForgeRegistries.ENTITIES.getKey(b).toString()));
+            compoundNBT.put("entityType", StringNBT.valueOf(Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(b)).toString()));
             list.add(compoundNBT);
         });
 
@@ -48,14 +48,18 @@ public class SyncMorphPacket
         buf.writeCompoundTag(nbt);
     }
 
+    @SuppressWarnings("unchecked")
     public static SyncMorphPacket decode(PacketBuffer buf)
     {
         HashMap<LivingEntity, EntityType<? extends LivingEntity>> entities = new HashMap<>();
 
-        ((ListNBT) buf.readCompoundTag().get("list")).forEach(a ->
+        ((ListNBT) Objects.requireNonNull(Objects.requireNonNull(buf.readCompoundTag()).get("list"))).forEach(a ->
         {
             CompoundNBT compoundNBT = (CompoundNBT) a;
-            entities.put((LivingEntity) Minecraft.getInstance().world.getEntityByID(compoundNBT.getInt("entity")), (EntityType<? extends LivingEntity>) ForgeRegistries.ENTITIES.getValue(new ResourceLocation(compoundNBT.getString("entityType"))));
+            if (Minecraft.getInstance().world != null)
+            {
+                entities.put((LivingEntity) Minecraft.getInstance().world.getEntityByID(compoundNBT.getInt("entity")), (EntityType<? extends LivingEntity>) ForgeRegistries.ENTITIES.getValue(new ResourceLocation(compoundNBT.getString("entityType"))));
+            }
         });
 
         return new SyncMorphPacket(entities);
@@ -67,13 +71,7 @@ public class SyncMorphPacket
         {
             if (ctx.get().getDirection().getReceptionSide().isClient())
             {
-                ctx.get().enqueueWork(() ->
-                {
-                    Minecraft.getInstance().world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph ->
-                    {
-                        morph.setMorphedEntities(msg.morphedEntities);
-                    });
-                });
+                ctx.get().enqueueWork(() -> Minecraft.getInstance().world.getCapability(MorphProvider.MORPH_CAPABILITY).ifPresent(morph -> morph.setMorphedEntities(msg.morphedEntities)));
             }
             ctx.get().setPacketHandled(true);
         }

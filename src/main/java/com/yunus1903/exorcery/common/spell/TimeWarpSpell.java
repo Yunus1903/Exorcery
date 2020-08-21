@@ -33,7 +33,7 @@ public class TimeWarpSpell extends Spell
     @Override
     protected ActionResult<Spell> onSpellCast(World world, PlayerEntity player)
     {
-        if (!world.isRemote())
+        if (!world.isRemote() && world.getServer() != null)
         {
             int current = (int) world.getDayTime();
             int delta = current % 24000;

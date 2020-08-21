@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class KeybindingsWidget extends Widget
 {
-    SpellSelectorScreen gui;
+    private final SpellSelectorScreen gui;
 
     public KeybindingsWidget(int xIn, int yIn, SpellSelectorScreen gui)
     {
@@ -25,9 +25,9 @@ public class KeybindingsWidget extends Widget
     @Override
     public void onClick(double p_onClick_1_, double p_onClick_3_)
     {
-        gui.keybindMode = !gui.keybindMode;
+        gui.keybindingMode = !gui.keybindingMode;
 
-        if (gui.keybindMode) setMessage(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.close"));
+        if (gui.keybindingMode) setMessage(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings.close"));
         else setMessage(new TranslationTextComponent("gui.exorcery.spell_selector.keybindings"));
     }
 }

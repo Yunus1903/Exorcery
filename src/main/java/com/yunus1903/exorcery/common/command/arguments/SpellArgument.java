@@ -40,7 +40,7 @@ public class SpellArgument implements ArgumentType<SpellInput>
         {
             spellParser.parse();
         }
-        catch (CommandSyntaxException var6) { }
+        catch (CommandSyntaxException ignored) { }
 
         return spellParser.fillSuggestions(builder);
     }

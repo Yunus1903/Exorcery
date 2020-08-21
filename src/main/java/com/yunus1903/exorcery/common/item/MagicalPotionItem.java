@@ -50,10 +50,10 @@ public class MagicalPotionItem extends ExorceryItem
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () ->
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> () ->
         {
             RayTraceResult result = Minecraft.getInstance().objectMouseOver;
-            if (result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
+            if (result != null && result.getType() == RayTraceResult.Type.ENTITY && result instanceof EntityRayTraceResult && ((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)
             {
                 PacketHandler.sendToServer(new MagicalPotionEntityInteractPacket(((EntityRayTraceResult) result).getEntity().getEntityId()));
             }

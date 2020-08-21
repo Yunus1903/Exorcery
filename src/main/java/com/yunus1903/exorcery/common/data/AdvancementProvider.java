@@ -31,7 +31,7 @@ public abstract class AdvancementProvider implements IDataProvider
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException
+    public void act(DirectoryCache cache)
     {
         Path path = generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();

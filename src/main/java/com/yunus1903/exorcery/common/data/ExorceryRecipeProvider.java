@@ -5,6 +5,7 @@ import com.yunus1903.exorcery.init.ExorceryItems;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -28,7 +29,7 @@ public class ExorceryRecipeProvider extends RecipeProvider
                 .patternLine("PPP")
                 .patternLine("PEP")
                 .patternLine("PPP")
-                .setGroup(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName().toString())
+                .setGroup(Objects.requireNonNull(ExorceryItems.SPELL_SCROLL_EMPTY.getRegistryName()).toString())
                 .addCriterion("has_paper", hasItem(Items.PAPER))
                 .addCriterion("has_emerald", hasItem(Items.EMERALD))
                 .build(consumer);

@@ -11,7 +11,7 @@ import net.minecraftforge.registries.*;
  */
 public final class ExorceryRegistry
 {
-    private static final int MAX_VARINT = Integer.MAX_VALUE - 1;
+    private static final int MAX_ID = Integer.MAX_VALUE - 1;
 
     /**
      * Custom registry for {@link Spell spells}
@@ -25,9 +25,10 @@ public final class ExorceryRegistry
 
     private static <T extends IForgeRegistryEntry<T>> RegistryBuilder<T> makeRegistry(ResourceLocation name, Class<T> type)
     {
-        return new RegistryBuilder<T>().setName(name).setType(type).setMaxID(MAX_VARINT).legacyName(name).addCallback(new RegistryCallback<T>());
+        return new RegistryBuilder<T>().setName(name).setType(type).setMaxID(MAX_ID).legacyName(name).addCallback(new RegistryCallback<T>());
     }
 
+    @SuppressWarnings("unchecked")
     public static <V extends IForgeRegistryEntry<V>> ForgeRegistry<V> getForgeRegistry(IForgeRegistry<V> reg)
     {
         return reg.getSlaveMap(RegistryCallback.ID, ForgeRegistry.class);

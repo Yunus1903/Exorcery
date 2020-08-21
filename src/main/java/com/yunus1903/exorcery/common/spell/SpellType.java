@@ -19,6 +19,12 @@ public enum SpellType
     private final TextFormatting color;
     private final boolean frightensAnimals;
 
+    /**
+     * Constructor for {@link SpellType}
+     * @param name Name of the type
+     * @param color Color of the type
+     * @param frightensAnimals If the {@link Spell spell} with this type frightens {@link net.minecraft.entity.passive.AnimalEntity animals} when casted
+     */
     SpellType(String name, TextFormatting color, boolean frightensAnimals)
     {
         this.name = name;
@@ -26,16 +32,25 @@ public enum SpellType
         this.frightensAnimals = frightensAnimals;
     }
 
+    /**
+     * @return The name of this {@link SpellType type}
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * @return The color of this {@link SpellType type}
+     */
     public TextFormatting getColor()
     {
         return color;
     }
 
+    /**
+     * @return {@code true} if the {@link Spell spell} with this {@link SpellType type} frightens {@link net.minecraft.entity.passive.AnimalEntity animals} when casted
+     */
     public boolean getFrightensAnimals()
     {
         return frightensAnimals;

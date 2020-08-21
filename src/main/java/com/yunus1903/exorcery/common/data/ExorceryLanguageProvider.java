@@ -14,6 +14,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.data.LanguageProvider;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -234,7 +235,7 @@ public class ExorceryLanguageProvider extends LanguageProvider
 
     private void add(Potion key, String name)
     {
-        String potion = key.getRegistryName().getPath();
+        String potion = Objects.requireNonNull(key.getRegistryName()).getPath();
         add("item.minecraft.potion.effect." + potion, name + " Potion");
         add("item.minecraft.splash_potion.effect." + potion, name + " Splash Potion");
         add("item.minecraft.lingering_potion.effect." + potion, name + " Lingering Potion");
