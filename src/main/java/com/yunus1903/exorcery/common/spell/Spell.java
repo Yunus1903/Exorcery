@@ -326,7 +326,7 @@ public class Spell extends ForgeRegistryEntry<Spell>
     /**
      * Properties for {@link Spell spell}
      */
-    protected static class Properties
+    public static class Properties
     {
         private int castTime = 0;
         private SpellType type = SpellType.NORMAL;
